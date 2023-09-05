@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.Group
         android:layout_width="0dp"
         android:layout_height="6dp"
-        app:constraint_referenced_ids="imageButton13" />
+        app:constraint_referenced_ids="account" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar4"
@@ -31,7 +31,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
-        android:id="@+id/imageButton13"
+        android:id="@+id/account"
         android:layout_width="62dp"
         android:layout_height="61dp"
         android:backgroundTint="#022E5E30"
@@ -56,11 +56,7 @@
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar4"
-        app:layout_constraintVertical_bias="0.331"><![CDATA[>
-
-
-
-        ]]>
+        app:layout_constraintVertical_bias="0.331">
 
         <ImageButton
             android:id="@+id/imageButton"
@@ -78,7 +74,7 @@
             app:srcCompat="@drawable/speak2" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textView6"
             android:layout_width="297dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center|right"
@@ -100,11 +96,7 @@
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar4"
-        app:layout_constraintVertical_bias="0.655"><![CDATA[>
-
-
-
-        ]]>
+        app:layout_constraintVertical_bias="0.655">
 
         <TextView
             android:id="@+id/textView"

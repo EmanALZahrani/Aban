@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/greenbackground"
+    android:background="@drawable/ggreenbackground"
     android:clickable="true"
     android:clipChildren="true"
     android:minWidth="99dp"
@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.Group
         android:layout_width="0dp"
         android:layout_height="6dp"
-        app:constraint_referenced_ids="toolbar4,textView3,imageButton13" />
+        app:constraint_referenced_ids="toolbar4,textView3,account" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar4"
@@ -41,7 +41,7 @@
         tools:layout_editor_absoluteY="29dp" />
 
     <ImageButton
-        android:id="@+id/imageButton13"
+        android:id="@+id/account"
         android:layout_width="54dp"
         android:layout_height="46dp"
         android:backgroundTint="#435334"
