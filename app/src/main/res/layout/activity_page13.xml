@@ -4,85 +4,129 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9EB384"
-    android:backgroundTint="#FFFFFF"
-    tools:context=".Page13">
+    android:background="@drawable/backgraound1"
+    android:clickable="true"
+    android:clipChildren="true"
+    android:minWidth="99dp"
+    app:circularflow_radiusInDP="101dp"
+    tools:context=".MainActivity">
 
-    <Space
+    <androidx.constraintlayout.widget.Group
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_height="6dp"
+        app:constraint_referenced_ids="toolbar4,textView3,imageButton13" />
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="449dp"
-        android:layout_height="68dp"
-        android:background="#435334"
+        android:id="@+id/toolbar4"
+        android:layout_width="match_parent"
+        android:layout_height="101dp"
+        android:background="#BA2E5E30"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="33dp" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="النتائج"
+        android:text="النتائـج"
         android:textColor="#FAF1E4"
         android:textSize="34sp"
-        tools:layout_editor_absoluteX="185dp"
-        tools:layout_editor_absoluteY="16dp" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="163dp"
+        tools:layout_editor_absoluteY="29dp" />
 
     <ImageButton
-        android:id="@+id/imageButton5"
-        android:layout_width="50dp"
-        android:layout_height="43dp"
-        android:background="#435334"
-        app:srcCompat="@drawable/arrow"
-        tools:layout_editor_absoluteX="370dp"
-        tools:layout_editor_absoluteY="10dp" />
-
-    <ImageButton
-        android:id="@+id/imageButton6"
-        android:layout_width="37dp"
-        android:layout_height="49dp"
-        android:background="#435334"
+        android:id="@+id/imageButton13"
+        android:layout_width="62dp"
+        android:layout_height="61dp"
+        android:backgroundTint="#022E5E30"
         app:srcCompat="@drawable/user"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="4dp" />
+        tools:layout_editor_absoluteY="29dp" />
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:background="#9EB384"
-        android:text="التشخيص"
-        android:textColor="#FAF1E4"
-        android:textSize="24sp"
-        tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="234dp" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="340dp"
+        android:layout_height="153dp"
+        android:layout_margin="30dp"
+        app:cardCornerRadius="300dp"
+        app:cardElevation="20dp"
+        tools:layout_editor_absoluteX="35dp"
+        tools:layout_editor_absoluteY="275dp"><![CDATA[>
 
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:background="#9EB384"
-        android:text="التمارين"
-        android:textColor="#FAF1E4"
-        android:textSize="24sp"
-        tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="449dp" />
+
+
+        ]]>
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            style="@android:style/Widget.ImageButton"
+            android:layout_width="137dp"
+            android:layout_height="131dp"
+            android:layout_gravity="center_horizontal|left"
+            android:adjustViewBounds="false"
+            android:background="#00FFFFFF"
+            android:duplicateParentState="false"
+            android:fitsSystemWindows="false"
+            android:foregroundGravity="center"
+            android:scrollbarStyle="insideInset"
+            app:circularflow_radiusInDP="300dp"
+            app:srcCompat="@drawable/speak2" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="297dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|right"
+            android:gravity="center_horizontal"
+            android:text="التشخيص"
+            android:textColor="#101010"
+            android:textSize="34sp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="340dp"
+        android:layout_height="153dp"
+        android:layout_margin="30dp"
+        app:cardCornerRadius="300dp"
+        app:cardElevation="20dp"
+        tools:layout_editor_absoluteX="35dp"
+        tools:layout_editor_absoluteY="512dp"><![CDATA[>
+
+
+
+        ]]>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="297dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|right"
+            android:gravity="center_horizontal"
+            android:text="التمارين"
+            android:textColor="#272525"
+            android:textSize="34sp" />
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="98dp"
+            android:layout_height="163dp"
+            android:layout_gravity="center_horizontal|left"
+            android:background="#00FFFFFF"
+            app:srcCompat="@drawable/brain2" />
+
+    </androidx.cardview.widget.CardView>
 
     <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="265dp"
-        android:layout_height="267dp"
+        android:id="@+id/imageView"
+        android:layout_width="415dp"
+        android:layout_height="169dp"
         app:srcCompat="@drawable/logo"
-        tools:layout_editor_absoluteX="92dp"
-        tools:layout_editor_absoluteY="581dp" />
+        tools:layout_editor_absoluteX="-2dp"
+        tools:layout_editor_absoluteY="706dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

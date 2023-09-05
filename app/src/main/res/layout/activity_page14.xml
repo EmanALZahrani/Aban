@@ -4,62 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".page14">
+    android:background="@drawable/greenbackground"
+    android:clickable="true"
+    android:clipChildren="true"
+    android:minWidth="99dp"
+    app:circularflow_radiusInDP="300dp"
+    tools:context=".MainActivity">
 
-    <Space
+
+    <androidx.constraintlayout.widget.Group
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        android:layout_height="6dp"
+        app:constraint_referenced_ids="toolbar4,textView3,imageButton13" />
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="449dp"
-        android:layout_height="68dp"
+        android:id="@+id/toolbar4"
+        android:layout_width="match_parent"
+        android:layout_height="101dp"
         android:background="#435334"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="16dp" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="النتائج"
+        android:text="النتائـج"
         android:textColor="#FAF1E4"
         android:textSize="34sp"
-        tools:layout_editor_absoluteX="185dp"
-        tools:layout_editor_absoluteY="16dp" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="163dp"
+        tools:layout_editor_absoluteY="29dp" />
 
     <ImageButton
-        android:id="@+id/imageButton5"
-        android:layout_width="50dp"
-        android:layout_height="43dp"
-        android:background="#435334"
-        app:srcCompat="@drawable/arrow"
-        tools:layout_editor_absoluteX="370dp"
-        tools:layout_editor_absoluteY="10dp" />
-
-    <ImageButton
-        android:id="@+id/imageButton6"
-        android:layout_width="37dp"
-        android:layout_height="49dp"
-        android:background="#435334"
+        android:id="@+id/imageButton13"
+        android:layout_width="54dp"
+        android:layout_height="46dp"
+        android:backgroundTint="#435334"
         app:srcCompat="@drawable/user"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="4dp" />
+        tools:layout_editor_absoluteY="29dp" />
 
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="265dp"
-        android:layout_height="267dp"
-        app:srcCompat="@drawable/logo"
-        tools:layout_editor_absoluteX="92dp"
-        tools:layout_editor_absoluteY="581dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
