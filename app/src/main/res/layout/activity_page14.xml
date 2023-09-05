@@ -4,19 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9EB384"
-    android:backgroundTint="#FFFFFF"
-    tools:context=".Page13">
+    tools:context=".page14">
 
     <Space
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -56,28 +54,6 @@
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="4dp" />
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:background="#9EB384"
-        android:text="التشخيص"
-        android:textColor="#FAF1E4"
-        android:textSize="24sp"
-        tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="234dp" />
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:background="#9EB384"
-        android:text="التمارين"
-        android:textColor="#FAF1E4"
-        android:textSize="24sp"
-        tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="449dp" />
-
     <ImageView
         android:id="@+id/imageView7"
         android:layout_width="265dp"
@@ -85,4 +61,5 @@
         app:srcCompat="@drawable/logo"
         tools:layout_editor_absoluteX="92dp"
         tools:layout_editor_absoluteY="581dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
