@@ -112,7 +112,7 @@
                 android:layout_height="88dp" />
 
             <Button
-                android:id="@+id/start"
+                android:id="@+id/btn"
                 android:layout_width="197dp"
                 android:layout_height="103dp"
                 android:background="@drawable/rounded_corners"
