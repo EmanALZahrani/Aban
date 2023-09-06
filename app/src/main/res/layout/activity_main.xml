@@ -49,7 +49,7 @@
                 android:layout_height="63dp"
                 android:text="المرحلة الاولى : مرحلة الإلغاء"
                 android:textAlignment="center"
-                android:textColor="#FAF1E4"
+                android:textColor="@color/beige"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 tools:ignore="MissingConstraints" />
@@ -120,7 +120,7 @@
                 android:clickable="true"
                 android:text="أبدأ"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="#F6F5F5"
+                android:textColor="@color/beige"
                 android:textSize="30sp"
                 android:textStyle="bold|italic" />
 

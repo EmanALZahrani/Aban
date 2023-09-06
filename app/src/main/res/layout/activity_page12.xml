@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/ggreenbackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".page12">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="101dp"
+        android:background="@color/green"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="415dp"
+        android:layout_height="101dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteY="29dp">
+
+        <ImageButton
+            android:id="@+id/account"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:backgroundTint="#002E8B57"
+            app:srcCompat="@drawable/account"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/profiletext"
+            android:layout_width="171dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:text="الحساب الشخصي"
+            android:textAlignment="center"
+            android:textColor="@color/beige"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="69dp"
+            android:layout_height="31dp"
+            android:backgroundTint="#002E8B57"
+            app:srcCompat="@drawable/arrow"
+            tools:ignore="MissingConstraints" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/name"
+        android:layout_width="349dp"
+        android:layout_height="89dp"
+        android:layout_margin="30dp"
+        app:cardBackgroundColor="#D5FFFFFF"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.19999999"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/nametext"
+            android:layout_width="84dp"
+            android:layout_height="58dp"
+            android:layout_gravity="center|right"
+            android:gravity="center"
+            android:text="الأسم :"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/nameresult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="الأسم"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/age"
+        android:layout_width="349dp"
+        android:layout_height="89dp"
+        android:layout_margin="30dp"
+        app:cardBackgroundColor="#D5FFFFFF"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.36"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/agetext"
+            android:layout_width="84dp"
+            android:layout_height="58dp"
+            android:layout_gravity="center|right"
+            android:gravity="center"
+            android:text="العمر :"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/ageresult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="العمر"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/phoneno"
+        android:layout_width="349dp"
+        android:layout_height="89dp"
+        android:layout_margin="30dp"
+        app:cardBackgroundColor="#D5FFFFFF"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.68"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/phonetext"
+            android:layout_width="118dp"
+            android:layout_height="58dp"
+            android:layout_gravity="center|right"
+            android:gravity="center"
+            android:text="رقم الجوال :"
+            android:textAlignment="center"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/phoneresult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="الرقم"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/email"
+        android:layout_width="349dp"
+        android:layout_height="89dp"
+        android:layout_margin="30dp"
+        app:cardBackgroundColor="#D5FFFFFF"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.52"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/emailtext"
+            android:layout_width="145dp"
+            android:layout_height="58dp"
+            android:layout_gravity="center|right"
+            android:gravity="center"
+            android:text="البريد الالكتروني :"
+            android:textAlignment="center"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/emailresult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="الايميل"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/result"
+        android:layout_width="131dp"
+        android:layout_height="49dp"
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="@color/darkgreen"
+        android:text="النتائج"
+        android:textAlignment="center"
+        android:textColor="@color/beige"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.83" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
