@@ -18,14 +18,17 @@
 
     <ToggleButton
         android:id="@+id/record"
-        android:layout_width="117dp"
-        android:layout_height="67dp"
+        android:layout_width="174dp"
+        android:layout_height="74dp"
         android:background="@drawable/rounded_corners"
         android:backgroundTint="@color/darkgreen"
         android:text="ToggleButton"
+        android:textAlignment="center"
         android:textColor="#FBF8F8"
         android:textOff="أبدأ التسجيل"
         android:textOn="إيقاف التسجيل"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,5 +105,22 @@
             android:typeface="monospace" />
 
     </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btnnext"
+        android:layout_width="174dp"
+        android:layout_height="74dp"
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="@color/darkgreen"
+        android:text="مشاهدة النتيجة"
+        android:textAlignment="center"
+        android:textColor="@color/beige"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.94" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
