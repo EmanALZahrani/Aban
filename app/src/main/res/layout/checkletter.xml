@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ggreenbackground"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout222"
+        android:layout_width="51dp"
+        android:layout_height="348dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.394"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.427">
+
+        <CheckBox
+            android:id="@+id/checkBox15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="د"
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ذ"
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ر"
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ز"
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="س"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox200"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ش"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox144"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ق"
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout22"
+        android:layout_width="51dp"
+        android:layout_height="348dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.094"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2"
+        app:layout_constraintVertical_bias="0.36">
+
+        <CheckBox
+            android:id="@+id/checkBox20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="أ"
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ب"
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ت"
+        android:textStyle="bold"
+        android:textSize="25sp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ث"
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ج"
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ح"
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="خ"
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="49dp"
+        android:layout_height="343dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.908"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar2"
+        app:layout_constraintVertical_bias="0.432">
+
+        <CheckBox
+            android:id="@+id/checkBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ك"
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ل"
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="م"
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ن"
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ه"
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="و"
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ي"
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="51dp"
+        android:layout_height="348dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.652"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2"
+        app:layout_constraintVertical_bias="0.36">
+
+    <CheckBox
+        android:id="@+id/checkBox8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ض"
+        android:textStyle="bold"
+        android:textSize="25sp"/>
+
+    <CheckBox
+        android:id="@+id/checkBox9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ط"
+        android:textStyle="bold"
+        android:textSize="25sp"/>
+
+    <CheckBox
+        android:id="@+id/checkBox10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ظ"
+        android:textStyle="bold"
+        android:textSize="25sp"/>
+
+    <CheckBox
+        android:id="@+id/checkBox11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ع"
+        android:textStyle="bold"
+        android:textSize="25sp"/>
+
+    <CheckBox
+        android:id="@+id/checkBox12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="غ"
+        android:textStyle="bold"
+        android:textSize="25sp"/>
+
+    <CheckBox
+        android:id="@+id/checkBox13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ف"
+        android:textStyle="bold"/>
+
+    <CheckBox
+        android:id="@+id/checkBox14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ق"
+        android:textSize="25sp"
+        android:textStyle="bold"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/next"
+        android:layout_width="325dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/darkgreen"
+        android:text="التالي "
+        android:textSize="18sp"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2"
+        app:layout_constraintVertical_bias="0.957" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="416dp"
+        android:layout_height="57dp"
+        android:background="?attr/colorPrimary"
+        android:backgroundTint="@color/green2"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="اختر حروفك لاكمال التسجيل"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.15"
+        android:textSize="25sp"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,143 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     android:background="@drawable/ggreenbackground"
-    android:clickable="true"
-    android:clipChildren="true"
-    android:minWidth="99dp"
-    app:circularflow_radiusInDP="101dp"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="101dp"
-        android:background="@color/green"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="33dp" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/account"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:backgroundTint="#002E8B57"
-                app:srcCompat="@drawable/account"
-                tools:ignore="MissingConstraints" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:padding="24dp"
+            android:background="@drawable/custom2_edittext">
 
             <TextView
-                android:id="@+id/textView3"
-                android:layout_width="292dp"
-                android:layout_height="63dp"
-                android:text="المرحلة الاولى : مرحلة الإلغاء"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="تسجيل"
+                android:id="@+id/loginText"
+                android:textSize="36sp"
                 android:textAlignment="center"
-                android:textColor="@color/beige"
-                android:textSize="24sp"
                 android:textStyle="bold"
-                tools:ignore="MissingConstraints" />
+                android:textColor="@color/green"/>
 
-            <ImageButton
-                android:id="@+id/back"
-                android:layout_width="36dp"
-                android:layout_height="33dp"
-                android:backgroundTint="#002E8B57"
-                app:srcCompat="@drawable/arrow"
-                tools:ignore="MissingConstraints" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/username"
+                android:background="@drawable/custom2_edittext"
+                android:layout_marginTop="40dp"
+                android:padding="8dp"
+                android:hint="اسم المستخدم"
+                android:drawableLeft="@drawable/baseline_person_24"
+                android:textColor="@color/black"
+                android:drawablePadding="8dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/mail"
+                android:background="@drawable/custom2_edittext"
+                android:layout_marginTop="20dp"
+                android:inputType="textEmailAddress"
+                android:padding="8dp"
+                android:hint="الايميل"
+                android:drawableLeft="@drawable/baseline_email_24"
+                android:textColor="@color/black"
+                android:drawablePadding="8dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/phone"
+                android:background="@drawable/custom2_edittext"
+                android:layout_marginTop="20dp"
+                android:inputType="phone"
+                android:padding="8dp"
+                android:hint="رقم الهاتف "
+                android:drawableLeft="@drawable/baseline_phone_24"
+                android:textColor="@color/black"
+                android:drawablePadding="8dp"/>
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/password"
+                android:background="@drawable/custom2_edittext"
+                android:layout_marginTop="20dp"
+                android:inputType="textPassword"
+                android:padding="8dp"
+                android:hint="كلمة المرور (٦ احرف/ارقام فأكثر)"
+                android:drawableLeft="@drawable/baseline_lock_24"
+                android:textColor="@color/black"
+                android:drawablePadding="8dp"/>
+
+            رنوني شيخة العرب❤️, [9/20/2023 5:48 PM]
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/confirmPassword"
+                android:background="@drawable/custom2_edittext"
+                android:layout_marginTop="20dp"
+                android:inputType="textPassword"
+                android:padding="8dp"
+                android:hint="تأكيد كلمة المرور"
+                android:drawableLeft="@drawable/baseline_lock_24"
+                android:textColor="@color/black"
+                android:drawablePadding="8dp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="تسجيل "
+                android:id="@+id/SignUpButton"
+                android:textSize="18sp"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="@color/green"
+                app:cornerRadius = "20dp"/>
+
+
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="385dp"
-            android:layout_height="445dp"
-            android:orientation="horizontal">
+    </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="340dp"
-                android:layout_height="377dp"
-                android:layout_margin="30dp"
-                app:cardBackgroundColor="#C8FFFFFF"
-                app:cardCornerRadius="30dp"
-                app:cardElevation="20dp"
-                tools:ignore="MissingConstraints">
-
-                <TextView
-                    android:id="@+id/textView"
-                    style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                    android:layout_width="340dp"
-                    android:layout_height="380dp"
-                    android:gravity="bottom|clip_horizontal|center|clip_vertical|start|right|center_horizontal|fill|fill_horizontal|top|left|center_vertical|fill_vertical|end"
-                    android:text="في مرحلة الالغاء يهدف التمرين لتخفيف التوتر في نطق الكلمه قم بتكرار الصوت أو المقطع الأول من الكلمة أو الكلمة المفردة أكثر من مرتين مثل\n:(ب ب ب باص)"
-                    android:textAlignment="center"
-                    android:textAllCaps="false"
-                    android:textDirection="locale"
-                    android:textSize="28sp"
-                    android:typeface="monospace" />
-
-            </androidx.cardview.widget.CardView>
-
-            <Space
-                android:layout_width="113dp"
-                android:layout_height="300dp" />
-
-        </LinearLayout>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="80dp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="125dp"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="103dp"
-                android:layout_height="88dp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btnStart"
-        android:layout_width="197dp"
-        android:layout_height="103dp"
-        android:background="@drawable/rounded_corners"
-        android:backgroundTint="@color/darkgreen"
-        android:clickable="true"
-        android:onClick="next"
-        android:text="أبدأ"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/beige"
-        android:textSize="30sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.89" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

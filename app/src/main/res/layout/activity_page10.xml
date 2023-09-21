@@ -16,23 +16,54 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ToggleButton
-        android:id="@+id/record"
-        android:layout_width="174dp"
-        android:layout_height="74dp"
+    <ImageButton
+        android:id="@+id/btnrecord"
+        android:layout_width="84dp"
+        android:layout_height="58dp"
         android:background="@drawable/rounded_corners"
         android:backgroundTint="@color/darkgreen"
-        android:text="ToggleButton"
         android:textAlignment="center"
-        android:textColor="#FBF8F8"
-        android:textOff="أبدأ التسجيل"
-        android:textOn="إيقاف التسجيل"
+        android:textColor="@color/beige"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.83" />
+
+    <Button
+        android:id="@+id/btnnext"
+        android:layout_width="84dp"
+        android:layout_height="58dp"
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="@color/darkgreen"
+        android:text=" النتيجة"
+        android:textAlignment="center"
+        android:textColor="@color/beige"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintHorizontal_bias="0.81"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.83" />
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="160dp"
+        android:layout_height="23dp"
+        android:text="00:00:00"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.56" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -50,8 +81,13 @@
         android:id="@+id/linearLayout2"
         android:layout_width="415dp"
         android:layout_height="101dp"
+        android:layout_marginBottom="2dp"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteY="29dp">
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.29000002">
 
         <ImageButton
             android:id="@+id/account"
@@ -106,21 +142,21 @@
 
     </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/btnnext"
-        android:layout_width="174dp"
-        android:layout_height="74dp"
+    <ImageButton
+        android:id="@+id/btnstop"
+        android:layout_width="84dp"
+        android:layout_height="58dp"
         android:background="@drawable/rounded_corners"
         android:backgroundTint="@color/darkgreen"
-        android:text="مشاهدة النتيجة"
         android:textAlignment="center"
         android:textColor="@color/beige"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintHorizontal_bias="0.16"
         app:layout_constraintStart_toStartOf="@+id/linearLayout"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.94" />
+        app:layout_constraintVertical_bias="0.83" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
