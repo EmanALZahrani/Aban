@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Aban"
         tools:targetApi="31">
         <activity
+            android:name=".Diagnosis"
+            android:exported="false" />
+        <activity
             android:name=".Page14"
             android:exported="false" />
         <activity
@@ -24,7 +27,7 @@
             android:name=".LogIn"
             android:exported="false" />
         <activity
-            android:name=".checkletter"
+            android:name=".Checkletter"
             android:exported="false" />
         <activity
             android:name=".page9"

@@ -6,7 +6,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 
 
-class Dignosis : AppCompatActivity() {
+class Diagnosis : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -15,7 +15,7 @@ class Dignosis : AppCompatActivity() {
         //Connect التالي button
         val button = findViewById<Button>(R.id.button4)
         button.setOnClickListener {
-            val intent = Intent(this@Dignosis, ResultActivity::class.java)
+            val intent = Intent(this@Diagnosis, ResultActivity::class.java)
             startActivity(intent)
         }
 

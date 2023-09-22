@@ -12,7 +12,7 @@ class ResultActivity : AppCompatActivity() {
         //Connect the -> with the تشخيص page
         val button2 = findViewById<Button>(R.id.button2);
         button2.setOnClickListener {
-            val intent = Intent(this@ResultActivity, Dignosis::class.java)
+            val intent = Intent(this@ResultActivity, Diagnosis::class.java)
             startActivity(intent)
         }
         //Connect التالي button with levels page
