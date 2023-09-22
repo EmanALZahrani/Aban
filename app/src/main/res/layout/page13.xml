@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgraound1"
+    android:clickable="true"
+    android:clipChildren="true"
+    android:minWidth="99dp"
+    android:scrollbarSize="24dp"
+    app:circularflow_radiusInDP="101dp"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="0dp"
+        android:layout_height="6dp"
+        app:constraint_referenced_ids="imageButton13" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar4"
+        android:layout_width="match_parent"
+        android:layout_height="101dp"
+        android:background="#BA2E5E30"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/imageButton13"
+        android:layout_width="62dp"
+        android:layout_height="61dp"
+        android:backgroundTint="#022E5E30"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar4"
+        app:layout_constraintHorizontal_bias="0.074"
+        app:layout_constraintStart_toStartOf="@+id/toolbar4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022"
+        app:srcCompat="@drawable/user"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="340dp"
+        android:layout_height="153dp"
+        android:layout_margin="30dp"
+        app:cardCornerRadius="300dp"
+        app:cardElevation="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar4"
+        app:layout_constraintVertical_bias="0.331">
+
+
+
+
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            style="@android:style/Widget.ImageButton"
+            android:layout_width="137dp"
+            android:layout_height="131dp"
+            android:layout_gravity="center_horizontal|left"
+            android:adjustViewBounds="false"
+            android:background="#00FFFFFF"
+            android:duplicateParentState="false"
+            android:fitsSystemWindows="false"
+            android:foregroundGravity="center"
+            android:scrollbarStyle="insideInset"
+            app:circularflow_radiusInDP="300dp"
+            app:srcCompat="@drawable/speak2" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="297dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|right"
+            android:gravity="center_horizontal"
+            android:text="التشخيص"
+            android:textColor="#101010"
+            android:textSize="34sp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="340dp"
+        android:layout_height="153dp"
+        android:layout_margin="30dp"
+        app:cardCornerRadius="300dp"
+        app:cardElevation="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar4"
+        app:layout_constraintVertical_bias="0.655">
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="297dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|right"
+            android:gravity="center_horizontal"
+            android:text="التمارين"
+            android:textColor="#272525"
+            android:textSize="34sp" />
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="98dp"
+            android:layout_height="163dp"
+            android:layout_gravity="center_horizontal|left"
+            android:background="#00FFFFFF"
+            app:srcCompat="@drawable/brain2" />
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="415dp"
+        android:layout_height="169dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.977"
+        app:srcCompat="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="النتائـج"
+        android:textColor="#FAF1E4"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.029" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="68dp"
+        android:layout_height="62dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar4"
+        app:layout_constraintHorizontal_bias="0.924"
+        app:layout_constraintStart_toStartOf="@+id/toolbar4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.021"
+        app:srcCompat="@drawable/arrow" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
