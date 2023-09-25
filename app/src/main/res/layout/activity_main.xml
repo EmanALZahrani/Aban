@@ -85,10 +85,10 @@
                 android:textColor="@color/black"
                 android:drawablePadding="8dp"/>
 
-            رنوني شيخة العرب❤️, [9/20/2023 5:48 PM]
+
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+               android:layout_height="50dp"
                 android:id="@+id/confirmPassword"
                 android:background="@drawable/custom2_edittext"
                 android:layout_marginTop="20dp"
