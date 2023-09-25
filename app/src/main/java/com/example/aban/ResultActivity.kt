@@ -3,6 +3,7 @@ package com.example.aban
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 
 class ResultActivity : AppCompatActivity() {
@@ -10,7 +11,7 @@ class ResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.result)
         //Connect the -> with the تشخيص page
-        val button2 = findViewById<Button>(R.id.button2);
+        val button2 = findViewById<ImageButton>(R.id.back);
         button2.setOnClickListener {
             val intent = Intent(this@ResultActivity, Diagnosis::class.java)
             startActivity(intent)

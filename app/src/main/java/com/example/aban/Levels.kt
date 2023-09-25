@@ -3,6 +3,7 @@ package com.example.aban
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 
 class Levels : AppCompatActivity() {
@@ -12,7 +13,7 @@ class Levels : AppCompatActivity() {
         setContentView(R.layout.levels)
 
         //Connect -> button with  previous page
-        val button6 = findViewById<Button>(R.id.button8)
+        val button6 = findViewById<ImageButton>(R.id.back)
         button6.setOnClickListener {
             val intent = Intent(this@Levels, ResultActivity::class.java)
             startActivity(intent)
