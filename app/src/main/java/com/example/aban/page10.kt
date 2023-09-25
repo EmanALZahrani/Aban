@@ -4,7 +4,9 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaRecorder
+import android.os.Build
 import android.os.Bundle
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.aban.databinding.ActivityPage10Binding
@@ -22,6 +24,9 @@ class page10 : AppCompatActivity() {
     private lateinit var recorder: MediaRecorder
     private var dirPath=""
     private var filename=""
+    private var isRecording=false
+    private var isPaused=false
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityPage10Binding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -34,10 +39,14 @@ class page10 : AppCompatActivity() {
             ActivityCompat.requestPermissions(this,permissions, REQUEST_CODE)
 
          binding.apply {
-             btnrecord.setOnClickListener{
-             startRecording()
-         }  }
-
+             btnRecord.setOnClickListener{
+                 when{
+                     isPaused->resumeRecorder()
+                     isRecording->pauseRecorder()
+                     else-> startRecording()
+                 }
+             }
+         }
     }
 
     override fun onRequestPermissionsResult(
@@ -51,19 +60,36 @@ class page10 : AppCompatActivity() {
             permissionGranted=grantResults[0]== PackageManager.PERMISSION_GRANTED
     }
 
+    private fun pauseRecorder(){
+        recorder.pause()
+        isPaused=true
+        binding.apply {
+            btnRecord.setImageResource(R.drawable.ic_recorde)
+        }
+    }
+
+    private fun resumeRecorder(){
+        recorder.resume()
+        isPaused=false
+        binding.apply {
+            btnRecord.setImageResource(R.drawable.ic_pause)
+        }
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.S)
     private fun startRecording(){
-        if(!permissionGranted){
-            ActivityCompat.requestPermissions(this,permissions, REQUEST_CODE)
+        if(!permissionGranted) {
+            ActivityCompat.requestPermissions(this, permissions, REQUEST_CODE)
             return
         }
 
         //start record
-        recorder = MediaRecorder()
         dirPath = "${externalCacheDir?.absolutePath}/"
         var simpleDateFormat = SimpleDateFormat("yyyy.MM.DD.hh.mm.ss")
         var date = simpleDateFormat.format(Date())
         filename = "audio_record_$date"
-        recorder.apply {
+        recorder= MediaRecorder(applicationContext).apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
             setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
             setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
@@ -76,6 +102,9 @@ class page10 : AppCompatActivity() {
             start()
         }
         binding.apply {
+            btnRecord.setImageResource(R.drawable.ic_pause)
+            isRecording=true
+            isPaused=false
         }
 
     }
@@ -83,7 +112,7 @@ class page10 : AppCompatActivity() {
 
     private fun next(){
         binding.apply {
-            btnnext.setOnClickListener(){
+            btnNext.setOnClickListener(){
                 startActivity(Intent(this@page10,page11::class.java))
             }
         }
