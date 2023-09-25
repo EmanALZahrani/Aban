@@ -8,14 +8,16 @@
     tools:context=".LevelOne">
 
     <Button
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="@color/darkgreen"
+        android:textAlignment="center"
+        android:textColor="@color/beige"
+        android:textSize="20sp"
         android:id="@+id/button15"
         android:layout_width="164dp"
         android:layout_height="71dp"
         android:layout_marginBottom="284dp"
-        android:backgroundTint="#435334"
         android:text="التحضير"
-        android:textAlignment="center"
-        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -24,14 +26,16 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="@color/darkgreen"
+        android:textAlignment="center"
+        android:textColor="@color/beige"
+        android:textSize="20sp"
         android:id="@+id/button9"
         android:layout_width="164dp"
         android:layout_height="71dp"
         android:layout_marginBottom="444dp"
-        android:backgroundTint="#435334"
         android:text="السحب"
-        android:textAlignment="center"
-        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -40,14 +44,16 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="@color/darkgreen"
+        android:textAlignment="center"
+        android:textColor="@color/beige"
+        android:textSize="20sp"
         android:id="@+id/button12"
         android:layout_width="164dp"
         android:layout_height="71dp"
         android:layout_marginBottom="612dp"
-        android:backgroundTint="#435334"
         android:text="الإلغاء"
-        android:textAlignment="center"
-        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
