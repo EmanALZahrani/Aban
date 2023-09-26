@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/age"
+        android:id="@+id/age1"
         android:layout_width="349dp"
         android:layout_height="89dp"
         android:layout_margin="30dp"
@@ -33,7 +33,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/nameresult"
+            android:id="@+id/nameresult1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -91,7 +91,6 @@
         android:text="التشخيص"
         android:textColor="#F4EBEB"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="@+id/toolbar2"
@@ -144,7 +143,7 @@
         tools:ignore="MissingConstraints">
 
         <TextView
-            android:id="@+id/nametext"
+            android:id="@+id/nametext1"
             android:layout_width="84dp"
             android:layout_height="58dp"
             android:layout_gravity="center|right"
