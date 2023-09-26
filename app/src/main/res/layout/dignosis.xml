@@ -23,7 +23,7 @@
         tools:ignore="MissingConstraints">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textView1"
             style="@style/Widget.AppCompat.TextView.SpinnerItem"
             android:layout_width="wrap_content"
             android:layout_height="157dp"
@@ -38,16 +38,16 @@
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:background="@drawable/rounded_corners"
-        android:backgroundTint="@color/darkgreen"
-        android:textAlignment="center"
-        android:textColor="@color/beige"
-        android:textSize="20sp"
         android:id="@+id/button4"
         android:layout_width="131dp"
         android:layout_height="49dp"
         android:layout_marginBottom="124dp"
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="@color/darkgreen"
         android:text="التالي"
+        android:textAlignment="center"
+        android:textColor="@color/beige"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -118,5 +118,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <Button
+        android:id="@+id/recordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="تسجيل"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="536dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

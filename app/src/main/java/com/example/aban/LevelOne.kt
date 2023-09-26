@@ -17,6 +17,12 @@ class LevelOne : AppCompatActivity() {
             val intent = Intent(this@LevelOne, Levels::class.java)
             startActivity(intent)
         }
+        //click on "الالغاء" page
+        val cancellationButton = findViewById<Button>(R.id.button12)
+        cancellationButton.setOnClickListener {
+            val intent = Intent(this@LevelOne, page9::class.java)
+            startActivity(intent)
+        }
         //click on an unavailable page
         val unavailablePageButton = findViewById<Button>(R.id.button9)
         unavailablePageButton.setOnClickListener {
@@ -26,6 +32,12 @@ class LevelOne : AppCompatActivity() {
         val unavailablePageButton2 = findViewById<Button>(R.id.button15)
         unavailablePageButton2.setOnClickListener {
             PopupUtils.PopupUtils.showUnavailablePageDialog(this)
+        }
+        //Connect profile page
+        val profileButton = findViewById<ImageButton>(R.id.account)
+        profileButton.setOnClickListener {
+            val intent = Intent(this@LevelOne, page12::class.java)
+            startActivity(intent)
         }
     }
 }

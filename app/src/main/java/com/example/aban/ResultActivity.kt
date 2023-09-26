@@ -16,10 +16,16 @@ class ResultActivity : AppCompatActivity() {
             val intent = Intent(this@ResultActivity, Diagnosis::class.java)
             startActivity(intent)
         }
-        //Connect التالي button with levels page
+        //Connect next button with levels page
         val button3 = findViewById<Button>(R.id.button3)
         button3.setOnClickListener {
             val intent = Intent(this@ResultActivity, Levels::class.java)
+            startActivity(intent)
+        }
+        //Connect profile page
+        val profileButton = findViewById<ImageButton>(R.id.account)
+        profileButton.setOnClickListener {
+            val intent = Intent(this@ResultActivity, page12::class.java)
             startActivity(intent)
         }
 
