@@ -10,7 +10,7 @@
     android:minWidth="99dp"
     android:scrollbarSize="24dp"
     app:circularflow_radiusInDP="101dp"
-    tools:context=".MainActivity">
+    tools:context=".Page13">
 
     <androidx.constraintlayout.widget.Group
         android:layout_width="0dp"

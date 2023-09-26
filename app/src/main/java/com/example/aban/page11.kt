@@ -21,4 +21,19 @@ class page11 : AppCompatActivity() {
             }
         }
     }
+    private fun back(){
+        binding.apply {
+            back.setOnClickListener(){
+                startActivity(Intent(this@page11,page10::class.java))
+            }
+        }
+    }
+
+    private fun acc(){
+        binding.apply {
+            account.setOnClickListener(){
+                startActivity(Intent(this@page11,page12::class.java))
+            }
+        }
+    }
 }

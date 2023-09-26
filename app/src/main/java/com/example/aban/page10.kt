@@ -33,6 +33,8 @@ class page10 : AppCompatActivity() {
         setContentView(R.layout.activity_page10)
         setContentView(binding.root)
         next()
+        back()
+        acc()
 
         permissionGranted = ActivityCompat.checkSelfPermission(this, permissions[0]) == PackageManager.PERMISSION_GRANTED
         if (!permissionGranted)
@@ -110,10 +112,26 @@ class page10 : AppCompatActivity() {
     }
 
 
+    private fun back(){
+        binding.apply {
+            back.setOnClickListener(){
+                startActivity(Intent(this@page10,page11::class.java))
+            }
+        }
+    }
+
     private fun next(){
         binding.apply {
             btnNext.setOnClickListener(){
-                startActivity(Intent(this@page10,page11::class.java))
+                startActivity(Intent(this@page10,LevelOne::class.java))
+            }
+        }
+    }
+
+    private fun acc(){
+        binding.apply {
+            account.setOnClickListener(){
+                startActivity(Intent(this@page10,page12::class.java))
             }
         }
     }

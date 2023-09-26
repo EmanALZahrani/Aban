@@ -13,6 +13,8 @@ class page9 : AppCompatActivity() {
         setContentView(R.layout.activity_page9)
         setContentView(binding.root)
         next()
+        back()
+        acc()
     }
 
     private fun next(){
@@ -22,4 +24,22 @@ class page9 : AppCompatActivity() {
             }
         }
     }
+
+
+    private fun back(){
+        binding.apply {
+            back.setOnClickListener(){
+                startActivity(Intent(this@page9,LevelOne::class.java))
+            }
+        }
+    }
+
+    private fun acc(){
+        binding.apply {
+            account.setOnClickListener(){
+                startActivity(Intent(this@page9,page12::class.java))
+            }
+        }
+    }
+
 }

@@ -37,11 +37,11 @@
         tools:layout_editor_absoluteY="29dp">
 
         <ImageButton
-            android:id="@+id/account"
+            android:id="@+id/LogOut"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:backgroundTint="#002E8B57"
-            app:srcCompat="@drawable/account"
+            app:srcCompat="@drawable/ic_logout"
             tools:ignore="MissingConstraints" />
 
         <TextView
@@ -56,11 +56,11 @@
             android:textStyle="bold" />
 
         <ImageButton
-            android:id="@+id/back"
-            android:layout_width="69dp"
-            android:layout_height="31dp"
+            android:id="@+id/menu"
+            android:layout_width="wrap_content"
+            android:layout_height="27dp"
             android:backgroundTint="#002E8B57"
-            app:srcCompat="@drawable/arrow"
+            app:srcCompat="@drawable/ic_menu"
             tools:ignore="MissingConstraints" />
 
         <Space
