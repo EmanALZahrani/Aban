@@ -1,5 +1,4 @@
 package com.example.aban
-
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +18,8 @@ class Checkletter : AppCompatActivity() {
         binding.apply {
             next.setOnClickListener {
 
-                val intent = Intent(this@Checkletter, Checkletter::class.java)
+                // Start the Diagnosis activity
+                val intent = Intent(this@Checkletter, Diagnosis::class.java)
                 startActivity(intent)
             }
         }
