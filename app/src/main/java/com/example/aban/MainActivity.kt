@@ -1,5 +1,4 @@
 package com.example.aban
-
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -10,8 +9,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aban.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity : AppCompatActivity() {
+
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var username: EditText
@@ -21,15 +23,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var confirmPassword: EditText
     private lateinit var signupButton: Button
     private lateinit var sharedPreferences: SharedPreferences
-
     private lateinit var auth: FirebaseAuth
+    private lateinit var databaseReference: DatabaseReference
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val firebase :DatabaseReference = FirebaseDatabase.getInstance().getReference()
+
 
         auth = FirebaseAuth.getInstance()
+        databaseReference = FirebaseDatabase.getInstance().reference
 
         // Initialize UI components
         username = binding.username
@@ -57,21 +63,40 @@ class MainActivity : AppCompatActivity() {
                     confirmPassword.text.toString()
                 )
             ) {
-                // Store the new user's credentials in SharedPreferences
-                with(sharedPreferences.edit()) {
-                    putString("username", enteredUsername)
-                    putString("password", enteredPassword)
-                    putString("email", enteredEmail) // Store the email
-                    apply()
-                }
+                // Create a new user with email and password using Firebase Authentication
+                auth.createUserWithEmailAndPassword(enteredEmail, enteredPassword)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            // Save the email and username to Firebase Realtime Database
+                            val user = auth.currentUser
+                            user?.let {
+                                val userId = it.uid
+                                val email = enteredEmail
+                                val userRef = databaseReference.child("users").child(userId)
+                                userRef.child("email").setValue(email)
+                                userRef.child("username").setValue(enteredUsername)
+                            }
 
-                // Display a success message
-                Toast.makeText(this, "Signup Successful!", Toast.LENGTH_SHORT).show()
+                            // Store the new user's credentials in SharedPreferences
+                            with(sharedPreferences.edit()) {
+                                putString("username", enteredUsername)
+                                putString("password", enteredPassword)
+                                putString("email", enteredEmail) // Store the email
+                                apply()
+                            }
 
-                // Navigate to the login page
-                val intent = Intent(this, LogIn::class.java)
-                startActivity(intent)
-                finish() // Finish the sign-up activity to prevent going back to it from the login page
+                            // Display a success message
+                            Toast.makeText(this, "Signup Successful!", Toast.LENGTH_SHORT).show()
+
+                            // Navigate to the login page
+                            val intent = Intent(this, LogIn::class.java)
+                            startActivity(intent)
+                            finish() // Finish the sign-up activity to prevent going back to it from the login page
+                        } else {
+                            // Display an error message
+                            Toast.makeText(this, "Signup Failed! Please try again.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
             } else {
                 // Display an error message
                 Toast.makeText(this, "Signup Failed! Please check your inputs.", Toast.LENGTH_SHORT).show()
