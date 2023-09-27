@@ -9,7 +9,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aban.databinding.ActivityMainBinding
-
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,10 +22,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var signupButton: Button
     private lateinit var sharedPreferences: SharedPreferences
 
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        auth = FirebaseAuth.getInstance()
 
         // Initialize UI components
         username = binding.username
@@ -45,11 +49,19 @@ class MainActivity : AppCompatActivity() {
             val enteredPhoneNumber = phone.text.toString()
             val enteredEmail = mail.text.toString()
 
-            if (isSignupValid(enteredUsername, enteredPassword, enteredPhoneNumber, enteredEmail)) {
+            if (isSignupValid(
+                    enteredUsername,
+                    enteredPassword,
+                    enteredPhoneNumber,
+                    enteredEmail,
+                    confirmPassword.text.toString()
+                )
+            ) {
                 // Store the new user's credentials in SharedPreferences
                 with(sharedPreferences.edit()) {
                     putString("username", enteredUsername)
                     putString("password", enteredPassword)
+                    putString("email", enteredEmail) // Store the email
                     apply()
                 }
 
@@ -57,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Signup Successful!", Toast.LENGTH_SHORT).show()
 
                 // Navigate to the login page
-                val intent = Intent(this,LogIn::class.java)
+                val intent = Intent(this, LogIn::class.java)
                 startActivity(intent)
                 finish() // Finish the sign-up activity to prevent going back to it from the login page
             } else {
@@ -67,12 +79,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun isSignupValid(username: String, password: String, phoneNumber: String, email: String): Boolean {
+    private fun isSignupValid(
+        username: String,
+        password: String,
+        phoneNumber: String,
+        email: String,
+        confirmPassword: String
+    ): Boolean {
         val isUsernameValid = username.isNotBlank() // Check if username is not empty
         val isPasswordValid = password.length >= 6 // Check if password is at least 6 characters long
-        val isPhoneNumberValid = phoneNumber.matches(Regex("\\d+")) && phoneNumber.length == 10 // Check if the phone number contains 10 numeric digits
+        val isPhoneNumberValid =
+            phoneNumber.matches(Regex("\\d+")) && phoneNumber.length == 10 // Check if the phone number contains 10 numeric digits
         val isEmailValid = isValidEmail(email) // Check if the email address has the correct format
-        val doPasswordsMatch = password == confirmPassword.text.toString() // Check if the password and confirm password fields match
+        val doPasswordsMatch = password == confirmPassword // Check if the password and confirm password fields match
 
         return isUsernameValid && isPasswordValid && isPhoneNumberValid && isEmailValid && doPasswordsMatch
     }
