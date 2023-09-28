@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var password: EditText
     private lateinit var confirmPassword: EditText
     private lateinit var signupButton: Button
+    private lateinit var SigninButton: Button
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var auth: FirebaseAuth
     private lateinit var databaseReference: DatabaseReference
@@ -44,6 +45,16 @@ class MainActivity : AppCompatActivity() {
         password = binding.password
         confirmPassword = binding.confirmPassword
         signupButton = binding.SignUpButton
+
+        // Initialize UI components
+        SigninButton = binding.SigninButton
+
+        // Set click listener for the "Sign In" button
+        SigninButton.setOnClickListener {
+            // Navigate to the login page (replace Login::class.java with your actual login activity)
+            val intent = Intent(this, LogIn::class.java)
+            startActivity(intent)
+        }
 
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("user_data", Context.MODE_PRIVATE)

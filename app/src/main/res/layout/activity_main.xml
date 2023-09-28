@@ -54,7 +54,7 @@
                 android:layout_marginTop="20dp"
                 android:inputType="textEmailAddress"
                 android:padding="8dp"
-                android:hint="الايميل"
+                android:hint="البريد الالكتروني"
                 android:drawableLeft="@drawable/baseline_email_24"
                 android:textColor="@color/black"
                 android:drawablePadding="8dp"/>
@@ -112,6 +112,17 @@
 
         </LinearLayout>
 
+
     </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/SigninButton"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="1dp"
+        android:backgroundTint="@color/Light"
+        android:text="مسجل بالفعل، تسجيل الدخول "
+        android:textSize="18sp"
+        app:cornerRadius="20dp" />
 
 </LinearLayout>
