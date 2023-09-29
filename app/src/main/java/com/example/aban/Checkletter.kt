@@ -76,34 +76,11 @@ class Checkletter : AppCompatActivity() {
     private fun atLeastOneCharacterSelected(): Boolean {
         // Define your character CheckBox IDs as you did before
         val characterCheckBoxIds = arrayOf(
-            R.id.checkBox1,
-            R.id.checkBox2,
-            R.id.checkBox3,
-            R.id.checkBox4,
-            R.id.checkBox5,
+
             R.id.checkBox6,
             R.id.checkBox7,
-            R.id.checkBox8,
-            R.id.checkBox9,
-            R.id.checkBox10,
-            R.id.checkBox11,
-            R.id.checkBox12,
-            R.id.checkBox13,
-            R.id.checkBox14,
-            R.id.checkBox15,
-            R.id.checkBox16,
-            R.id.checkBox17,
-            R.id.checkBox18,
-            R.id.checkBox19,
             R.id.checkBox20,
-            R.id.checkBox21,
-            R.id.checkBox22,
-            R.id.checkBox23,
-            R.id.checkBox24,
-            R.id.checkBox25,
-            R.id.checkBox26,
-            R.id.checkBox144,
-            R.id.checkBox200,
+
 
         )
 
@@ -124,34 +101,9 @@ class Checkletter : AppCompatActivity() {
 
         // Define your character CheckBox IDs as you did before
         val characterCheckBoxIds = arrayOf(
-            R.id.checkBox1,
-            R.id.checkBox2,
-            R.id.checkBox3,
-            R.id.checkBox4,
-            R.id.checkBox5,
             R.id.checkBox6,
             R.id.checkBox7,
-            R.id.checkBox8,
-            R.id.checkBox9,
-            R.id.checkBox10,
-            R.id.checkBox11,
-            R.id.checkBox12,
-            R.id.checkBox13,
-            R.id.checkBox14,
-            R.id.checkBox15,
-            R.id.checkBox16,
-            R.id.checkBox17,
-            R.id.checkBox18,
-            R.id.checkBox19,
             R.id.checkBox20,
-            R.id.checkBox21,
-            R.id.checkBox22,
-            R.id.checkBox23,
-            R.id.checkBox24,
-            R.id.checkBox25,
-            R.id.checkBox26,
-            R.id.checkBox144,
-            R.id.checkBox200,
 
         )
 
