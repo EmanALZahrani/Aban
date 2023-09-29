@@ -19,7 +19,13 @@
         android:exported="false" />
         <activity
             android:name=".Diagnosis"
-            android:exported="false" />
+            android:exported="true" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
         <activity
             android:name=".Page14"
             android:exported="false" />
@@ -53,14 +59,9 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            tools:ignore="IntentFilterExportedReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false"
+            tools:ignore="IntentFilterExportedReceiver"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
