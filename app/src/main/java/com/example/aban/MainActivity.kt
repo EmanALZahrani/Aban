@@ -9,12 +9,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aban.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
-
-
     private lateinit var binding: ActivityMainBinding
     private lateinit var username: EditText
     private lateinit var phone: EditText
@@ -22,21 +19,18 @@ class MainActivity : AppCompatActivity() {
     private lateinit var password: EditText
     private lateinit var confirmPassword: EditText
     private lateinit var signupButton: Button
-    private lateinit var SigninButton: Button
+    private lateinit var signinButton: Button
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var auth: FirebaseAuth
-    private lateinit var databaseReference: DatabaseReference
-
+    private lateinit var firestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val firebase :DatabaseReference = FirebaseDatabase.getInstance().getReference()
-
 
         auth = FirebaseAuth.getInstance()
-        databaseReference = FirebaseDatabase.getInstance().reference
+        firestore = FirebaseFirestore.getInstance()
 
         // Initialize UI components
         username = binding.username
@@ -47,10 +41,10 @@ class MainActivity : AppCompatActivity() {
         signupButton = binding.SignUpButton
 
         // Initialize UI components
-        SigninButton = binding.SigninButton
+        signinButton = binding.SigninButton
 
         // Set click listener for the "Sign In" button
-        SigninButton.setOnClickListener {
+        signinButton.setOnClickListener {
             // Navigate to the login page (replace Login::class.java with your actual login activity)
             val intent = Intent(this, LogIn::class.java)
             startActivity(intent)
@@ -78,23 +72,36 @@ class MainActivity : AppCompatActivity() {
                 auth.createUserWithEmailAndPassword(enteredEmail, enteredPassword)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
-                            // Save the email and username to Firebase Realtime Database
+                            // Save user data to Firestore
                             val user = auth.currentUser
                             user?.let {
                                 val userId = it.uid
-                                val email = enteredEmail
-                                val userRef = databaseReference.child("users").child(userId)
-                                userRef.child("email").setValue(email)
-                                userRef.child("username").setValue(enteredUsername)
+                                val userDocRef = firestore.collection("users").document(userId)
+
+                                val userData = hashMapOf(
+                                    "Email" to enteredEmail,
+                                    "UserName" to enteredUsername,
+                                    "PhoneNum" to enteredPhoneNumber
+                                    // Add any other user data you want to store
+                                )
+
+                                userDocRef.set(userData)
+                                    .addOnSuccessListener {
+                                        // User data stored successfully
+                                        // You can proceed to the next step or show a success message
+                                    }
+                                    .addOnFailureListener { e ->
+                                        // Handle the error
+                                        Toast.makeText(
+                                            this@MainActivity,
+                                            "Firestore Error: ${e.message}",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
                             }
 
-                            // Store the new user's credentials in SharedPreferences
-                            with(sharedPreferences.edit()) {
-                                putString("username", enteredUsername)
-                                putString("password", enteredPassword)
-                                putString("email", enteredEmail) // Store the email
-                                apply()
-                            }
+                            // Store the new user's credentials in SharedPreferences (if needed)
+                            // ...
 
                             // Display a success message
                             Toast.makeText(this, "Signup Successful!", Toast.LENGTH_SHORT).show()
