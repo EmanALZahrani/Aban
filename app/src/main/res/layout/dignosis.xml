@@ -7,6 +7,21 @@
     android:background="@drawable/ggreenbackground"
     tools:context=".Diagnosis">
 
+    <Button
+        android:id="@+id/requred"
+        android:layout_width="116dp"
+        android:layout_height="59dp"
+        android:layout_marginBottom="284dp"
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="@color/DarkSeaGreen"
+        android:text="تسجيل"
+        android:textAlignment="center"
+        android:textColor="@color/beige"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView5"
         android:layout_width="343dp"

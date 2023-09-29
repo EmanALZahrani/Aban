@@ -33,8 +33,19 @@ class Diagnosis : AppCompatActivity() {
             startActivity(intent)
         }
 
+        //////////////////////////////////////////
+        val bt = findViewById<Button>(R.id.requred)
+        bt.setOnClickListener {
+            startRecording()
+        }
+
     }
 
+    private fun startRecording() {
+        // Call your Python code here to start recording audio
+        val process = Runtime.getRuntime().exec("python C:/Users/dell/ta.py")
+        process.waitFor()
+    }
 
 
 }
