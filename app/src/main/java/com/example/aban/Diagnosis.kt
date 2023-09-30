@@ -2,9 +2,12 @@ package com.example.aban
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.ImageButton
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
 
 class Diagnosis : AppCompatActivity() {
@@ -43,8 +46,23 @@ class Diagnosis : AppCompatActivity() {
 
     private fun startRecording() {
         // Call your Python code here to start recording audio
-        val process = Runtime.getRuntime().exec("python C:/Users/dell/ta.py")
+        val process = Runtime.getRuntime().exec("python C:/Users/dell/audio.py")
         process.waitFor()
+
+        val errorStream = process.errorStream
+        val reader = BufferedReader(InputStreamReader(errorStream))
+
+        var line = reader.readLine()
+        while (line != null) {
+            Log.e("Diagnosis", line)
+            line = reader.readLine()
+        }
+
+        val exitCode = process.exitValue()
+        if (exitCode != 0) {
+            Log.e("Diagnosis", "Python script exited with code $exitCode")
+        }
+
     }
 
 
