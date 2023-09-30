@@ -43,7 +43,7 @@ class Diagnosis : AppCompatActivity() {
 
     private fun startRecording() {
         // Call your Python code here to start recording audio
-        val process = Runtime.getRuntime().exec("python C:/Users/dell/ta.py")
+        val process = Runtime.getRuntime().exec("/Users/rana/Downloads/audioAban.py")
         process.waitFor()
     }
 

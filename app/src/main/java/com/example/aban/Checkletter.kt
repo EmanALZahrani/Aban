@@ -1,4 +1,5 @@
 package com.example.aban
+
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -8,22 +9,24 @@ import com.example.aban.databinding.CheckletterBinding
 import android.widget.CheckBox
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 
 class Checkletter : AppCompatActivity() {
     private lateinit var binding: CheckletterBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = CheckletterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize SharedPreferences and Firebase Auth
+        // Initialize SharedPreferences, Firebase Auth, and FirebaseFirestore
         sharedPreferences = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
 
         // Continue with your next button logic
         next()
@@ -41,18 +44,38 @@ class Checkletter : AppCompatActivity() {
                         // Retrieve the selected characters
                         val selectedCharacters = getSelectedCharacters()
 
-                        // Store selected characters in Firebase Realtime Database
+                        // Store selected characters in Firestore
                         val userId = auth.currentUser?.uid
                         if (userId != null) {
-                            val userCharactersRef =
-                                FirebaseDatabase.getInstance().reference.child("users").child(userId)
-                                    .child("selected_characters")
-                            userCharactersRef.setValue(selectedCharacters)
-                        }
+                            val userDocRef = firestore.collection("users").document(userId)
 
-                        // Start the Diagnosis activity
-                        val intent = Intent(this@Checkletter, Diagnosis::class.java)
-                        startActivity(intent)
+                            val userSelections = hashMapOf(
+                                "selected_characters" to selectedCharacters
+                            )
+
+                            userDocRef.set(userSelections, SetOptions.merge())
+                                .addOnSuccessListener {
+                                    // User selections stored successfully in Firestore
+                                    // Proceed to the next step or show a success message
+                                    Toast.makeText(
+                                        this@Checkletter,
+                                        "Selections stored successfully.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+
+                                    // Start the Diagnosis activity
+                                    val intent = Intent(this@Checkletter, Diagnosis::class.java)
+                                    startActivity(intent)
+                                }
+                                .addOnFailureListener { e ->
+                                    // Handle the error
+                                    Toast.makeText(
+                                        this@Checkletter,
+                                        "Firestore Error: ${e.message}",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                        }
                     } else {
                         // Handle the case where the user's email is not available
                         Toast.makeText(
@@ -76,12 +99,9 @@ class Checkletter : AppCompatActivity() {
     private fun atLeastOneCharacterSelected(): Boolean {
         // Define your character CheckBox IDs as you did before
         val characterCheckBoxIds = arrayOf(
-
             R.id.checkBox6,
             R.id.checkBox7,
-            R.id.checkBox20,
-
-
+            R.id.checkBox20
         )
 
         // Loop through the CheckBox IDs and check if at least one is checked
@@ -103,8 +123,7 @@ class Checkletter : AppCompatActivity() {
         val characterCheckBoxIds = arrayOf(
             R.id.checkBox6,
             R.id.checkBox7,
-            R.id.checkBox20,
-
+            R.id.checkBox20
         )
 
         // Loop through the CheckBox IDs and add the selected characters to the list
