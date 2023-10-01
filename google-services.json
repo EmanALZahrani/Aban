@@ -1,0 +1,31 @@
+
+{
+  "project_info": {
+    "project_number": "620206921155",
+    "firebase_url": "https://example-bcd0c-default-rtdb.firebaseio.com",
+    "project_id": "example-bcd0c",
+    "storage_bucket": "example-bcd0c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620206921155:android:7a1667593b7791652b5976",
+        "android_client_info": {
+          "package_name": "com.risibleapps.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcIvnCqB8XYjtOVq5kCvvx1I_hQ34DTDE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

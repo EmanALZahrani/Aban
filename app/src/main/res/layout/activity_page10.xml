@@ -77,7 +77,7 @@
         app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.56" />
+        app:layout_constraintVertical_bias="0.58000004" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -142,12 +142,11 @@
         tools:ignore="MissingConstraints">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/Word"
             style="@style/Widget.AppCompat.TextView.SpinnerItem"
             android:layout_width="290dp"
             android:layout_height="match_parent"
             android:gravity="bottom|clip_horizontal|center|clip_vertical|start|right|center_horizontal|fill|fill_horizontal|top|left|center_vertical|fill_vertical|end"
-            android:text="الكلمة "
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textDirection="locale"
