@@ -15,10 +15,10 @@ import androidx.appcompat.widget.AppCompatButton
 import com.airbnb.lottie.LottieAnimationView
 import com.example.aban.R
 import com.example.aban.risibleapps.myapplication.utils.Constants
+import com.example.aban.risibleapps.myapplication.utils.PitchDetectionTarso
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
-import com.example.aban.risibleapps.myapplication.utils.PitchDetectionTarso
 import java.io.File
 import java.util.Random
 
@@ -60,15 +60,14 @@ class DashboardActivity : AppCompatActivity() {
         tvDuration = findViewById(R.id.tvDuration)
         lottieAnimationView = findViewById(R.id.lottie_animation_view)
         firestore = FirebaseFirestore.getInstance()
-        btnRecord.setOnClickListener(
-            {
-                Constants.createTempFolder()
-                if (isRecording) {
-                    stopRecording()
-                } else {
-                    startRecording()
-                }
-            })
+        btnRecord.setOnClickListener {
+            Constants.createTempFolder()
+            if (isRecording) {
+                stopRecording()
+            } else {
+                startRecording()
+            }
+        }
         val btnShowFiles = findViewById<AppCompatButton>(R.id.btnShowFiles)
         btnShowFiles.setOnClickListener { view: View? ->
             startActivity(

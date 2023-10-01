@@ -3,9 +3,7 @@ package com.example.aban.risibleapps.myapplication.utils
 import android.os.Environment
 import java.io.File
 
-// Created by Abdullah_Shah
-// on 11,September,2023
-// Either write something worth reading or do something worth writing ;)
+
 interface Constants {
     interface PATH {
         companion object {

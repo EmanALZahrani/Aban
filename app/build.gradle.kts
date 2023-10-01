@@ -25,6 +25,9 @@ android {
     namespace = "com.example.aban"
     compileSdk = 33
 
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
     defaultConfig {
         applicationId = "com.example.aban"
         minSdk = 24
@@ -42,14 +45,15 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
      buildFeatures {
          dataBinding = true;
@@ -80,5 +84,6 @@ dependencies {
     // Runtime Pitch Calculation
     implementation ("be.tarsos.dsp:core:2.5")
     implementation ("be.tarsos.dsp:jvm:2.5")
+
 
 }
