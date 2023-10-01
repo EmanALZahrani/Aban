@@ -5,9 +5,6 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aban.databinding.ActivityPage10Binding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import java.util.Random
 
 
 private lateinit var binding: ActivityPage10Binding
@@ -25,7 +22,7 @@ class page10 : AppCompatActivity() {
         back()
         acc()
 
-        val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+       /* val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
         // استعراض كلمات وحروف من Firebase Firestore
         val wordsCollection = db.collection("words")
@@ -80,7 +77,7 @@ class page10 : AppCompatActivity() {
             }
             .addOnFailureListener { exception ->
                 textView.text = "حدث خطأ: ${exception.message}"
-            }
+            }*/
     }
 
 

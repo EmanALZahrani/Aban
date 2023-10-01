@@ -16,6 +16,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Aban"
         tools:targetApi="31">
+
+        <activity
+            android:name=".risibleapps.myapplication.ui.SoundMediumActivity"
+            android:exported="false" />
+        <activity
+            android:name=".risibleapps.myapplication.ui.DisplayAudioFilesActivity"
+            android:exported="true" >
+
+
+        </activity>
+        <activity
+            android:name=".risibleapps.myapplication.ui.DashboardActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
         android:name=".Page13"
         android:exported="false" />
@@ -55,14 +75,9 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            tools:ignore="IntentFilterExportedReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false"
+            tools:ignore="IntentFilterExportedReceiver"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

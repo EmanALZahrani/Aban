@@ -18,6 +18,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
     id("com.google.gms.google-services")
+    id ("kotlin-kapt")
 }
 
 android {
@@ -64,6 +65,7 @@ dependencies {
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.firebase:firebase-auth:22.1.2")
+    implementation("com.google.firebase:firebase-storage-ktx")
     implementation("com.google.firebase:firebase-database-ktx:20.2.2")
     implementation("com.google.firebase:firebase-bom:32.3.1")
     implementation("com.google.firebase:firebase-appcheck-playintegrity")
@@ -72,5 +74,11 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation ("com.android.support.test:rules:1.0.2")
+    // Lottie animation
+    implementation ("com.airbnb.android:lottie:6.1.0")
+
+    // Runtime Pitch Calculation
+    implementation ("be.tarsos.dsp:core:2.5")
+    implementation ("be.tarsos.dsp:jvm:2.5")
 
 }
