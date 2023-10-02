@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.airbnb.lottie.LottieAnimationView
 import com.example.aban.R
+import com.example.aban.risibleapps.myapplication.model.AudioClassificationModel
 import com.example.aban.risibleapps.myapplication.utils.Constants
 import com.example.aban.risibleapps.myapplication.utils.PitchDetectionTarso
 import com.google.firebase.firestore.FirebaseFirestore
@@ -21,6 +22,8 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import java.io.File
 import java.util.Random
+
+
 
 class DashboardActivity : AppCompatActivity() {
     var storage: FirebaseStorage? = null
@@ -54,6 +57,9 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val audioClassificationModel = AudioClassificationModel(this, "audioML.tflite")
+        audioClassificationModel.loadModel()
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.record)
         btnRecord = findViewById<Button>(R.id.btnRecord)
@@ -97,14 +103,27 @@ class DashboardActivity : AppCompatActivity() {
             loudnessValue = randInt(10, 95).toString()
             saveAudioToFirebaseStorage()
 
+            val audioData = System.currentTimeMillis().toFloat() // Extract the audio data from your recording (convert to FloatArray)
+
+            val audioClassificationModel = AudioClassificationModel(this, "audioML.tflite")
+            audioClassificationModel.loadModel()
+
+            val classificationResult = audioClassificationModel.classifyAudio(floatArrayOf(audioData))
+
+            // Now you have the classification result in `classificationResult`
+            Log.d("TAG", "Classification Result: $classificationResult")
+
             // Starting Medium activity
             val intent = Intent(this, SoundMediumActivity::class.java)
             intent.putExtra("pitchIntent", "$pitchValue Hrtz")
             intent.putExtra("durationIntent", timeString)
             intent.putExtra("loudnessIntent", "$loudnessValue %")
+            intent.putExtra("classificationResult", classificationResult) // Pass the result
             startActivity(intent)
         }
-    }
+
+        }
+
 
     fun startRecording() {
         // Ensure that the MediaRecorder is not already recording
@@ -140,7 +159,7 @@ class DashboardActivity : AppCompatActivity() {
         mediaRecorder!!.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
 
         // Create a unique file name for each recording (e.g., timestamp)
-        val audioFileName = "audio_" + System.currentTimeMillis() + ".3gp"
+        val audioFileName = "audio_" + System.currentTimeMillis() + ".wav"
         // Save the audio file name for later use
         currentAudioFileName = audioFileName // Declare this variable at the class level
         mediaRecorder!!.setOutputFile(getOutputFilePath(audioFileName)) // Use a local path for recording

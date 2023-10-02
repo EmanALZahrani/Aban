@@ -20,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
+
     <!--    Play Audio Item-->
     <androidx.cardview.widget.CardView
         android:id="@+id/playAudioCard"
@@ -163,6 +164,7 @@
                 app:layout_constraintStart_toEndOf="@id/LoudnessCard_title"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -207,12 +209,17 @@
                 app:layout_constraintStart_toEndOf="@id/pitchCard_title"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
     </androidx.cardview.widget.CardView>
 
+
     <!--    Next Button-->
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/nextButton"
         android:layout_width="match_parent"
@@ -224,7 +231,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pitchCard" />
+        app:layout_constraintTop_toBottomOf="@id/pitchCard"
+        app:layout_constraintVertical_bias="0.28" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

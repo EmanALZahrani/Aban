@@ -5,7 +5,7 @@ import org.tensorflow.lite.Interpreter
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
-class AudioClassificationModel(private val context: Context, private val modelPath: String) {
+public class  AudioClassificationModel(private val context: Context, private val modelPath: String) {
 
     private lateinit var interpreter: Interpreter
     private val labels = arrayOf("noise", "stutter", "normal")
@@ -23,6 +23,7 @@ class AudioClassificationModel(private val context: Context, private val modelPa
 
         return ByteBuffer.wrap(modelBuffer)
     }
+
 
     fun classifyAudio(audioData: FloatArray): String {
         val inputShape = interpreter.getInputTensor(0).shape()
@@ -55,4 +56,6 @@ class AudioClassificationModel(private val context: Context, private val modelPa
             order(ByteOrder.nativeOrder())
         }
     }
+
+
 }

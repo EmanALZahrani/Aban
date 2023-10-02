@@ -5,9 +5,7 @@ import be.tarsos.dsp.AudioProcessor
 import be.tarsos.dsp.pitch.PitchDetectionResult
 import be.tarsos.dsp.pitch.Yin
 
-// Created by Abdullah_Shah
-// on 12,September,2023
-// Either write something worth reading or do something worth writing ;)
+
 class PitchDetectionTarso : AudioProcessor {
     private val yin: Yin
     var lastResult: PitchDetectionResult
