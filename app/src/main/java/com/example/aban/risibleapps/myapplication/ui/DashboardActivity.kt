@@ -106,7 +106,7 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
-    private fun startRecording() {
+    fun startRecording() {
         // Ensure that the MediaRecorder is not already recording
         if (isRecording) {
             return
