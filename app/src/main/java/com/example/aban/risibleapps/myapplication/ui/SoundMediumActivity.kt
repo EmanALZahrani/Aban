@@ -23,21 +23,6 @@ class SoundMediumActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Retrieve the classification result from the intent
-        val classificationResult = intent.getStringExtra("classificationResult")
-
-// Find the TextView in your layout where you want to display the result
-        val resultTextView = findViewById<AppCompatTextView>(R.id.resultid)
-
-// Check if the classification result is not null before displaying it
-        if (classificationResult != null) {
-            // Display the classification result in the TextView
-            resultTextView.text = "Result: $classificationResult"
-        } else {
-            // Handle the case where the classification result is null or not found in the intent
-            resultTextView.text = "Result not available"
-        }
-
         setContentView(R.layout.activity_sound_medium)
         loudnessTv = findViewById(R.id.loudnessCard_Id)
         durationTv = findViewById(R.id.durationCard_Id)

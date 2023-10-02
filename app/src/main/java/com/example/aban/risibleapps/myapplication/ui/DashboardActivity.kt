@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.airbnb.lottie.LottieAnimationView
 import com.example.aban.R
-import com.example.aban.risibleapps.myapplication.model.AudioClassificationModel
 import com.example.aban.risibleapps.myapplication.utils.Constants
 import com.example.aban.risibleapps.myapplication.utils.PitchDetectionTarso
 import com.google.firebase.firestore.FirebaseFirestore
@@ -56,9 +55,9 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        val audioClassificationModel = AudioClassificationModel(this, "audioML.tflite")
-        audioClassificationModel.loadModel()
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.record)
@@ -103,23 +102,12 @@ class DashboardActivity : AppCompatActivity() {
             loudnessValue = randInt(10, 95).toString()
             saveAudioToFirebaseStorage()
 
-            val audioData = System.currentTimeMillis().toFloat() // Extract the audio data from your recording (convert to FloatArray)
-
-            val audioClassificationModel = AudioClassificationModel(this, "audioML.tflite")
-            audioClassificationModel.loadModel()
-
-            val classificationResult = audioClassificationModel.classifyAudio(floatArrayOf(audioData))
-
-            // Now you have the classification result in `classificationResult`
-            Log.d("TAG", "Classification Result: $classificationResult")
-
             // Starting Medium activity
             val intent = Intent(this, SoundMediumActivity::class.java)
             intent.putExtra("pitchIntent", "$pitchValue Hrtz")
             intent.putExtra("durationIntent", timeString)
             intent.putExtra("loudnessIntent", "$loudnessValue %")
-            intent.putExtra("classificationResult", classificationResult) // Pass the result
-            startActivity(intent)
+
         }
 
         }
