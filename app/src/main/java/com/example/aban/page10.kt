@@ -94,7 +94,7 @@ class page10 : AppCompatActivity() {
 
     private fun next() {
         binding.apply {
-            btnNext.setOnClickListener() {
+           // btnNext.setOnClickListener() {
                 startActivity(Intent(this@page10, LevelOne::class.java))
             }
         }
@@ -103,8 +103,8 @@ class page10 : AppCompatActivity() {
     private fun acc() {
         binding.apply {
             account.setOnClickListener() {
-                startActivity(Intent(this@page10, page12::class.java))
+               // startActivity(Intent(this@page10, page12::class.java))
             }
         }
     }
-}
+

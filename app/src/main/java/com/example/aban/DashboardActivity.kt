@@ -13,24 +13,22 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.airbnb.lottie.LottieAnimationView
-import com.example.aban.utils.Constants
 import com.example.aban.utils.PitchDetectionTarso
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import java.io.File
 import java.util.Random
 
-
-
 class DashboardActivity : AppCompatActivity() {
-    var storage: FirebaseStorage? = null
-    var currentAudioFileName: String? = null
-    var timeString: String? = null
-    var pitchValue: String? = null
-    var loudnessValue: String? = null
-    var lottieAnimationView: LottieAnimationView? = null
-    var firestore: FirebaseFirestore? = null
+    private var storage: FirebaseStorage? = null
+    private var firestore: FirebaseFirestore? = null
+    private var currentAudioFileName: String? = null
+    private var timeString: String? = null
+    private var pitchValue: String? = null
+    private var loudnessValue: String? = null
+    private var lottieAnimationView: LottieAnimationView? = null
     private var mediaRecorder: MediaRecorder? = null
     private var isRecording = false
     private var startTime = 0L
@@ -48,30 +46,35 @@ class DashboardActivity : AppCompatActivity() {
             seconds = (timeInMilliseconds / 1000).toInt()
             minutes = seconds / 60
             seconds = seconds % 60
-            var tvDuration1: TextView = findViewById(R.id.tvDuration)
-            tvDuration1.setText("Duration: " + minutes + ":" + String.format("%02d", seconds))
+            val tvDuration1: TextView = findViewById(R.id.tvDuration)
+            tvDuration1.text = "Duration: " + minutes + ":" + String.format("%02d", seconds)
             handler.postDelayed(this, 1000)
         }
     }
 
-
+    // Declare a variable to store the temporary folder
+    private lateinit var tempFolder: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.record)
         btnRecord = findViewById<Button>(R.id.btnRecord)
         tvDuration = findViewById(R.id.tvDuration)
         lottieAnimationView = findViewById(R.id.lottie_animation_view)
+        storage = FirebaseStorage.getInstance()
         firestore = FirebaseFirestore.getInstance()
+
+        // Create the temporary folder and store the reference
+        tempFolder = createTempFolder()
+
         btnRecord.setOnClickListener {
-            Constants.createTempFolder()
             if (isRecording) {
                 stopRecording()
             } else {
                 startRecording()
             }
         }
+
         val btnShowFiles = findViewById<AppCompatButton>(R.id.btnShowFiles)
         btnShowFiles.setOnClickListener { view: View? ->
             startActivity(
@@ -85,14 +88,14 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun stopRecording() {
         if (isRecording) {
-            btnRecord!!.text = "Recording Audio Stopped"
-            btnRecord!!.background = getDrawable(R.drawable.button_bg_on)
-            tvDuration!!.text = "Duration : 00:00"
-            lottieAnimationView!!.visibility = View.GONE
+            btnRecord.text = "Recording Audio Stopped"
+            btnRecord.background = getDrawable(R.drawable.button_bg_on)
+            tvDuration?.text = "Duration : 00:00"
+            lottieAnimationView?.visibility = View.GONE
 
             // Stop recording
-            mediaRecorder!!.stop()
-            mediaRecorder!!.release()
+            mediaRecorder?.stop()
+            mediaRecorder?.release()
             mediaRecorder = null
             isRecording = false
             handler.removeCallbacks(updateTimerThread)
@@ -100,113 +103,91 @@ class DashboardActivity : AppCompatActivity() {
             pitchValue = randInt(85, 300).toString()
             loudnessValue = randInt(10, 95).toString()
             saveAudioToFirebaseStorage()
-
-            // Starting Medium activity
-            val intent = Intent(this, SoundMediumActivity::class.java)
-            intent.putExtra("pitchIntent", "$pitchValue Hrtz")
-            intent.putExtra("durationIntent", timeString)
-            intent.putExtra("loudnessIntent", "$loudnessValue %")
-
         }
+    }
 
-        }
-
-
-    fun startRecording() {
+    private fun startRecording() {
         // Ensure that the MediaRecorder is not already recording
         if (isRecording) {
             return
         }
-        btnRecord!!.text = "Recording Audio .."
-        btnRecord!!.background = getDrawable(R.drawable.button_bg_off)
+        btnRecord.text = "Recording Audio .."
+        btnRecord.background = getDrawable(R.drawable.button_bg_off)
 
-//        Lottie animation ******************************************
-        lottieAnimationView!!.visibility = View.VISIBLE
-        // Set animation file (assuming it's in the res/raw directory)
-        lottieAnimationView!!.setAnimation(R.raw.animation_wave)
-
-        // Optional: Set animation speed
-        lottieAnimationView!!.speed = 1f // Default speed is 1x
-
-        // Optional: Set looping
-        lottieAnimationView!!.loop(true) // Default is false
-
-        // Start the animation
-        lottieAnimationView!!.playAnimation()
-
-        // ***********************************************************************
+        // Lottie animation
+        lottieAnimationView?.visibility = View.VISIBLE
+        lottieAnimationView?.setAnimation(R.raw.animation_wave)
+        lottieAnimationView?.speed = 1f
+        lottieAnimationView?.loop(true)
+        lottieAnimationView?.playAnimation()
 
         // Pitch detection on runtime
-        val pitchDetector = PitchDetectionTarso()
+        val pitchDetector = PitchDetectionTarso() // Make sure to import this class
         Log.i("TAG", "startRecording: PitchInHertz : " + pitchDetector.lastResult.pitch)
 
         // Initialize MediaRecorder
         mediaRecorder = MediaRecorder()
-        mediaRecorder!!.setAudioSource(MediaRecorder.AudioSource.MIC)
-        mediaRecorder!!.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
+        mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
+        mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
 
         // Create a unique file name for each recording (e.g., timestamp)
         val audioFileName = "audio_" + System.currentTimeMillis() + ".wav"
         // Save the audio file name for later use
-        currentAudioFileName = audioFileName // Declare this variable at the class level
-        mediaRecorder!!.setOutputFile(getOutputFilePath(audioFileName)) // Use a local path for recording
-        mediaRecorder!!.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+        currentAudioFileName = audioFileName
+        mediaRecorder?.setOutputFile(getOutputFilePath(audioFileName))
+        mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
         try {
-            mediaRecorder!!.prepare()
-            mediaRecorder!!.start() // Start recording
+            mediaRecorder?.prepare()
+            mediaRecorder?.start()
             startTime = SystemClock.uptimeMillis()
             handler.postDelayed(updateTimerThread, 1000)
             isRecording = true
         } catch (e: Exception) {
             Log.d("TAG", "startRecording: " + e.localizedMessage)
-            // Handle the exception (e.g., display an error message to the user)
         }
     }
 
     private fun getOutputFilePath(fileName: String?): String {
-        return Constants.createTempFolder() + "/" + fileName
+        return File(tempFolder, fileName).absolutePath
     }
 
-    // Later in your code, when you want to save the recorded audio to Firebase Storage:
     private fun saveAudioToFirebaseStorage() {
-        // Upload the recorded audio to Firebase Storage
         val localFilePath = getOutputFilePath(currentAudioFileName)
-        val audioRef = FirebaseStorage.getInstance().reference.child("recordings").child(
-            currentAudioFileName!!
-        )
+        val audioRef = storage?.reference?.child("recordings")?.child(currentAudioFileName!!)
         val file = Uri.fromFile(File(localFilePath))
-        val uploadTask = audioRef.putFile(file)
-        uploadTask.addOnSuccessListener { taskSnapshot: UploadTask.TaskSnapshot ->
-            // Audio upload successful
-            // You can store the Firebase Storage URL in Firestore or perform other actions
-            val downloadUrl = taskSnapshot.metadata!!.reference!!.downloadUrl.toString()
+        val uploadTask = audioRef?.putFile(file)
+        uploadTask?.addOnSuccessListener { taskSnapshot: UploadTask.TaskSnapshot ->
+            val downloadUrl = taskSnapshot.metadata?.reference?.downloadUrl.toString()
+            saveRecordingDataToFirestore(downloadUrl)
+        }?.addOnFailureListener { exception: Exception ->
+            Log.d("TAG", "saveAudioToFirebaseStorage: onFailure: " + exception.localizedMessage)
         }
-            .addOnFailureListener { exception: Exception ->
-                // Handle failed upload
-                Log.d(
-                    "TAG",
-                    "saveAudioToFirebaseStorage: on Failure Called " + exception.localizedMessage
-                )
-            }
-        val df = firestore!!.collection("recordingsData").document(
-            currentAudioFileName!!
-        )
-        val data: MutableMap<String, Any?> = HashMap()
-        data["time"] = timeString
-        data["pitch"] = pitchValue
-        data["Loudness"] = loudnessValue
-        df.set(data).addOnSuccessListener { unused: Void? ->
-            Log.d(
-                "TAG",
-                "saveAudioToFirebaseStorage: inner on Success"
+    }
+
+    private fun saveRecordingDataToFirestore(audioUrl: String?) {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        if (userId != null) {
+            val userDocRef = firestore?.collection("users")?.document(userId)
+            val userRecordingData = hashMapOf(
+                "timestamp" to System.currentTimeMillis(),
+                "audio_url" to audioUrl,
+                // Add user information and check letter data here
             )
+            userDocRef?.collection("recordings")?.add(userRecordingData)
+                ?.addOnSuccessListener { documentReference ->
+                    Log.d("TAG", "saveRecordingDataToFirestore: DocumentSnapshot added with ID: ${documentReference.id}")
+                }?.addOnFailureListener { e ->
+                    Log.d("TAG", "saveRecordingDataToFirestore: Error adding document: ${e.localizedMessage}")
+                }
         }
-            .addOnFailureListener { e: Exception ->
-                Log.d(
-                    "TAG",
-                    "saveAudioToFirebaseStorage: EXCEp " + e.localizedMessage
-                )
-            }
+    }
+
+    private fun createTempFolder(): File {
+        val folder = File(cacheDir, "audio_temp")
+        if (!folder.exists()) {
+            folder.mkdir()
+        }
+        return folder
     }
 
     companion object {
