@@ -23,7 +23,9 @@ import java.util.Random
 
 
 
-class DashboardActivity : AppCompatActivity() {
+class DashboardActivitycan : AppCompatActivity() {
+
+
     var storage: FirebaseStorage? = null
     var currentAudioFileName: String? = null
     var timeString: String? = null
@@ -60,11 +62,15 @@ class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.record)
+        setContentView(R.layout.activity_page10)
         btnRecord = findViewById<Button>(R.id.btnRecord)
         tvDuration = findViewById(R.id.tvDuration)
         lottieAnimationView = findViewById(R.id.lottie_animation_view)
         firestore = FirebaseFirestore.getInstance()
+
+
+
+
         btnRecord.setOnClickListener {
             Constants.createTempFolder()
             if (isRecording) {
@@ -77,11 +83,13 @@ class DashboardActivity : AppCompatActivity() {
         btnShowFiles.setOnClickListener { view: View? ->
             startActivity(
                 Intent(
-                    this@DashboardActivity,
+                    this@DashboardActivitycan,
                     DisplayAudioFilesActivity::class.java
                 )
             )
         }
+
+
     }
 
     private fun stopRecording() {
