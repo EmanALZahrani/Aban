@@ -4,64 +4,167 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ggreenbackground"
+
     tools:context=".DashboardActivity">
 
+    <!--Lottie Animation-->
 
-    <!--    Lottie Animation-->
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottie_animation_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="40dp"
-        android:padding="40dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/btnRecord"
+    <!--    Start Recording Btn-->
+
+    <!--    Duration Tv-->
+
+    <!--    View Saved Ones -->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView5"
+        android:layout_width="343dp"
+        android:layout_height="198dp"
+        app:cardBackgroundColor="#C8FFFFFF"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/lottie_animation_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.804"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/textView1"
+            style="@style/Widget.AppCompat.TextView.SpinnerItem"
+            android:layout_width="wrap_content"
+            android:layout_height="157dp"
+            android:gravity="bottom|clip_horizontal|center|clip_vertical|start|right|center_horizontal|fill|fill_horizontal|top|left|center_vertical|fill_vertical|end"
+            android:text="العِلم نور يُنير دُروب الجهل ويمهد طريق الانفتاح والتطور للأمم والمجتمعات "
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textDirection="locale"
+            android:textSize="28sp"
+            android:typeface="monospace" />
+    </androidx.cardview.widget.CardView>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_animation_view"
+        android:layout_width="279dp"
+        android:layout_height="98dp"
+        android:layout_marginBottom="360dp"
+        android:padding="40dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_rawRes="@raw/animation_wave"
         tools:background="@drawable/button_bg_on"
         tools:visibility="visible" />
 
-    <!--    Start Recording Btn-->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnRecord"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
+        android:layout_marginBottom="252dp"
         android:background="@drawable/button_bg_off"
-        android:text="Start Recording"
+        android:text="ابدأ التسجيل"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/tvDuration"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.65"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <!--    Duration Tv-->
     <TextView
         android:id="@+id/tvDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Duration: 0:00"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnRecord"
-        app:layout_constraintStart_toStartOf="@+id/btnRecord"
-        app:layout_constraintTop_toBottomOf="@+id/btnRecord" />
+        app:layout_constraintBottom_toTopOf="@+id/btnRecord"
+        app:layout_constraintTop_toBottomOf="@+id/lottie_animation_view"
+        tools:layout_editor_absoluteX="162dp"
+        tools:ignore="MissingConstraints" />
 
-    <!--    View Saved Ones -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnShowFiles"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="20dp"
         android:background="@drawable/button_bg_off"
         android:backgroundTint="#03A9F4"
-        android:text="View list of Saved Files"
+        android:text="اعرض النتيجة"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnRecord" />
+        app:layout_constraintTop_toBottomOf="@+id/btnRecord"
+        app:layout_constraintVertical_bias="0.215" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="417dp"
+        android:layout_height="64dp"
+        android:background="#BA2E5E30"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/account"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:backgroundTint="#002E8B57"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toStartOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="0.154"
+        app:layout_constraintStart_toStartOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.461"
+        app:srcCompat="@drawable/account"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="التشخيص"
+        android:textColor="#F4EBEB"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="69dp"
+        android:layout_height="31dp"
+        android:backgroundTint="#002E8B57"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar"
+        app:layout_constraintHorizontal_bias="0.771"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/arrow"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="قم بتسجيل صوتك وانت تقراء النص التالي "
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/cardView5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.461" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
