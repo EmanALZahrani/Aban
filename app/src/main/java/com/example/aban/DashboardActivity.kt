@@ -1,4 +1,4 @@
-package com.example.aban.risibleapps.myapplication.ui
+package com.example.aban
 
 import android.content.Intent
 import android.media.MediaRecorder
@@ -13,9 +13,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.airbnb.lottie.LottieAnimationView
-import com.example.aban.R
-import com.example.aban.risibleapps.myapplication.utils.Constants
-import com.example.aban.risibleapps.myapplication.utils.PitchDetectionTarso
+import com.example.aban.utils.Constants
+import com.example.aban.utils.PitchDetectionTarso
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask

@@ -1,4 +1,4 @@
-package com.example.aban.risibleapps.myapplication.utils
+package com.example.aban.utils
 
 import be.tarsos.dsp.AudioEvent
 import be.tarsos.dsp.AudioProcessor

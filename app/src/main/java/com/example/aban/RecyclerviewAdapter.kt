@@ -1,4 +1,4 @@
-package com.example.aban.risibleapps.myapplication.adapter
+package com.example.aban
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.aban.R
-import com.example.aban.risibleapps.myapplication.model.AudioModelClass
+import com.example.aban.model.AudioModelClass
 
 
 internal class RecyclerviewAdapter(var list: List<AudioModelClass>) : RecyclerView.Adapter<RecyclerviewAdapter.viewholder>() {

@@ -1,4 +1,4 @@
-package com.example.aban.risibleapps.myapplication.ui
+package com.example.aban
 
 import android.os.AsyncTask
 import android.os.Bundle
@@ -10,10 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.aban.R
 import com.example.aban.databinding.ActivityRecyclerviewBinding
-import com.example.aban.risibleapps.myapplication.adapter.RecyclerviewAdapter
-import com.example.aban.risibleapps.myapplication.model.AudioModelClass
+import com.example.aban.model.AudioModelClass
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore

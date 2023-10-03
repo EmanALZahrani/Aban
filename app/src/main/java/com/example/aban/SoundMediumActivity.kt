@@ -1,4 +1,4 @@
-package com.example.aban.risibleapps.myapplication.ui
+package com.example.aban
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,6 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import com.airbnb.lottie.LottieAnimationView
-import com.example.aban.R
 
 class SoundMediumActivity : AppCompatActivity() {
     private lateinit var nextButton: AppCompatButton

@@ -1,4 +1,4 @@
-package com.example.aban.risibleapps.myapplication.model
+package com.example.aban.model
 
 import android.service.notification.Condition
 

@@ -1,4 +1,4 @@
-package com.example.aban.risibleapps.myapplication
+package com.example.aban
 
 
 class Application : android.app.Application() {
