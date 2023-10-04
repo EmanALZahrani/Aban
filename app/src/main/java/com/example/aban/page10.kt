@@ -18,10 +18,11 @@ class page10 : AppCompatActivity() {
         setContentView(R.layout.activity_page10)
         setContentView(binding.root)
 
+        next()
         back()
         acc()
 
-     /*   val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+       /* val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
         // استعراض كلمات وحروف من Firebase Firestore
         val wordsCollection = db.collection("words")
@@ -91,6 +92,13 @@ class page10 : AppCompatActivity() {
         }
     }
 
+    private fun next() {
+        binding.apply {
+            btnNext.setOnClickListener() {
+                startActivity(Intent(this@page10, LevelOne::class.java))
+            }
+        }
+    }
 
     private fun acc() {
         binding.apply {

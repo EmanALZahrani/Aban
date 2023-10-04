@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseUser
 class LogIn : AppCompatActivity() {
 
     private lateinit var binding: LoginBinding
-    private lateinit var username: EditText
+    private lateinit var email: EditText
     private lateinit var password: EditText
     private lateinit var loginButton: Button
     private lateinit var sharedPreferences: SharedPreferences
@@ -30,8 +30,17 @@ class LogIn : AppCompatActivity() {
         // Initialize Firebase Authentication
         auth = FirebaseAuth.getInstance()
 
+        // Check if the user is already authenticated
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            // User is already logged in, navigate to the main activity
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish() // Finish the login activity
+        }
+
         // Initialize UI components
-        username = binding.username
+        email = binding.email
         password = binding.password
         loginButton = binding.loginButton
 
@@ -40,7 +49,7 @@ class LogIn : AppCompatActivity() {
 
         // Set click listener for the login button
         loginButton.setOnClickListener {
-            val enteredUsername = username.text.toString()
+            val enteredUsername = email.text.toString()
             val enteredPassword = password.text.toString()
 
             // Authenticate the user with Firebase
@@ -55,15 +64,16 @@ class LogIn : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
 
-                        // Navigate to the Check Letter activity
-                        val intent = Intent(this, Checkletter::class.java)
+                        // Navigate to the main activity
+                        val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                         finish() // Finish the login activity
                     } else {
-                        // Login failed
+                        // Login failed, display the error message
+                        val errorMessage = task.exception?.message
                         Toast.makeText(
                             this,
-                            "Login Failed. Please check your credentials.",
+                            "Login Failed: $errorMessage",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
