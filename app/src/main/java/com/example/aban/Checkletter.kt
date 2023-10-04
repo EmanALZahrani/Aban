@@ -1,13 +1,14 @@
+// Checkletter.kt
 package com.example.aban
 
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.example.aban.databinding.CheckletterBinding
 import android.widget.CheckBox
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.example.aban.databinding.CheckletterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions

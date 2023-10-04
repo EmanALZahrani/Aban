@@ -1,4 +1,5 @@
 package com.example.aban
+
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -12,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
     private lateinit var username: EditText
     private lateinit var phone: EditText
@@ -39,19 +41,17 @@ class MainActivity : AppCompatActivity() {
         password = binding.password
         confirmPassword = binding.confirmPassword
         signupButton = binding.SignUpButton
-
-        // Initialize UI components
         signinButton = binding.SigninButton
-
-        // Set click listener for the "Sign In" button
-        signinButton.setOnClickListener {
-            // Navigate to the login page (replace Login::class.java with your actual login activity)
-            val intent = Intent(this, LogIn::class.java)
-            startActivity(intent)
-        }
 
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+
+        // Set click listener for the "Sign In" button
+        signinButton.setOnClickListener {
+            // Navigate to the login page (replace LogIn::class.java with your actual login activity)
+            val intent = Intent(this, LogIn::class.java)
+            startActivity(intent)
+        }
 
         // Set click listener for the sign-up button
         signupButton.setOnClickListener {
@@ -89,6 +89,16 @@ class MainActivity : AppCompatActivity() {
                                     .addOnSuccessListener {
                                         // User data stored successfully
                                         // You can proceed to the next step or show a success message
+                                        // Save the user's email in SharedPreferences
+                                        val editor = sharedPreferences.edit()
+                                        editor.putString("email", enteredEmail)
+                                        editor.apply()
+                                        // Proceed to the next step or show a success message
+                                        Toast.makeText(
+                                            this@MainActivity,
+                                            "Signup Successful!",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                     }
                                     .addOnFailureListener { e ->
                                         // Handle the error
@@ -99,17 +109,6 @@ class MainActivity : AppCompatActivity() {
                                         ).show()
                                     }
                             }
-
-                            // Store the new user's credentials in SharedPreferences (if needed)
-                            // ...
-
-                            // Display a success message
-                            Toast.makeText(this, "Signup Successful!", Toast.LENGTH_SHORT).show()
-
-                            // Navigate to the login page
-                            val intent = Intent(this, LogIn::class.java)
-                            startActivity(intent)
-                            finish() // Finish the sign-up activity to prevent going back to it from the login page
                         } else {
                             // Display an error message
                             Toast.makeText(this, "Signup Failed! Please try again.", Toast.LENGTH_SHORT).show()

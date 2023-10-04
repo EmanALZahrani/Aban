@@ -27,10 +27,8 @@
             android:exported="false" />
         <activity
             android:name=".DisplayAudioFilesActivity"
-            android:exported="false" >
+            android:exported="false" />
 
-
-        </activity>
         <activity
             android:name=".DashboardActivity"
             android:exported="false"/>
@@ -48,7 +46,14 @@
 
         <activity
             android:name=".LogIn"
-            android:exported="false" />
+            android:exported="true" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+
+    </activity>
         <activity
             android:name=".Checkletter"
             android:exported="false" />
@@ -75,14 +80,9 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            tools:ignore="IntentFilterExportedReceiver">
-        <intent-filter>
-    <action android:name="android.intent.action.MAIN" />
+            android:exported="false"
+            tools:ignore="IntentFilterExportedReceiver"/>
 
-    <category android:name="android.intent.category.LAUNCHER" />
-</intent-filter>
-</activity>
 
     </application>
 

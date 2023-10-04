@@ -30,15 +30,6 @@ class LogIn : AppCompatActivity() {
         // Initialize Firebase Authentication
         auth = FirebaseAuth.getInstance()
 
-        // Check if the user is already authenticated
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            // User is already logged in, navigate to the main activity
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish() // Finish the login activity
-        }
-
         // Initialize UI components
         email = binding.email
         password = binding.password
@@ -64,16 +55,15 @@ class LogIn : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
 
-                        // Navigate to the main activity
-                        val intent = Intent(this, MainActivity::class.java)
+                        // Navigate to the Check Letter activity
+                        val intent = Intent(this, Checkletter::class.java)
                         startActivity(intent)
                         finish() // Finish the login activity
                     } else {
-                        // Login failed, display the error message
-                        val errorMessage = task.exception?.message
+                        // Login failed
                         Toast.makeText(
                             this,
-                            "Login Failed: $errorMessage",
+                            "Login Failed. Please check your credentials.",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
