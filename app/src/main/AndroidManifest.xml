@@ -27,6 +27,10 @@
         <activity
             android:name=".SoundMediumActivity"
             android:exported="true" />
+
+        <activity
+            android:name=".SoundMediumActivityCan"
+            android:exported="true" />
         <activity
             android:name=".DisplayAudioFilesActivity"
             android:exported="true" >
