@@ -25,6 +25,10 @@ import java.util.Random
 
 
 
+
+
+
+
 class DashboardActivitycan : AppCompatActivity() {
 
     var storage: FirebaseStorage? = null
@@ -138,7 +142,6 @@ class DashboardActivitycan : AppCompatActivity() {
             }
 
 
-
         btnRecord.setOnClickListener {
             Constants.createTempFolder()
             if (isRecording) {
@@ -159,6 +162,9 @@ class DashboardActivitycan : AppCompatActivity() {
 
 
     }
+
+
+
 
     private fun stopRecording() {
         if (isRecording) {
@@ -211,6 +217,7 @@ class DashboardActivitycan : AppCompatActivity() {
         // Start the animation
         lottieAnimationView!!.playAnimation()
 
+
         // ***********************************************************************
 
         // Pitch detection on runtime
@@ -238,6 +245,8 @@ class DashboardActivitycan : AppCompatActivity() {
             Log.d("TAG", "startRecording: " + e.localizedMessage)
             // Handle the exception (e.g., display an error message to the user)
         }
+
+
     }
 
     private fun getOutputFilePath(fileName: String?): String {
