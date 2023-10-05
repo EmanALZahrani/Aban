@@ -16,18 +16,28 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import com.airbnb.lottie.LottieAnimationView
 import com.example.aban.utils.PitchDetectionTarso
+import com.google.android.gms.common.internal.safeparcel.SafeParcelReader.readByte
+import com.google.common.io.ByteStreams.readBytes
+import com.google.common.net.MediaType
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import okhttp3.Call
 import okhttp3.Callback
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody
 import okhttp3.Response
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileInputStream
 import java.io.IOException
+import java.io.InputStream
+import java.util.Arrays
 import java.util.Random
+
 
 class DashboardActivity : AppCompatActivity() {
     private var storage: FirebaseStorage? = null
@@ -62,37 +72,7 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
-    private fun accessFlaskServer() {
-        val url = "https://aban-app-521459a5fe97.herokuapp.com/predict"
 
-        // Create a request with the URL
-        val request = Request.Builder().url(url).build()
-
-        okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                // Handle failure (e.g., network error)
-                e.printStackTrace()
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                // Check if the response was successful (HTTP status code 200)
-                if (response.isSuccessful) {
-                    try {
-                        val responseBody = response.body?.string()// Read the response body as a string
-                        // Now you can use responseBody to update your TextView
-                        val resultTextView = findViewById<AppCompatTextView>(R.id.resultidtxt)
-                        resultTextView.text = responseBody
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                        // Handle error while reading the response body
-                    }
-                } else {
-                    // Handle non-successful response (e.g., HTTP status code is not 200)
-                    // You can check response.code() for the HTTP status code
-                }
-            }
-        })
-    }
 
 
         // Declare a variable to store the temporary folder
@@ -138,7 +118,46 @@ class DashboardActivity : AppCompatActivity() {
             )
         }
     }
+    private fun startRecording() {
+        // Ensure that the MediaRecorder is not already recording
+        if (isRecording) {
+            return
+        }
+        btnRecord.text = "Recording Audio .."
+        btnRecord.background = getDrawable(R.drawable.button_bg_off)
 
+        // Lottie animation
+        lottieAnimationView?.visibility = View.VISIBLE
+        lottieAnimationView?.setAnimation(R.raw.animation_wave)
+        lottieAnimationView?.speed = 1f
+        lottieAnimationView?.loop(true)
+        lottieAnimationView?.playAnimation()
+
+        // Pitch detection on runtime
+        val pitchDetector = PitchDetectionTarso() // Make sure to import this class
+        Log.i("TAG", "startRecording: PitchInHertz : " + pitchDetector.lastResult.pitch)
+
+        // Initialize MediaRecorder
+        mediaRecorder = MediaRecorder()
+        mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
+        mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
+
+        // Create a unique file name for each recording (e.g., timestamp)
+        val audioFileName = "audio_" + System.currentTimeMillis() + ".wav"
+        // Save the audio file name for later use
+        currentAudioFileName = audioFileName
+        mediaRecorder?.setOutputFile(getOutputFilePath(audioFileName))
+        mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+        try {
+            mediaRecorder?.prepare()
+            mediaRecorder?.start()
+            startTime = SystemClock.uptimeMillis()
+            handler.postDelayed(updateTimerThread, 1000)
+            isRecording = true
+        } catch (e: Exception) {
+            Log.d("TAG", "startRecording: " + e.localizedMessage)
+        }
+    }
     private fun stopRecording() {
         if (isRecording) {
             btnRecord.text = "Recording Audio Stopped"
@@ -164,46 +183,7 @@ class DashboardActivity : AppCompatActivity() {
             intent.putExtra("loudnessIntent", "$loudnessValue %")
         }
     }
-    private fun startRecording() {
-    // Ensure that the MediaRecorder is not already recording
-    if (isRecording) {
-        return
-    }
-    btnRecord.text = "Recording Audio .."
-    btnRecord.background = getDrawable(R.drawable.button_bg_off)
 
-    // Lottie animation
-    lottieAnimationView?.visibility = View.VISIBLE
-    lottieAnimationView?.setAnimation(R.raw.animation_wave)
-    lottieAnimationView?.speed = 1f
-    lottieAnimationView?.loop(true)
-    lottieAnimationView?.playAnimation()
-
-    // Pitch detection on runtime
-    val pitchDetector = PitchDetectionTarso() // Make sure to import this class
-    Log.i("TAG", "startRecording: PitchInHertz : " + pitchDetector.lastResult.pitch)
-
-    // Initialize MediaRecorder
-    mediaRecorder = MediaRecorder()
-    mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
-    mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
-
-    // Create a unique file name for each recording (e.g., timestamp)
-    val audioFileName = "audio_" + System.currentTimeMillis() + ".wav"
-    // Save the audio file name for later use
-    currentAudioFileName = audioFileName
-    mediaRecorder?.setOutputFile(getOutputFilePath(audioFileName))
-    mediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
-    try {
-        mediaRecorder?.prepare()
-        mediaRecorder?.start()
-        startTime = SystemClock.uptimeMillis()
-        handler.postDelayed(updateTimerThread, 1000)
-        isRecording = true
-    } catch (e: Exception) {
-        Log.d("TAG", "startRecording: " + e.localizedMessage)
-    }
-}
 
 private fun getOutputFilePath(fileName: String?): String {
     return File(tempFolder, fileName).absolutePath
@@ -239,8 +219,57 @@ private fun saveRecordingDataToFirestore(audioUrl: String?) {
             }
     }
 }
+    private fun accessFlaskServer() {
+        val url = "https://aban-app-521459a5fe97.herokuapp.com/predict"
 
-private fun createTempFolder(): File {
+        // Create a request with the URL
+        val request = Request.Builder().url(url).build()
+
+        okHttpClient.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                // Handle failure (e.g., network error)
+                e.printStackTrace()
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                // Check if the response was successful (HTTP status code 200)
+                if (response.isSuccessful) {
+                    try {
+                        val responseBody = response.body?.string()// Read the response body as a string
+
+                        val postBodyAudio = MultipartBody.Builder()
+                            .setType(MultipartBody.FORM)
+                            .addFormDataPart("audio", "testRecordingFile.wav", RequestBody.create(getFileBytes(),MediaType.parse("audio/*wav")))
+                            .build()
+
+
+                        // Now you can use responseBody to update your TextView
+                        val resultTextView = findViewById<AppCompatTextView>(R.id.resultidtxt)
+                        resultTextView.text = responseBody
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                        // Handle error while reading the response body
+                    }
+                } else {
+                    // Handle non-successful response (e.g., HTTP status code is not 200)
+                    // You can check response.code() for the HTTP status code
+                }
+            }
+        })
+    }
+    fun getFileBytes(inputStream: InputStream): ByteArray {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        val buffer = ByteArray(0xFFFF)
+        var len: Int
+        while (inputStream.read(buffer).also { len = it } != -1) {
+            byteArrayOutputStream.write(buffer, 0, len)
+        }
+        return byteArrayOutputStream.toByteArray()
+    }
+
+
+
+    private fun createTempFolder(): File {
     val folder = File(cacheDir, "audio_temp")
     if (!folder.exists()) {
         folder.mkdir()
