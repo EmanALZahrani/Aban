@@ -61,7 +61,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun accessFlaskServer() {
-        val url = "https://your-flask-server-url.com/predict"
+        val url = "https://aban-app-521459a5fe97.herokuapp.com/predict"
 
         // Create a request with the URL
         val request = Request.Builder().url(url).build()
