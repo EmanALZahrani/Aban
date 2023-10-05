@@ -65,7 +65,7 @@ class Checkletter : AppCompatActivity() {
                                     ).show()
 
                                     // Start the Diagnosis activity
-                                    val intent = Intent(this@Checkletter, DashboardActivitycan::class.java)
+                                    val intent = Intent(this@Checkletter, DashboardActivity::class.java)
                                     startActivity(intent)
                                 }
                                 .addOnFailureListener { e ->
