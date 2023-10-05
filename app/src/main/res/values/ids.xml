@@ -6,4 +6,5 @@
     <item name="button3" type="id" />
     <item name="backBtn" type="id" />
     <item name="accountBtn" type="id" />
+
 </resources>

@@ -185,7 +185,7 @@ class DashboardActivitycan : AppCompatActivity() {
             saveAudioToFirebaseStorage()
 
             // Starting Medium activity
-            val intent = Intent(this, SoundMediumActivity::class.java)
+            val intent = Intent(this, SoundMediumActivityCan::class.java)
             intent.putExtra("pitchIntent", "$pitchValue Hrtz")
             intent.putExtra("durationIntent", timeString)
             intent.putExtra("loudnessIntent", "$loudnessValue %")

@@ -20,12 +20,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
-import java.io.File
-import java.util.Random
+import okhttp3.Call
+import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.*
+import okhttp3.Response
+import java.io.File
 import java.io.IOException
+import java.util.Random
 
 class DashboardActivity : AppCompatActivity() {
     private var storage: FirebaseStorage? = null
@@ -78,7 +80,7 @@ class DashboardActivity : AppCompatActivity() {
                     try {
                         val responseBody = response.body?.string()// Read the response body as a string
                         // Now you can use responseBody to update your TextView
-                        val resultTextView = findViewById<AppCompatTextView>(R.id.resultid)
+                        val resultTextView = findViewById<AppCompatTextView>(R.id.resultidtxt)
                         resultTextView.text = responseBody
                     } catch (e: IOException) {
                         e.printStackTrace()
@@ -154,6 +156,12 @@ class DashboardActivity : AppCompatActivity() {
             pitchValue = randInt(85, 300).toString()
             loudnessValue = randInt(10, 95).toString()
             saveAudioToFirebaseStorage()
+
+            // Starting Medium activity
+            val intent = Intent(this, SoundMediumActivity::class.java)
+            intent.putExtra("pitchIntent", "$pitchValue Hrtz")
+            intent.putExtra("durationIntent", timeString)
+            intent.putExtra("loudnessIntent", "$loudnessValue %")
         }
     }
     private fun startRecording() {
