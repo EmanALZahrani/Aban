@@ -9,6 +9,7 @@ import android.os.SystemClock
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
@@ -67,6 +68,15 @@ class DashboardActivity : AppCompatActivity() {
 
         // Create the temporary folder and store the reference
         tempFolder = createTempFolder()
+
+        val button6 = findViewById<ImageButton>(R.id.back)
+        button6.setOnClickListener {
+            val intent = Intent(this@DashboardActivity, MainActivity::class.java)
+            startActivity(intent)}
+        val button7 = findViewById<ImageButton>(R.id.account)
+        button7.setOnClickListener {
+            val intent1 = Intent(this@DashboardActivity,page12 ::class.java)
+            startActivity(intent1)}
 
         btnRecord.setOnClickListener {
             if (isRecording) {

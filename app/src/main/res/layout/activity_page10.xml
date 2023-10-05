@@ -22,9 +22,9 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
-        android:id="@+id/account"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
+        android:id="@+id/accountBtn"
+        android:layout_width="75dp"
+        android:layout_height="38dp"
         android:backgroundTint="#002E8B57"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toStartOf="@+id/textView"
@@ -48,7 +48,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/back"
+        android:id="@+id/backBtn"
         android:layout_width="69dp"
         android:layout_height="31dp"
         android:backgroundTint="#002E8B57"
@@ -127,7 +127,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:background="@drawable/button_bg_off"
-        android:text="Start Recording"
+        android:text="أبدأ التسجيل"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -157,11 +157,12 @@
         android:id="@+id/tvDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Duration: 0:00"
+        android:text="المدة: 0:00"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btnRecord"
         app:layout_constraintStart_toStartOf="@+id/btnRecord"
-        app:layout_constraintTop_toTopOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.52" />
 
     <!--    View Saved Ones -->
     <androidx.appcompat.widget.AppCompatButton
@@ -171,7 +172,7 @@
         android:layout_marginHorizontal="30dp"
         android:background="@drawable/button_bg_off"
         android:backgroundTint="#03A9F4"
-        android:text="View list of Saved Files"
+        android:text="أعرض النتيجه"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"

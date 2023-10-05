@@ -20,7 +20,7 @@ class page9 : AppCompatActivity() {
     private fun next(){
         binding.apply {
             btnStart.setOnClickListener(){
-                startActivity(Intent(this@page9,page10::class.java))
+                startActivity(Intent(this@page9,DashboardActivitycan::class.java))
             }
         }
     }

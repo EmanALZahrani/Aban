@@ -1,13 +1,7 @@
 package com.example.aban
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import android.widget.ImageButton
-import java.io.BufferedReader
-import java.io.InputStreamReader
 
 
 class Diagnosis : AppCompatActivity() {
@@ -17,7 +11,7 @@ class Diagnosis : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dignosis)
         //Connect next button
-        val button = findViewById<Button>(R.id.button4)
+    /*    val button = findViewById<Button>(R.id.button4)
         button.setOnClickListener {
             val intent = Intent(this@Diagnosis, ResultActivity::class.java)
             startActivity(intent)
@@ -40,10 +34,10 @@ class Diagnosis : AppCompatActivity() {
         val bt = findViewById<Button>(R.id.requred)
         bt.setOnClickListener {
             startRecording()
-        }
+        */}
 
-    }
 
+        /*
     private fun startRecording() {
         // Call your Python code here to start recording audio
         val process = Runtime.getRuntime().exec("python C:/Users/dell/audio.py")
@@ -63,7 +57,7 @@ class Diagnosis : AppCompatActivity() {
             Log.e("Diagnosis", "Python script exited with code $exitCode")
         }
 
-    }
+    }*/
 
 
 }

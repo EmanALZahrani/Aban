@@ -1,6 +1,5 @@
 package com.example.aban
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -17,11 +16,11 @@ class page10 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_page10)
         setContentView(binding.root)
-
+/*
         back()
         acc()
 
-       /* val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+        val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
         // استعراض كلمات وحروف من Firebase Firestore
         val wordsCollection = db.collection("words")
@@ -82,7 +81,7 @@ class page10 : AppCompatActivity() {
 
 
 
-
+/*
     private fun back() {
         binding.apply {
             back.setOnClickListener() {
@@ -99,5 +98,5 @@ class page10 : AppCompatActivity() {
                 startActivity(Intent(this@page10, page12::class.java))
             }
         }
-    }
+    }*/
 }

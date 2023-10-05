@@ -9,12 +9,14 @@ import android.os.SystemClock
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.airbnb.lottie.LottieAnimationView
 import com.example.aban.utils.Constants
 import com.example.aban.utils.PitchDetectionTarso
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
@@ -24,7 +26,6 @@ import java.util.Random
 
 
 class DashboardActivitycan : AppCompatActivity() {
-
 
     var storage: FirebaseStorage? = null
     var currentAudioFileName: String? = null
@@ -41,7 +42,8 @@ class DashboardActivitycan : AppCompatActivity() {
     private var seconds = 0
     private var timeInMilliseconds: Long = 0
     private var minutes = 0
-
+    private lateinit var userChar: String // الحرف المختار من قبل المستخدم
+    private lateinit var Word: TextView // TextView لعرض الكلمة
     private lateinit var btnRecord: Button
 
 
@@ -68,6 +70,72 @@ class DashboardActivitycan : AppCompatActivity() {
         lottieAnimationView = findViewById(R.id.lottie_animation_view)
         firestore = FirebaseFirestore.getInstance()
 
+
+        val button6 = findViewById<ImageButton>(R.id.backBtn)
+        button6.setOnClickListener {
+            val intent = Intent(this@DashboardActivitycan, LevelOne::class.java)
+            startActivity(intent)}
+        val button7 = findViewById<ImageButton>(R.id.accountBtn)
+        button7.setOnClickListener {
+            val intent1 = Intent(this@DashboardActivitycan,page12 ::class.java)
+            startActivity(intent1)}
+
+        val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+
+        // استعراض كلمات وحروف من Firebase Firestore
+        val wordsCollection = db.collection("words")
+        val currentUser = FirebaseAuth.getInstance().currentUser
+
+// Check if a user is signed in
+        if (currentUser != null) {
+            // Assuming your user documents are stored in a "users" collection
+            val db = FirebaseFirestore.getInstance()
+            val usersCollection = db.collection("users")
+
+            // Get the current user's document
+            val userId = currentUser.uid
+
+            usersCollection.document(userId).get()
+                .addOnSuccessListener { documentSnapshot ->
+                    if (documentSnapshot.exists()) {
+                        // Retrieve the character field from the user's document
+                        val userChar = documentSnapshot.getString("selected_characters")
+
+                        if (userChar != null) {
+                            // Use the character value as needed
+                            // Now you have the current user's character
+                        } else {
+                            // Handle the case where "character" field is null
+                        }
+                    } else {
+                        // Handle the case where the user's document doesn't exist
+                    }
+                }
+                .addOnFailureListener {
+                    // Handle any errors that occur during the retrieval
+                }
+        } else {
+            // User is not signed in, handle accordingly
+        }
+
+
+
+        // قم بالبحث عن الحرف المطابق في مجموعة الكلمات والحروف
+        wordsCollection.document(userChar).get()
+            .addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists()) {
+                    val wordsList = documentSnapshot.get("words") as List<String>
+                    // عرض كلمة عشوائية في TextView
+                    val random = Random()
+                    val randomWord = wordsList[random.nextInt(wordsList.size)]
+                    Word.text = randomWord
+                } else {
+                    Word.text = "لا توجد كلمات متاحة لهذا الحرف."
+                }
+            }
+            .addOnFailureListener { exception ->
+                Word.text = "حدث خطأ: ${exception.message}"
+            }
 
 
 

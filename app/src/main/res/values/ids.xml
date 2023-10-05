@@ -4,4 +4,6 @@
     <item name="button15" type="id" />
     <item name="button2" type="id" />
     <item name="button3" type="id" />
+    <item name="backBtn" type="id" />
+    <item name="accountBtn" type="id" />
 </resources>

@@ -13,7 +13,7 @@ class ResultActivity : AppCompatActivity() {
         //Connect the -> with the تشخيص page
         val button2 = findViewById<ImageButton>(R.id.back);
         button2.setOnClickListener {
-            val intent = Intent(this@ResultActivity, Diagnosis::class.java)
+            val intent = Intent(this@ResultActivity, DashboardActivity::class.java)
             startActivity(intent)
         }
         //Connect next button with levels page
