@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatTextView
 import com.airbnb.lottie.LottieAnimationView
 import com.example.aban.utils.PitchDetectionTarso
 import com.google.firebase.auth.FirebaseAuth
@@ -20,6 +21,10 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import java.io.File
 import java.util.Random
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.*
+import java.io.IOException
 
 class DashboardActivity : AppCompatActivity() {
     private var storage: FirebaseStorage? = null
@@ -37,6 +42,7 @@ class DashboardActivity : AppCompatActivity() {
     private var seconds = 0
     private var timeInMilliseconds: Long = 0
     private var minutes = 0
+    private val okHttpClient = OkHttpClient()
 
     private lateinit var btnRecord: Button
 
@@ -53,7 +59,40 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
-    // Declare a variable to store the temporary folder
+    private fun accessFlaskServer() {
+        val url = "https://your-flask-server-url.com/predict"
+
+        // Create a request with the URL
+        val request = Request.Builder().url(url).build()
+
+        okHttpClient.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                // Handle failure (e.g., network error)
+                e.printStackTrace()
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                // Check if the response was successful (HTTP status code 200)
+                if (response.isSuccessful) {
+                    try {
+                        val responseBody = response.body?.string()// Read the response body as a string
+                        // Now you can use responseBody to update your TextView
+                        val resultTextView = findViewById<AppCompatTextView>(R.id.resultid)
+                        resultTextView.text = responseBody
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                        // Handle error while reading the response body
+                    }
+                } else {
+                    // Handle non-successful response (e.g., HTTP status code is not 200)
+                    // You can check response.code() for the HTTP status code
+                }
+            }
+        })
+    }
+
+
+        // Declare a variable to store the temporary folder
     private lateinit var tempFolder: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,6 +110,7 @@ class DashboardActivity : AppCompatActivity() {
         btnRecord.setOnClickListener {
             if (isRecording) {
                 stopRecording()
+                accessFlaskServer()
             } else {
                 startRecording()
             }

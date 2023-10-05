@@ -11,6 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.aban.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import okhttp3.OkHttpClient
+import okhttp3.Request
+
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
