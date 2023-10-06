@@ -1,6 +1,8 @@
 package com.example.aban
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Bundle
@@ -47,7 +49,7 @@ class Diagnosis : AppCompatActivity() {
     private val okHttpClient = OkHttpClient()
 
     private lateinit var btnRecord: Button
-
+    private lateinit var sharedPreferences: SharedPreferences
 
     private val updateTimerThread: Runnable = object : Runnable {
         override fun run() {
@@ -100,7 +102,20 @@ class Diagnosis : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.diagnosis)
-        btnRecord = findViewById<Button>(R.id.btnRecord)
+        sharedPreferences = getSharedPreferences("userSharedPreferences", Context.MODE_PRIVATE)
+        if (hasRecordedVoice()) {
+            // The user has already recorded their voice, so we don't show the activity again.
+            val intent = Intent(this, Levels::class.java)
+            startActivity(intent)
+            finish()
+        } else {
+            // Show the activity and allow the user to record their voice.
+            setContentView(R.layout.diagnosis)
+
+        }
+
+
+    btnRecord = findViewById<Button>(R.id.btnRecord)
         tvDuration = findViewById(R.id.tvDuration)
         lottieAnimationView = findViewById(R.id.lottie_animation_view)
         storage = FirebaseStorage.getInstance()
@@ -137,7 +152,9 @@ class Diagnosis : AppCompatActivity() {
             )
         }*/
     }
-
+    private fun hasRecordedVoice(): Boolean {
+        return sharedPreferences.getBoolean("hasRecordedVoice", false)
+    }
     private fun stopRecording() {
         if (isRecording) {
             btnRecord.text = "Recording Audio Stopped"
@@ -202,7 +219,12 @@ class Diagnosis : AppCompatActivity() {
     } catch (e: Exception) {
         Log.d("TAG", "startRecording: " + e.localizedMessage)
     }
-}
+        // Update the flag to indicate that the user has recorded their voice.
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("hasRecordedVoice", true)
+        editor.apply()
+
+    }
 
 private fun getOutputFilePath(fileName: String?): String {
     return File(tempFolder, fileName).absolutePath
