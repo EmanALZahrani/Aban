@@ -33,12 +33,11 @@ def predict():
 
         if not contains_sound(audio):
             return jsonify({"error": "لا يوجد صوت سجل مره أخرى"})
-            continue
             
         cleaned_audio = remove_noise(audio)
 
         # Extract features from the audio
-        features = features_extractor(audio, sample_rate)
+        features = features_extractor(cleaned_audio, sample_rate)
 
         # Reshape features for prediction
         features = features.reshape(1, -1)
