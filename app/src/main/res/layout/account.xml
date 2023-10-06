@@ -2,72 +2,87 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/ggreenbackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ggreenbackground"
     tools:context=".account">
-
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="101dp"
-        android:background="@color/green"
+        android:layout_width="417dp"
+        android:layout_height="64dp"
+        android:background="#BA2E5E30"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/profiletext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="الحساب الشخصي"
+        android:textAlignment="center"
+        android:textColor="@color/beige"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteY="29dp" />
+
+    <ImageButton
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="27dp"
+        android:backgroundTint="#002E8B57"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toStartOf="@+id/profiletext"
+        app:layout_constraintHorizontal_bias="0.154"
+        app:layout_constraintStart_toStartOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.461"
+        app:srcCompat="@drawable/ic_menu"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="29dp" />
+
+    <ImageButton
+        android:id="@+id/LogOut"
+        android:layout_width="69dp"
+        android:layout_height="31dp"
+        android:backgroundTint="#002E8B57"
+        app:layout_constraintBottom_toBottomOf="@+id/profiletext"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar"
+        app:layout_constraintHorizontal_bias="0.771"
+        app:layout_constraintStart_toEndOf="@+id/profiletext"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_logout"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="29dp" />
+
+    <Button
+        android:id="@+id/result"
+        android:layout_width="164dp"
+        android:layout_height="71dp"
+        android:layout_marginStart="123dp"
+        android:layout_marginTop="725dp"
+        android:layout_marginEnd="124dp"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="@color/darkgreen"
+        android:text="النتائج"
+        android:textAlignment="center"
+        android:textColor="@color/beige"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="10dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="415dp"
-        android:layout_height="101dp"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteY="29dp">
-
-        <ImageButton
-            android:id="@+id/LogOut"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:backgroundTint="#002E8B57"
-            app:srcCompat="@drawable/ic_logout"
-            tools:ignore="MissingConstraints" />
-
-        <TextView
-            android:id="@+id/profiletext"
-            android:layout_width="171dp"
-            android:layout_height="52dp"
-            android:layout_weight="1"
-            android:text="الحساب الشخصي"
-            android:textAlignment="center"
-            android:textColor="@color/beige"
-            android:textSize="34sp"
-            android:textStyle="bold" />
-
-        <ImageButton
-            android:id="@+id/menu"
-            android:layout_width="wrap_content"
-            android:layout_height="27dp"
-            android:backgroundTint="#002E8B57"
-            app:srcCompat="@drawable/ic_menu"
-            tools:ignore="MissingConstraints" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_weight="1" />
-    </LinearLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/name"
@@ -77,12 +92,12 @@
         app:cardBackgroundColor="#D5FFFFFF"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.774"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.19999999"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.179"
         tools:ignore="MissingConstraints">
 
         <TextView
@@ -110,16 +125,14 @@
         android:id="@+id/age"
         android:layout_width="349dp"
         android:layout_height="89dp"
-        android:layout_margin="30dp"
         app:cardBackgroundColor="#D5FFFFFF"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.36"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.398"
         tools:ignore="MissingConstraints">
 
         <TextView
@@ -147,16 +160,17 @@
         android:id="@+id/phoneno"
         android:layout_width="349dp"
         android:layout_height="89dp"
-        android:layout_margin="30dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="581dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="196dp"
         app:cardBackgroundColor="#D5FFFFFF"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.68"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
         <TextView
@@ -184,16 +198,17 @@
         android:id="@+id/email"
         android:layout_width="349dp"
         android:layout_height="89dp"
-        android:layout_margin="30dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="461dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="316dp"
         app:cardBackgroundColor="#D5FFFFFF"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.52"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
         <TextView
@@ -215,22 +230,7 @@
             android:text="الايميل"
             android:textAlignment="center"
             android:textSize="24sp" />
-    </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/result"
-        android:layout_width="131dp"
-        android:layout_height="49dp"
-        android:background="@drawable/rounded_corners"
-        android:backgroundTint="@color/darkgreen"
-        android:text="النتائج"
-        android:textAlignment="center"
-        android:textColor="@color/beige"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.83" />
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
