@@ -20,21 +20,21 @@
         android:id="@+id/cardView5"
         android:layout_width="343dp"
         android:layout_height="198dp"
+        android:layout_marginTop="140dp"
         app:cardBackgroundColor="#C8FFFFFF"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/lottie_animation_view"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.558"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.804"
         tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/textView1"
             style="@style/Widget.AppCompat.TextView.SpinnerItem"
             android:layout_width="wrap_content"
-            android:layout_height="157dp"
+            android:layout_height="match_parent"
             android:gravity="bottom|clip_horizontal|center|clip_vertical|start|right|center_horizontal|fill|fill_horizontal|top|left|center_vertical|fill_vertical|end"
             android:text="العِلم نور يُنير دُروب الجهل ويمهد طريق الانفتاح والتطور للأمم والمجتمعات "
             android:textAlignment="center"
@@ -44,44 +44,18 @@
             android:typeface="monospace" />
     </androidx.cardview.widget.CardView>
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottie_animation_view"
-        android:layout_width="279dp"
-        android:layout_height="98dp"
-        android:layout_marginBottom="360dp"
-        android:padding="40dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_rawRes="@raw/animation_wave"
-        tools:background="@drawable/button_bg_on"
-        tools:visibility="visible" />
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnRecord"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginBottom="252dp"
+        android:layout_marginBottom="184dp"
         android:background="@drawable/button_bg_off"
         android:text="ابدأ التسجيل"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.65"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tvDuration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="المدة: 0:00"
-        app:layout_constraintBottom_toTopOf="@+id/btnRecord"
-        app:layout_constraintTop_toBottomOf="@+id/lottie_animation_view"
-        tools:layout_editor_absoluteX="162dp"
-        tools:ignore="MissingConstraints" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
