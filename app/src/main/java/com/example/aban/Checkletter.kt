@@ -19,6 +19,7 @@ class Checkletter : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = CheckletterBinding.inflate(layoutInflater)
@@ -29,11 +30,23 @@ class Checkletter : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
+        if (selectedCharacters()) {
+            // The user has already select characters, so we don't show the activity again.
+            val intent = Intent(this, Levels::class.java)
+            startActivity(intent)
+            finish()
+        } else {
+            // Show the activity
+            setContentView(binding.root)
+
+        }
+
         // Continue with your next button logic
         next()
     }
 
     private fun next() {
+
         binding.apply {
             next.setOnClickListener {
                 // Check if at least one character checkbox is checked
@@ -116,7 +129,9 @@ class Checkletter : AppCompatActivity() {
         // None of the character CheckBoxes are checked
         return false
     }
-
+    private fun selectedCharacters(): Boolean {
+        return sharedPreferences.getBoolean("selectedCharacters", false)
+    }
     private fun getSelectedCharacters(): List<String> {
         val selectedCharacters = mutableListOf<String>()
 
@@ -134,6 +149,10 @@ class Checkletter : AppCompatActivity() {
                 selectedCharacters.add(checkBox.text.toString())
             }
         }
+        // Update the flag to indicate that the user select characters.
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("selectedCharacters", true)
+        editor.apply()
 
         return selectedCharacters
     }
