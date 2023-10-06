@@ -27,7 +27,6 @@ class Checkletter : AppCompatActivity() {
 
         // Initialize SharedPreferences, Firebase Auth, and FirebaseFirestore
         sharedPreferences = getSharedPreferences("user_data", Context.MODE_PRIVATE)
-
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
@@ -131,7 +130,7 @@ class Checkletter : AppCompatActivity() {
         return false
     }
     private fun selectedCharacters(): Boolean {
-        return sharedPreferences.getBoolean("user_data", false)
+        return sharedPreferences.getBoolean("selectedCharacters", false)
     }
     private fun getSelectedCharacters(): List<String> {
         val selectedCharacters = mutableListOf<String>()
@@ -152,7 +151,7 @@ class Checkletter : AppCompatActivity() {
         }
         // Update the flag to indicate that the user select characters.
         val editor = sharedPreferences.edit()
-        editor.putBoolean("user_data", true)
+        editor.putBoolean("selectedCharacters", true)
         editor.apply()
 
         return selectedCharacters
