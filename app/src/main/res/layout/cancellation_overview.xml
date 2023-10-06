@@ -2,125 +2,72 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/ggreenbackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ggreenbackground"
     tools:context=".CancellationOverview">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="101dp"
-        android:background="@color/green"
+        android:id="@+id/toolbar3"
+        android:layout_width="417dp"
+        android:layout_height="64dp"
+        android:background="#BA2E5E30"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="33dp" />
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="69dp"
+        android:layout_height="31dp"
+        android:backgroundTint="#002E8B57"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar3"
+        app:layout_constraintHorizontal_bias="0.779"
+        app:layout_constraintStart_toEndOf="@+id/textView9"
+        app:layout_constraintTop_toTopOf="@+id/toolbar3"
+        app:layout_constraintVertical_bias="0.484"
+        app:srcCompat="@drawable/arrow"
+        tools:ignore="MissingConstraints" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:orientation="horizontal">
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="104dp"
+        android:text="المرحلة الاولى : مرحلة الإلغاء"
+        android:textColor="#F4EBEB"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:id="@+id/account"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:backgroundTint="#002E8B57"
-                app:srcCompat="@drawable/account"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="292dp"
-                android:layout_height="63dp"
-                android:text="المرحلة الاولى : مرحلة الإلغاء"
-                android:textAlignment="center"
-                android:textColor="@color/beige"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                tools:ignore="MissingConstraints" />
-
-            <ImageButton
-                android:id="@+id/back"
-                android:layout_width="36dp"
-                android:layout_height="33dp"
-                android:backgroundTint="#002E8B57"
-                app:srcCompat="@drawable/arrow"
-                tools:ignore="MissingConstraints" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="385dp"
-            android:layout_height="445dp"
-            android:orientation="horizontal">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="340dp"
-                android:layout_height="377dp"
-                android:layout_margin="30dp"
-                app:cardBackgroundColor="#C8FFFFFF"
-                app:cardCornerRadius="30dp"
-                app:cardElevation="20dp"
-                tools:ignore="MissingConstraints">
-
-                <TextView
-                    android:id="@+id/textView"
-                    style="@style/Widget.AppCompat.TextView.SpinnerItem"
-                    android:layout_width="340dp"
-                    android:layout_height="380dp"
-                    android:gravity="bottom|clip_horizontal|center|clip_vertical|start|right|center_horizontal|fill|fill_horizontal|top|left|center_vertical|fill_vertical|end"
-                    android:text="في مرحلة الالغاء يهدف التمرين لتخفيف التوتر في نطق الكلمه قم بتكرار الصوت أو المقطع الأول من الكلمة أو الكلمة المفردة أكثر من مرتين مثل\n:(ب ب ب باص)"
-                    android:textAlignment="center"
-                    android:textAllCaps="false"
-                    android:textDirection="locale"
-                    android:textSize="28sp"
-                    android:typeface="monospace" />
-
-            </androidx.cardview.widget.CardView>
-
-            <Space
-                android:layout_width="113dp"
-                android:layout_height="300dp" />
-
-        </LinearLayout>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="80dp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="125dp"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="103dp"
-                android:layout_height="88dp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+    <ImageButton
+        android:id="@+id/account"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:backgroundTint="#002E8B57"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
+        app:layout_constraintEnd_toStartOf="@+id/textView9"
+        app:layout_constraintHorizontal_bias="0.169"
+        app:layout_constraintStart_toStartOf="@+id/toolbar3"
+        app:layout_constraintTop_toTopOf="@+id/toolbar3"
+        app:layout_constraintVertical_bias="0.487"
+        app:srcCompat="@drawable/account"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/btnStart"
-        android:layout_width="197dp"
-        android:layout_height="103dp"
+        android:layout_width="164dp"
+        android:layout_height="71dp"
+        android:layout_marginStart="123dp"
+        android:layout_marginTop="725dp"
+        android:layout_marginEnd="124dp"
+        android:layout_marginBottom="70dp"
         android:background="@drawable/rounded_corners"
         android:backgroundTint="@color/darkgreen"
         android:clickable="true"
@@ -128,11 +75,43 @@
         android:text="أبدأ"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/beige"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.89" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="340dp"
+        android:layout_height="377dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="276dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="213dp"
+        app:cardBackgroundColor="#C8FFFFFF"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/Widget.AppCompat.TextView.SpinnerItem"
+            android:layout_width="340dp"
+            android:layout_height="380dp"
+            android:gravity="bottom|clip_horizontal|center|clip_vertical|start|right|center_horizontal|fill|fill_horizontal|top|left|center_vertical|fill_vertical|end"
+            android:text="في مرحلة الالغاء يهدف التمرين لتخفيف التوتر في نطق الكلمه قم بتكرار الصوت أو المقطع الأول من الكلمة أو الكلمة المفردة أكثر من مرتين مثل\n:(ب ب ب باص)"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textDirection="locale"
+            android:textSize="28sp"
+            android:typeface="monospace" />
+
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
