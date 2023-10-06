@@ -12,18 +12,14 @@
     app:circularflow_radiusInDP="101dp"
     tools:context=".ResultType">
 
-    <androidx.constraintlayout.widget.Group
-        android:layout_width="0dp"
-        android:layout_height="6dp"
-        app:constraint_referenced_ids="imageButton13" />
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar4"
-        android:layout_width="match_parent"
-        android:layout_height="101dp"
+        android:layout_width="417dp"
+        android:layout_height="64dp"
         android:background="#BA2E5E30"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,8 +28,8 @@
 
     <ImageButton
         android:id="@+id/imageButton13"
-        android:layout_width="62dp"
-        android:layout_height="61dp"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
         android:backgroundTint="#022E5E30"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/toolbar4"
@@ -122,24 +118,13 @@
 
     </androidx.cardview.widget.CardView>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="415dp"
-        android:layout_height="169dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.977"
-        app:srcCompat="@drawable/logo" />
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="النتائـج"
         android:textColor="#FAF1E4"
-        android:textSize="34sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -148,15 +133,15 @@
 
     <ImageButton
         android:id="@+id/imageButton2"
-        android:layout_width="68dp"
-        android:layout_height="62dp"
+        android:layout_width="69dp"
+        android:layout_height="31dp"
         android:background="#00FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/toolbar4"
-        app:layout_constraintHorizontal_bias="0.924"
+        app:layout_constraintHorizontal_bias="0.945"
         app:layout_constraintStart_toStartOf="@+id/toolbar4"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.021"
+        app:layout_constraintVertical_bias="0.019"
         app:srcCompat="@drawable/arrow" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

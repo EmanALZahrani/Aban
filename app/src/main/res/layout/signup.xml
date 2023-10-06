@@ -100,6 +100,7 @@
                 android:drawablePadding="8dp"/>
 
             <Button
+                android:background="@drawable/rounded_corners"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="تسجيل "
@@ -117,6 +118,7 @@
 
     <Button
         android:id="@+id/SigninButton"
+        android:background="@drawable/rounded_corners"
         android:layout_width="250dp"
         android:layout_height="60dp"
         android:layout_marginTop="1dp"
