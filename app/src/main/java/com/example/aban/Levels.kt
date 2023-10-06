@@ -15,13 +15,13 @@ class Levels : AppCompatActivity() {
         //Connect -> button with  previous page
         val button6 = findViewById<ImageButton>(R.id.back)
         button6.setOnClickListener {
-            val intent = Intent(this@Levels, ResultActivity::class.java)
+            val intent = Intent(this@Levels, DiagnosisResult::class.java)
             startActivity(intent)
         }
         //Connect profile page
         val profileButton = findViewById<ImageButton>(R.id.account)
         profileButton.setOnClickListener {
-            val intent = Intent(this@Levels, page12::class.java)
+            val intent = Intent(this@Levels, account::class.java)
             startActivity(intent)
         }
 

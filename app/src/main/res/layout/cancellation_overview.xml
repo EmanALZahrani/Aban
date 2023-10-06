@@ -5,7 +5,7 @@
     android:background="@drawable/ggreenbackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".page9">
+    tools:context=".CancellationOverview">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

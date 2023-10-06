@@ -3,14 +3,14 @@ package com.example.aban
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.aban.databinding.ActivityPage9Binding
+import com.example.aban.databinding.CancellationOverviewBinding
 
-class page9 : AppCompatActivity() {
-    private lateinit var binding: ActivityPage9Binding
+class CancellationOverview : AppCompatActivity() {
+    private lateinit var binding: CancellationOverviewBinding
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityPage9Binding.inflate(layoutInflater)
+        binding = CancellationOverviewBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_page9)
+        setContentView(R.layout.cancellation_overview)
         setContentView(binding.root)
         next()
         back()
@@ -20,7 +20,7 @@ class page9 : AppCompatActivity() {
     private fun next(){
         binding.apply {
             btnStart.setOnClickListener(){
-                startActivity(Intent(this@page9,DashboardActivitycan::class.java))
+                startActivity(Intent(this@CancellationOverview,Cancellation::class.java))
             }
         }
     }
@@ -29,7 +29,7 @@ class page9 : AppCompatActivity() {
     private fun back(){
         binding.apply {
             back.setOnClickListener(){
-                startActivity(Intent(this@page9,LevelOne::class.java))
+                startActivity(Intent(this@CancellationOverview,LevelOne::class.java))
             }
         }
     }
@@ -37,7 +37,7 @@ class page9 : AppCompatActivity() {
     private fun acc(){
         binding.apply {
             account.setOnClickListener(){
-                startActivity(Intent(this@page9,page12::class.java))
+                startActivity(Intent(this@CancellationOverview,account::class.java))
             }
         }
     }

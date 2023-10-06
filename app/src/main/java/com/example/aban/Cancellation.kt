@@ -12,7 +12,6 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
 import com.airbnb.lottie.LottieAnimationView
 import com.example.aban.utils.Constants
 import com.example.aban.utils.PitchDetectionTarso
@@ -29,7 +28,7 @@ import java.util.Random
 
 
 
-class DashboardActivitycan : AppCompatActivity() {
+class Cancellation : AppCompatActivity() {
 
     var storage: FirebaseStorage? = null
     var currentAudioFileName: String? = null
@@ -68,7 +67,7 @@ class DashboardActivitycan : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_page10)
+        setContentView(R.layout.cancellation)
         btnRecord = findViewById<Button>(R.id.btnRecord)
         tvDuration = findViewById(R.id.tvDuration)
         lottieAnimationView = findViewById(R.id.lottie_animation_view)
@@ -77,11 +76,11 @@ class DashboardActivitycan : AppCompatActivity() {
 
         val button6 = findViewById<ImageButton>(R.id.backBtn)
         button6.setOnClickListener {
-            val intent = Intent(this@DashboardActivitycan, LevelOne::class.java)
+            val intent = Intent(this@Cancellation, LevelOne::class.java)
             startActivity(intent)}
         val button7 = findViewById<ImageButton>(R.id.accountBtn)
         button7.setOnClickListener {
-            val intent1 = Intent(this@DashboardActivitycan,page12 ::class.java)
+            val intent1 = Intent(this@Cancellation,account ::class.java)
             startActivity(intent1)}
 
         val db: FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -150,15 +149,15 @@ class DashboardActivitycan : AppCompatActivity() {
                 startRecording()
             }
         }
-        val btnShowFiles = findViewById<AppCompatButton>(R.id.btnShowFiles)
+       /* val btnShowFiles = findViewById<AppCompatButton>(R.id.btnShowFiles)
         btnShowFiles.setOnClickListener { view: View? ->
             startActivity(
                 Intent(
-                    this@DashboardActivitycan,
+                    this@Cancellation,
                     DisplayAudioFilesActivity::class.java
                 )
             )
-        }
+        }*/
 
 
     }
@@ -185,7 +184,7 @@ class DashboardActivitycan : AppCompatActivity() {
             saveAudioToFirebaseStorage()
 
             // Starting Medium activity
-            val intent = Intent(this, SoundMediumActivityCan::class.java)
+            val intent = Intent(this, CancellationResult::class.java)
             intent.putExtra("pitchIntent", "$pitchValue Hrtz")
             intent.putExtra("durationIntent", timeString)
             intent.putExtra("loudnessIntent", "$loudnessValue %")

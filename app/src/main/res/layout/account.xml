@@ -5,7 +5,7 @@
     android:background="@drawable/ggreenbackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".page12">
+    tools:context=".account">
 
 
     <androidx.appcompat.widget.Toolbar

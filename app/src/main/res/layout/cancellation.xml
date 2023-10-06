@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ggreenbackground"
-    tools:context=".DashboardActivitycan">
+    tools:context=".Cancellation">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -165,19 +165,5 @@
         app:layout_constraintVertical_bias="0.52" />
 
     <!--    View Saved Ones -->
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnShowFiles"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:background="@drawable/button_bg_off"
-        android:backgroundTint="#03A9F4"
-        android:text="أعرض النتيجه"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.89" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

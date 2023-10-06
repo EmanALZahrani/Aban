@@ -9,7 +9,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import com.airbnb.lottie.LottieAnimationView
 
-class SoundMediumActivity : AppCompatActivity() {
+class DiagnosisResult : AppCompatActivity() {
     private lateinit var nextButton: AppCompatButton
     private lateinit var playButton: AppCompatImageView
     var pitchTv: AppCompatTextView? = null
@@ -22,7 +22,7 @@ class SoundMediumActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sound_medium)
+        setContentView(R.layout.diagnosis_result)
         loudnessTv = findViewById(R.id.loudnessCard_Id)
         durationTv = findViewById(R.id.durationCard_Id)
         pitchTv = findViewById(R.id.pitchCard_Id)
@@ -48,7 +48,7 @@ class SoundMediumActivity : AppCompatActivity() {
             startActivity(
                 Intent(
                     this,
-                    DisplayAudioFilesActivity::class.java
+                    Levels::class.java
                 )
             )
         })

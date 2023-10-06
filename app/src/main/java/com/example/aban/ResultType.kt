@@ -1,11 +1,11 @@
 package com.example.aban
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 
-class page12 : AppCompatActivity() {
+class ResultType : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_page12)
+        setContentView(R.layout.result_type)
     }
 }

@@ -20,7 +20,7 @@ class LevelOne : AppCompatActivity() {
         //click on "الالغاء" page
         val cancellationButton = findViewById<Button>(R.id.button12)
         cancellationButton.setOnClickListener {
-            val intent = Intent(this@LevelOne, page9::class.java)
+            val intent = Intent(this@LevelOne, CancellationOverview::class.java)
             startActivity(intent)
         }
         //click on an unavailable page
@@ -36,7 +36,7 @@ class LevelOne : AppCompatActivity() {
         //Connect profile page
         val profileButton = findViewById<ImageButton>(R.id.account)
         profileButton.setOnClickListener {
-            val intent = Intent(this@LevelOne, page12::class.java)
+            val intent = Intent(this@LevelOne, account::class.java)
             startActivity(intent)
         }
     }

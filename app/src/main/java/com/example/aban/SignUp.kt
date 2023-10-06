@@ -8,18 +8,14 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.aban.databinding.ActivityMainBinding
+import com.example.aban.databinding.SignupBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import okhttp3.OkHttpClient
-import okhttp3.Request
 
 
+class SignUp : AppCompatActivity() {
 
-
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: SignupBinding
     private lateinit var username: EditText
     private lateinit var phone: EditText
     private lateinit var mail: EditText
@@ -34,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = SignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
@@ -101,7 +97,7 @@ class MainActivity : AppCompatActivity() {
                                         editor.apply()
                                         // Proceed to the next step or show a success message
                                         Toast.makeText(
-                                            this@MainActivity,
+                                            this@SignUp,
                                             "Signup Successful!",
                                             Toast.LENGTH_SHORT
                                         ).show()
@@ -109,7 +105,7 @@ class MainActivity : AppCompatActivity() {
                                     .addOnFailureListener { e ->
                                         // Handle the error
                                         Toast.makeText(
-                                            this@MainActivity,
+                                            this@SignUp,
                                             "Firestore Error: ${e.message}",
                                             Toast.LENGTH_SHORT
                                         ).show()
