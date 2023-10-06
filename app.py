@@ -6,7 +6,7 @@ import numpy as np
 app = Flask(__name__)
 
 # Load the trained SVM model
-model_filename = 'svm_classifier_model.pkl'
+model_filename = 'svm_classifier.pkl'
 svm_classifier = joblib.load(model_filename)
 
 def features_extractor(audio, sample_rate):
@@ -17,6 +17,13 @@ def contains_sound(audio, threshold=0.02):
     energy = np.sum(audio ** 2)
     return energy > threshold
 
+def remove_noise(audio, threshold=0.02):
+    energy = np.sum(audio ** 2)
+    if energy > threshold:
+        return audio
+    else:
+        return np.zeros_like(audio)
+
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
@@ -25,7 +32,10 @@ def predict():
         audio, sample_rate = librosa.load(audio_file, sr=None)
 
         if not contains_sound(audio):
-            return jsonify({"error": "Audio does not contain sound."})
+            return jsonify({"error": "لا يوجد صوت سجل مره أخرى"})
+            continue
+            
+        cleaned_audio = remove_noise(audio)
 
         # Extract features from the audio
         features = features_extractor(audio, sample_rate)
@@ -36,9 +46,9 @@ def predict():
         # Make predictions using the SVM classifier
         prediction = svm_classifier.predict(features)
 
-        return jsonify({"prediction": int(prediction[0])})
+        return jsonify({"الحالة": int(prediction[0])})
     except Exception as e:
-        return jsonify({"error": str(e)})
+        return jsonify({"حدث خطأ": str(e)})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(debug=True)
