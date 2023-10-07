@@ -15,15 +15,12 @@ class DiagnosisResult : AppCompatActivity() {
     private lateinit var nextButton: AppCompatButton
     private lateinit var typeIntent: String
 
-
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.diagnosis_result)
         typeIntent = intent.getStringExtra("typeIntent") ?: ""
 
+        gettingIntent()
 
         nextButton = findViewById(R.id.back)
         nextButton.setOnClickListener(View.OnClickListener { v: View? ->
@@ -34,6 +31,12 @@ class DiagnosisResult : AppCompatActivity() {
                 )
             )
         })
+
+    }
+    private fun gettingIntent() {
+        // Display the result in a TextView
+        val resultTextView = findViewById<TextView>(R.id.nameresult)
+        resultTextView.text = typeIntent
 
     }
 

@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import com.airbnb.lottie.LottieAnimationView
+import com.example.aban.utils.Constants
 import com.example.aban.utils.PitchDetectionTarso
 import com.google.android.gms.common.internal.safeparcel.SafeParcelReader.readByte
 import com.google.common.io.ByteStreams.readBytes
@@ -145,8 +146,9 @@ class Diagnosis : AppCompatActivity() {
 
 
     private fun getOutputFilePath(fileName: String?): String {
-        return File(tempFolder, fileName).absolutePath
+        return Constants.createTempFolder() + "/" + fileName
     }
+
 
     private fun saveAudioToFirebaseStorage() {
         val localFilePath = getOutputFilePath(currentAudioFileName)
