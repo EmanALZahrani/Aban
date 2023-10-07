@@ -1,45 +1,36 @@
 package com.example.aban
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.SystemClock
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
-import com.airbnb.lottie.LottieAnimationView
 import com.example.aban.utils.Constants
-import com.example.aban.utils.PitchDetectionTarso
-import com.google.android.gms.common.internal.safeparcel.SafeParcelReader.readByte
-import com.google.common.io.ByteStreams.readBytes
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import okhttp3.Call
 import okhttp3.Callback
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.Response
-import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.FileInputStream
 import java.io.IOException
-import java.io.InputStream
-import java.util.Arrays
 import java.util.Random
-import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 
 class Diagnosis : AppCompatActivity() {
     private var storage: FirebaseStorage? = null
@@ -56,16 +47,21 @@ class Diagnosis : AppCompatActivity() {
 
     // Declare a variable to store the temporary folder
     private lateinit var tempFolder: File
+    private lateinit var sharedPreferences: SharedPreferences
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.diagnosis)
+        sharedPreferences = getSharedPreferences("userSharedPreference", Context.MODE_PRIVATE)
         btnRecord = findViewById<Button>(R.id.btnRecord)
         storage = FirebaseStorage.getInstance()
         firestore = FirebaseFirestore.getInstance()
-
         // Create the temporary folder and store the reference
         tempFolder = createTempFolder()
+        //
 
         val button6 = findViewById<ImageButton>(R.id.back)
         button6.setOnClickListener {
@@ -83,6 +79,8 @@ class Diagnosis : AppCompatActivity() {
             } else {
                 startRecording()
             }
+
+
         }
 
 //        val btnShowFiles = findViewById<AppCompatButton>(R.id.btnShowFiles) //هنا نربطه بالايدي حق الصفحة
@@ -95,6 +93,7 @@ class Diagnosis : AppCompatActivity() {
         //       )
         //    }
     }
+
     private fun startRecording() {
         // Ensure that the MediaRecorder is not already recording
         if (isRecording) {
@@ -123,6 +122,7 @@ class Diagnosis : AppCompatActivity() {
         } catch (e: Exception) {
             Log.d("TAG", "startRecording: " + e.localizedMessage)
         }
+
     }
     private fun stopRecording() {
         if (isRecording) {
@@ -142,6 +142,7 @@ class Diagnosis : AppCompatActivity() {
             intent.putExtra("typeIntent",resultTextView.text.toString())//نضيف النتيجة حقت التشخيص هنا
             startActivity(intent)
         }
+
     }
 
 
@@ -179,6 +180,7 @@ class Diagnosis : AppCompatActivity() {
                     Log.d("TAG", "saveRecordingDataToFirestore: Error adding document: ${e.localizedMessage}")
                 }
         }
+
 
     }
     private fun accessFlaskServer() {
@@ -240,7 +242,6 @@ class Diagnosis : AppCompatActivity() {
         }
         return folder
     }
-
     companion object {
         fun randInt(min: Int, max: Int): Int {
             val rand = Random()

@@ -48,6 +48,12 @@ class SignUp : AppCompatActivity() {
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("user_data", Context.MODE_PRIVATE)
 
+        // Set click listener for the "Sign up" button
+        signupButton.setOnClickListener {
+            // Navigate to the cheakletter page
+            val intent = Intent(this, Checkletter::class.java)
+            startActivity(intent)
+        }
         // Set click listener for the "Sign In" button
         signinButton.setOnClickListener {
             // Navigate to the login page (replace LogIn::class.java with your actual login activity)

@@ -22,33 +22,35 @@ class Checkletter : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = CheckletterBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         // Initialize SharedPreferences, Firebase Auth, and FirebaseFirestore
         sharedPreferences = getSharedPreferences("user_data", Context.MODE_PRIVATE)
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
+        binding = CheckletterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        if (selectedCharacters()) {
-            // The user has already select characters, so we don't show the activity again.
-            val intent = Intent(this, Levels::class.java)
-            startActivity(intent)
-            finish()
+        if (shouldShowActivity()) {
+            next()
         } else {
-            // Show the activity
-            setContentView(binding.root)
-
+            startDiagnosisActivity()
         }
 
-        // Continue with your next button logic
-        next()
+    }
+    private fun shouldShowActivity(): Boolean {
+        // Retrieve the flag indicating whether the activity has been shown before
+        return sharedPreferences.getBoolean("show_checkletter_activity", true)
     }
 
+    private fun setActivityShown() {
+        // Set the flag indicating that the activity has been shown
+        sharedPreferences.edit().putBoolean("show_checkletter_activity", false).apply()
+    }
     private fun next() {
 
         binding.apply {
             next.setOnClickListener {
+
                 // Check if at least one character checkbox is checked
                 if (atLeastOneCharacterSelected()) {
                     // Retrieve the user's email from SharedPreferences
@@ -77,9 +79,11 @@ class Checkletter : AppCompatActivity() {
                                         Toast.LENGTH_SHORT
                                     ).show()
 
+                                    setActivityShown()
+                                    startDiagnosisActivity()
                                     // Start the Diagnosis activity
-                                    val intent = Intent(this@Checkletter, Diagnosis::class.java)
-                                    startActivity(intent)
+                                    //val intent = Intent(this@Checkletter, Diagnosis::class.java)
+                                    //startActivity(intent)
                                 }
                                 .addOnFailureListener { e ->
                                     // Handle the error
@@ -108,6 +112,7 @@ class Checkletter : AppCompatActivity() {
                 }
             }
         }
+
     }
 
     private fun atLeastOneCharacterSelected(): Boolean {
@@ -129,9 +134,7 @@ class Checkletter : AppCompatActivity() {
         // None of the character CheckBoxes are checked
         return false
     }
-    private fun selectedCharacters(): Boolean {
-        return sharedPreferences.getBoolean("selectedCharacters", false)
-    }
+
     private fun getSelectedCharacters(): List<String> {
         val selectedCharacters = mutableListOf<String>()
 
@@ -149,11 +152,13 @@ class Checkletter : AppCompatActivity() {
                 selectedCharacters.add(checkBox.text.toString())
             }
         }
-        // Update the flag to indicate that the user select characters.
-        val editor = sharedPreferences.edit()
-        editor.putBoolean("selectedCharacters", true)
-        editor.apply()
+
 
         return selectedCharacters
+    }
+    private fun startDiagnosisActivity() {
+        // Start the Diagnosis activity
+        val intent = Intent(this@Checkletter, Diagnosis::class.java)
+        startActivity(intent)
     }
 }
