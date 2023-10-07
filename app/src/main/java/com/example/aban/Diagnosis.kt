@@ -1,7 +1,6 @@
 package com.example.aban
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.media.MediaRecorder
@@ -55,13 +54,13 @@ class Diagnosis : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.diagnosis)
-        sharedPreferences = getSharedPreferences("userSharedPreference", Context.MODE_PRIVATE)
+
         btnRecord = findViewById<Button>(R.id.btnRecord)
         storage = FirebaseStorage.getInstance()
         firestore = FirebaseFirestore.getInstance()
         // Create the temporary folder and store the reference
         tempFolder = createTempFolder()
-        //
+
 
         val button6 = findViewById<ImageButton>(R.id.back)
         button6.setOnClickListener {
@@ -93,7 +92,25 @@ class Diagnosis : AppCompatActivity() {
         //       )
         //    }
     }
+    private fun stopRecording() {
+        if (isRecording) {
+            btnRecord.text = "توقف تسجيل الصوت"
+            btnRecord.background = getDrawable(R.drawable.button_bg_on)
 
+            // Stop recording
+            mediaRecorder?.stop()
+            mediaRecorder?.release()
+            mediaRecorder = null
+            isRecording = false
+            saveAudioToFirebaseStorage()
+            accessFlaskServer()
+            // Starting Medium activity
+            val intent = Intent(this, DiagnosisResult::class.java) // مكان حفظ النتيجة
+            intent.putExtra("typeIntent",resultTextView.text.toString())//نضيف النتيجة حقت التشخيص هنا
+            startActivity(intent)
+        }
+
+    }
     private fun startRecording() {
         // Ensure that the MediaRecorder is not already recording
         if (isRecording) {
@@ -124,26 +141,7 @@ class Diagnosis : AppCompatActivity() {
         }
 
     }
-    private fun stopRecording() {
-        if (isRecording) {
-            btnRecord.text = "توقف تسجيل الصوت"
-            btnRecord.background = getDrawable(R.drawable.button_bg_on)
 
-            // Stop recording
-            mediaRecorder?.stop()
-            mediaRecorder?.release()
-            mediaRecorder = null
-            isRecording = false
-            saveAudioToFirebaseStorage()
-            accessFlaskServer()
-
-            // Starting Medium activity
-            val intent = Intent(this, DiagnosisResult::class.java) // مكان حفظ النتيجة
-            intent.putExtra("typeIntent",resultTextView.text.toString())//نضيف النتيجة حقت التشخيص هنا
-            startActivity(intent)
-        }
-
-    }
 
 
     private fun getOutputFilePath(fileName: String?): String {

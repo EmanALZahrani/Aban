@@ -8,10 +8,16 @@ import android.os.Bundle
 import android.widget.CheckBox
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.aban.databinding.CheckletterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class Checkletter : AppCompatActivity() {
     private lateinit var binding: CheckletterBinding
@@ -30,21 +36,30 @@ class Checkletter : AppCompatActivity() {
         binding = CheckletterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (shouldShowActivity()) {
+        val userId = auth.currentUser?.uid
+        if (userId != null && !hasCompletedActivity(userId)) {
             next()
         } else {
             startDiagnosisActivity()
         }
 
     }
-    private fun shouldShowActivity(): Boolean {
-        // Retrieve the flag indicating whether the activity has been shown before
-        return sharedPreferences.getBoolean("show_checkletter_activity", true)
+
+    private fun hasCompletedActivity(userId: String): Boolean {
+        return runBlocking {
+            withContext(Dispatchers.IO) {
+                val userDocRef = firestore.collection("users").document(userId)
+                val completionFlag = userDocRef.get().await().getBoolean("checkletter_completed") ?: false
+                completionFlag
+            }
+        }
     }
 
-    private fun setActivityShown() {
-        // Set the flag indicating that the activity has been shown
-        sharedPreferences.edit().putBoolean("show_checkletter_activity", false).apply()
+    private suspend fun setActivityCompleted(userId: String) {
+        withContext(Dispatchers.IO) {
+            val userDocRef = firestore.collection("users").document(userId)
+            userDocRef.update("checkletter_completed", true).await()
+        }
     }
     private fun next() {
 
@@ -79,7 +94,10 @@ class Checkletter : AppCompatActivity() {
                                         Toast.LENGTH_SHORT
                                     ).show()
 
-                                    setActivityShown()
+                                    // Mark the activity as completed
+                                    lifecycleScope.launch {
+                                        setActivityCompleted(userId)
+                                    }
                                     startDiagnosisActivity()
                                     // Start the Diagnosis activity
                                     //val intent = Intent(this@Checkletter, Diagnosis::class.java)
