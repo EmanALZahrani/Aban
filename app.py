@@ -50,7 +50,7 @@ def predict():
         prediction = classifier.predict(features)
 
 
-        return jsonify({"الحالة": int(prediction[0])})
+        return jsonify({"الحالة": str(prediction)})
     except Exception as e:
         return jsonify({"حدث خطأ": str(e)})
 
