@@ -5,6 +5,10 @@ import numpy as np
 
 app = Flask(__name__)
 
+@app.route('/')
+def index():
+    return 'Hello, World!'
+
 # Load the trained SVM model
 model_filename = 'classifier.pkl'
 classifier = joblib.load(model_filename)
@@ -24,7 +28,7 @@ def remove_noise(audio, threshold=0.02):
     else:
         return np.zeros_like(audio)
 
-@app.route('/predict', methods=['POST','GET'])
+@app.route('/predict', methods=['POST'])
 def predict():
     try:
         # Get the uploaded audio file from the request
