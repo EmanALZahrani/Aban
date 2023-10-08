@@ -24,7 +24,7 @@ def remove_noise(audio, threshold=0.02):
     else:
         return np.zeros_like(audio)
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['POST','GET'])
 def predict():
     try:
         # Get the uploaded audio file from the request
@@ -50,9 +50,7 @@ def predict():
     except Exception as e:
         return jsonify({"حدث خطأ": str(e)})
 
-@app.route('/test', methods=['GET'])
-def test_endpoint():
-    return "Server is up and running!"
+
 
 if __name__ == '__main__':
     app.run(debug=True)
