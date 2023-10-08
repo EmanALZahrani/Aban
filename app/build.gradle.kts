@@ -85,6 +85,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation ("com.android.support.test:rules:1.0.2")
 
+
     // Lottie animation
     implementation ("com.airbnb.android:lottie:6.1.0")
 

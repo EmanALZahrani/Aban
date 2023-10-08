@@ -28,6 +28,7 @@
             android:name=".DiagnosisResult"
             android:exported="true" />
 
+
         <activity
             android:name=".CancellationResult"
             android:exported="true" />
@@ -35,15 +36,15 @@
             android:name=".DisplayAudioFilesActivity"
             android:exported="true" >
 
-
         </activity>
-        <activity
-            android:name=".Diagnosis"
-            android:exported="true"/>
 
         <activity
             android:name=".Cancellation"
             android:exported="true"/>
+
+        <activity
+            android:name=".Diagnosis"
+            android:exported="true" />
 
 
 

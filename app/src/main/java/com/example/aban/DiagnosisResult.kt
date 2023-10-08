@@ -13,12 +13,12 @@ import com.airbnb.lottie.LottieAnimationView
 class DiagnosisResult : AppCompatActivity() {
 
     private lateinit var nextButton: AppCompatButton
-    private lateinit var typeIntent: String
+    var typeIntent:AppCompatTextView?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.diagnosis_result)
-        typeIntent = intent.getStringExtra("typeIntent") ?: ""
+        typeIntent = findViewById(R.id.nameresult)
 
         gettingIntent()
 
@@ -35,8 +35,9 @@ class DiagnosisResult : AppCompatActivity() {
     }
     private fun gettingIntent() {
         // Display the result in a TextView
-        val resultTextView = findViewById<TextView>(R.id.nameresult)
-        resultTextView.text = typeIntent
+        val recIntent = intent
+        val resultTextView = recIntent.getStringExtra("typeIntent")
+        typeIntent!!.text = resultTextView
 
     }
 
