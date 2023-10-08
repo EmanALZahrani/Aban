@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 # Load the trained SVM model
 model_filename = 'classifier.pkl'
-svm_classifier = joblib.load(model_filename)
+classifier = joblib.load(model_filename)
 
 def features_extractor(audio, sample_rate):
     mfccs_scaled_features = np.mean(librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13).T, axis=0)
