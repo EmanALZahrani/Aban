@@ -5,9 +5,13 @@ import numpy as np
 
 app = Flask(__name__)
 
+@app.route('/')
+def index():
+    return 'Hello, World!'
+
 # Load the trained SVM model
-model_filename = 'svm_classifier.pkl'
-svm_classifier = joblib.load(model_filename)
+model_filename = 'classifier.pkl'
+classifier = joblib.load(model_filename)
 
 def features_extractor(audio, sample_rate):
     mfccs_scaled_features = np.mean(librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13).T, axis=0)
@@ -43,11 +47,14 @@ def predict():
         features = features.reshape(1, -1)
 
         # Make predictions using the SVM classifier
-        prediction = svm_classifier.predict(features)
+        prediction = classifier.predict(features)
 
-        return jsonify({"الحالة": int(prediction[0])})
+
+        return jsonify({"الحالة": str(prediction)})
     except Exception as e:
         return jsonify({"حدث خطأ": str(e)})
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
