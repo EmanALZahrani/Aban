@@ -45,6 +45,10 @@ def predict():
         # Make predictions using the SVM classifier
         prediction = svm_classifier.predict(features)
 
+          prediction = int(prediction)
+        except ValueError:
+            return jsonify({"error": "Invalid prediction format"})
+
         return jsonify({"الحالة": int(prediction[0])})
     except Exception as e:
         return jsonify({"حدث خطأ": str(e)})
