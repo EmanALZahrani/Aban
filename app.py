@@ -6,7 +6,7 @@ import numpy as np
 app = Flask(__name__)
 
 # Load the trained SVM model
-model_filename = 'svm_classifier.pkl'
+model_filename = 'classifier.pkl'
 svm_classifier = joblib.load(model_filename)
 
 def features_extractor(audio, sample_rate):
@@ -43,7 +43,7 @@ def predict():
         features = features.reshape(1, -1)
 
         # Make predictions using the SVM classifier
-        prediction = svm_classifier.predict(features)
+        prediction = classifier.predict(features)
 
 
         return jsonify({"الحالة": int(prediction[0])})
