@@ -2,43 +2,33 @@ package com.example.aban
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
-import androidx.appcompat.widget.AppCompatImageView
-import androidx.appcompat.widget.AppCompatTextView
-import com.airbnb.lottie.LottieAnimationView
 
 class DiagnosisResult : AppCompatActivity() {
-
-    private lateinit var nextButton: AppCompatButton
-    var typeIntent:AppCompatTextView?= null
-
+    //private lateinit var nextButton: AppCompatButton
+      private lateinit var typeIntent: String
+    //private lateinit var type : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.diagnosis_result)
-        typeIntent = findViewById(R.id.nameresult)
+
+        //typeIntent = intent.getStringExtra("durationIntent") ?:""
+        typeIntent = intent.getStringExtra("typeIntent") ?: ""
+
+        val button6 = findViewById<ImageButton>(R.id.back)
+        button6.setOnClickListener {
+            val intent = Intent(this@DiagnosisResult, Levels::class.java)
+            startActivity(intent)
+        }
 
         gettingIntent()
-
-        nextButton = findViewById(R.id.back)
-        nextButton.setOnClickListener(View.OnClickListener { v: View? ->
-            startActivity(
-                Intent(
-                    this,
-                    Levels::class.java
-                )
-            )
-        })
-
     }
+
     private fun gettingIntent() {
         // Display the result in a TextView
-        val recIntent = intent
-        val resultTextView = recIntent.getStringExtra("typeIntent")
-        typeIntent!!.text = resultTextView
-
+        val resultTextView = findViewById<TextView>(R.id.nameresult)
+        resultTextView.text = typeIntent
     }
-
 }

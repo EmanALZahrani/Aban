@@ -54,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="التشخيص"
+        android:text="نتيجة التشخيص"
         android:textColor="#F4EBEB"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,7 +66,7 @@
         android:id="@+id/textView4"
         android:layout_width="174dp"
         android:layout_height="63dp"
-        android:text="نتيجة التشخيص"
+        android:text="  "
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -86,9 +86,10 @@
         app:cardElevation="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.317"
+        app:layout_constraintVertical_bias="0.216"
         tools:ignore="MissingConstraints">
 
         <TextView

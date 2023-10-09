@@ -1,5 +1,6 @@
 package com.example.aban
 
+
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.media.MediaRecorder
@@ -8,35 +9,20 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.SystemClock
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.ToggleButton
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatTextView
-import com.airbnb.lottie.LottieAnimationView
 import com.example.aban.utils.Constants
-import com.example.aban.utils.PitchDetectionTarso
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
-import okhttp3.Call
-import okhttp3.Callback
+import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody
-import okhttp3.Response
 import java.io.File
 import java.io.IOException
 import java.util.Random
-
-
-
-
-
 
 
 class Diagnosis : AppCompatActivity() {
@@ -56,7 +42,7 @@ class Diagnosis : AppCompatActivity() {
     private var minutes = 0
     private lateinit var btnRecord: Button
     private lateinit var resultTextView : TextView
-    private val okHttpClient = OkHttpClient()
+    val okHttpClient = OkHttpClient()
 
 
     private val updateTimerThread: Runnable = object : Runnable {
@@ -66,7 +52,7 @@ class Diagnosis : AppCompatActivity() {
             minutes = seconds / 60
             seconds = seconds % 60
             var tvDuration1: TextView = findViewById(R.id.tvDuration)
-            tvDuration1.setText("Duration: " + minutes + ":" + String.format("%02d", seconds))
+            tvDuration1.setText("المدة: " + minutes + ":" + String.format("%02d", seconds))
             handler.postDelayed(this, 1000)
         }
     }
@@ -77,14 +63,13 @@ class Diagnosis : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.diagnosis)
-        btnRecord = findViewById<Button>(R.id.btnRecord)
+        btnRecord = findViewById<ToggleButton>(R.id.btnRecord)
         tvDuration = findViewById(R.id.tvDuration)
         firestore = FirebaseFirestore.getInstance()
 
-
         val button6 = findViewById<ImageButton>(R.id.back)
         button6.setOnClickListener {
-            val intent = Intent(this@Diagnosis, LevelOne::class.java)
+            val intent = Intent(this@Diagnosis, Levels::class.java)
             startActivity(intent)}
         val button7 = findViewById<ImageButton>(R.id.account)
         button7.setOnClickListener {
@@ -95,12 +80,12 @@ class Diagnosis : AppCompatActivity() {
         btnRecord.setOnClickListener {
             Constants.createTempFolder()
             if (isRecording) {
-                accessFlaskServer()
                 stopRecording()
 
             } else {
                 startRecording()
             }
+
         }
         /* val btnShowFiles = findViewById<AppCompatButton>(R.id.btnShowFiles)
          btnShowFiles.setOnClickListener { view: View? ->
@@ -118,33 +103,6 @@ class Diagnosis : AppCompatActivity() {
 
 
 
-    private fun stopRecording() {
-        if (isRecording) {
-            btnRecord!!.text = "توقف التسجيل"
-            btnRecord!!.background = getDrawable(R.drawable.button_bg_on)
-            tvDuration!!.text = " المدة : ٠٠:٠٠"
-
-
-            // Stop recording
-            mediaRecorder!!.stop()
-            mediaRecorder!!.release()
-            mediaRecorder = null
-            isRecording = false
-            handler.removeCallbacks(updateTimerThread)
-            timeString = minutes.toString() + ":" + String.format("%02d", seconds)
-            saveAudioToFirebaseStorage()
-            accessFlaskServer()
-
-            // Starting Medium activity
-            val intent = Intent(this, DiagnosisResult::class.java)
-            intent.putExtra("durationIntent", timeString)
-            intent.putExtra("typeIntent",type)//نضيف النتيجة حقت التشخيص هنا
-
-
-        }
-
-    }
-
 
     fun startRecording() {
         // Ensure that the MediaRecorder is not already recording
@@ -153,7 +111,6 @@ class Diagnosis : AppCompatActivity() {
         }
         btnRecord!!.text = " يتم التسجيل .."
         btnRecord!!.background = getDrawable(R.drawable.button_bg_off)
-
 
         // Initialize MediaRecorder
         mediaRecorder = MediaRecorder()
@@ -177,6 +134,32 @@ class Diagnosis : AppCompatActivity() {
             // Handle the exception (e.g., display an error message to the user)
         }
 
+
+    }
+    private fun stopRecording() {
+        if (isRecording) {
+            btnRecord!!.text = "توقف التسجيل"
+            btnRecord!!.background = getDrawable(R.drawable.button_bg_on)
+            tvDuration!!.text = " المدة : ٠٠:٠٠"
+
+
+            // Stop recording
+            mediaRecorder!!.stop()
+            mediaRecorder!!.release()
+            mediaRecorder = null
+            isRecording = false
+            handler.removeCallbacks(updateTimerThread)
+            timeString = minutes.toString() + ":" + String.format("%02d", seconds)
+            saveAudioToFirebaseStorage()
+            accessFlaskServer()
+
+            // Starting Medium activity
+            val intent = Intent(this@Diagnosis, DiagnosisResult::class.java)
+                //intent.putExtra("durationIntent", timeString)
+                intent.putExtra("typeIntent",type)//نضيف النتيجة حقت التشخيص هنا
+                startActivity(intent)
+
+        }
 
     }
 
@@ -223,6 +206,7 @@ class Diagnosis : AppCompatActivity() {
                     "saveAudioToFirebaseStorage: EXCEp " + e.localizedMessage
                 )
             }
+
     }
     private fun accessFlaskServer() {
         val audioFilePath = getOutputFilePath(currentAudioFileName)
@@ -273,6 +257,7 @@ class Diagnosis : AppCompatActivity() {
                 }
             }
         })
+
     }
 
 

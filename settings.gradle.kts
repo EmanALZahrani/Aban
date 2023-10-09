@@ -5,8 +5,10 @@ pluginManagement {
         gradlePluginPortal()
         maven {
             name = "TarsosDSP repository"
-            url = uri("https://mvn.0110.be/releases")
+            url = uri("https://mvn.0110.be/releases");
+            
         }
+
     }
 }
 dependencyResolutionManagement {
@@ -17,7 +19,9 @@ dependencyResolutionManagement {
         maven {
             name = "TarsosDSP repository"
             url = uri("https://mvn.0110.be/releases")
+
         }
+
     }
 }
 

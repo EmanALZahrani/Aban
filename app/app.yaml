@@ -1,0 +1,10 @@
+runtime: python37
+handlers:
+  - url:  /.*
+    secure: always
+    redirect_http_to_https: true
+    script: app.py
+    headers:
+      Access-Control-Allow-Origin: "*"
+      Access-Control-Allow-Headers: "*"
+
