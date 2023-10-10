@@ -3,6 +3,7 @@ package com.example.aban
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageView
@@ -30,16 +31,30 @@ class CancellationResult : AppCompatActivity() {
         gettingIntent()
 
 
+
+        //back button
+        val button = findViewById<ImageButton>(R.id.back)
+        button.setOnClickListener {
+            val intent = Intent(this@CancellationResult, ResultType::class.java)
+            startActivity(intent)
+        }
+        //Connect profile page
+        val profileButton = findViewById<ImageButton>(R.id.account)
+        profileButton.setOnClickListener {
+            val intent = Intent(this@CancellationResult, account::class.java)
+            startActivity(intent)
+        }
+
         //        Lottie animation ******************************************
-        lottieAnimationView = findViewById(R.id.lottie_animation_view_medium)
+        //lottieAnimationView = findViewById(R.id.lottie_animation_view_medium)
         // Set animation file (assuming it's in the res/raw directory)
-        lottieAnimationView.setAnimation(R.raw.animation_wave)
+       // lottieAnimationView.setAnimation(R.raw.animation_wave)
 
         // Optional: Set animation speed
-        lottieAnimationView.setSpeed(1f) // Default speed is 1x
+       // lottieAnimationView.setSpeed(1f) // Default speed is 1x
 
         // Optional: Set looping
-        lottieAnimationView.loop(true) // Default is false
+       // lottieAnimationView.loop(true) // Default is false
 
 
         // ***********************************************************************

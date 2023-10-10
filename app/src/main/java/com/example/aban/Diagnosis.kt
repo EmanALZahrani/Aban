@@ -155,9 +155,9 @@ class Diagnosis : AppCompatActivity() {
 
             // Starting Medium activity
             val intent = Intent(this@Diagnosis, DiagnosisResult::class.java)
-                //intent.putExtra("durationIntent", timeString)
-                intent.putExtra("typeIntent",type)//نضيف النتيجة حقت التشخيص هنا
-                startActivity(intent)
+            //intent.putExtra("durationIntent", timeString)
+            intent.putExtra("typeIntent",type)//نضيف النتيجة حقت التشخيص هنا
+            startActivity(intent)
 
         }
 
