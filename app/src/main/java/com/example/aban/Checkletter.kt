@@ -87,10 +87,10 @@ class Checkletter : AppCompatActivity() {
                             userDocRef.set(userSelections, SetOptions.merge())
                                 .addOnSuccessListener {
                                     // User selections stored successfully in Firestore
-                                    // Proceed to the next step or show a success message
+
                                     Toast.makeText(
                                         this@Checkletter,
-                                        "Selections stored successfully.",
+                                        " ",
                                         Toast.LENGTH_SHORT
                                     ).show()
 

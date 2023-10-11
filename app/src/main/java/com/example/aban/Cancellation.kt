@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.airbnb.lottie.LottieAnimationView
 import com.example.aban.utils.Constants
@@ -93,7 +94,7 @@ class Cancellation : AppCompatActivity() {
         if (currentUser != null) {
             // Assuming your user documents are stored in a "users" collection
             val db = FirebaseFirestore.getInstance()
-            val usersCollection = db.collection("users")
+            val usersCollection = db.collection("recordingsData")
 
             // Get the current user's document
             val userId = currentUser.uid
@@ -298,6 +299,37 @@ class Cancellation : AppCompatActivity() {
         fun randInt(min: Int, max: Int): Int {
             val rand = Random()
             return rand.nextInt(max - min + 1) + min
+        }
+    }
+    // Function to create a Firestore document for user tracking
+    private fun createUserDocument(userId: String?) {
+        if (userId != null) {
+            firestore = FirebaseFirestore.getInstance()
+
+            // Define the data
+            val userData = hashMapOf(
+                "Cancellation" to true,
+            )
+
+            // Specify the path for the user document
+            val userDocumentRef = firestore!!.collection("recordingsData").document(userId)
+
+            // Set the data in the Firestore document
+            userDocumentRef.set(userData)
+                .addOnSuccessListener {
+                    Toast.makeText(
+                        this,
+                        " ",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(
+                        this,
+                        "  ",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
         }
     }
 }
