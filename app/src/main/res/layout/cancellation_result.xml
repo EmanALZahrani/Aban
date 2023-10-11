@@ -8,6 +8,130 @@
     tools:context=".CancellationResult">
 
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/result"
+        android:layout_width="346dp"
+        android:layout_height="106dp"
+        android:layout_marginTop="553dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="207dp"
+        app:cardBackgroundColor="#D5FFFFFF"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/nametext"
+            android:layout_width="128dp"
+            android:layout_height="58dp"
+            android:layout_gravity="center|right"
+            android:gravity="center"
+            android:text="حدة الصوت:"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="0 hrtz"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/result2"
+        android:layout_width="346dp"
+        android:layout_height="106dp"
+        android:layout_marginTop="391dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="369dp"
+        app:cardBackgroundColor="#D5FFFFFF"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/nametext2"
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:layout_gravity="center|right"
+            android:gravity="center"
+            android:text="مستوى الصوت:"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/nameresult2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="0%"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/result3"
+        android:layout_width="346dp"
+        android:layout_height="106dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="245dp"
+        android:layout_marginBottom="515dp"
+        app:cardBackgroundColor="#D5FFFFFF"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/nametext3"
+            android:layout_width="84dp"
+            android:layout_height="58dp"
+            android:layout_gravity="center|right"
+            android:gravity="center"
+            android:text="المدة:"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/nameresult3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="00:00"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="174dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="118dp"
+        android:layout_marginTop="106dp"
+        android:layout_marginEnd="119dp"
+        android:layout_marginBottom="697dp"
+        android:text="نتيجة مرحلة الإلغاء"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="417dp"
@@ -68,141 +192,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="122dp"
-        android:layout_marginTop="111dp"
-        android:layout_marginEnd="123dp"
-        android:layout_marginBottom="723dp"
-        android:text="نتيجة مرحلة الإلغاء"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/durationCardBtn"
-        android:layout_width="346dp"
-        android:layout_height="106dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="242dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="518dp"
-        android:padding="4dp"
-        app:cardBackgroundColor="#D5FFFFFF"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/durationCard_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="المدة:"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="306dp"
-        tools:layout_editor_absoluteY="279dp" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/durationCard_Id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="00:00"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        tools:layout_editor_absoluteX="179dp"
-        tools:layout_editor_absoluteY="279dp" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/LoudnessCard_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="مستوى الصوت:"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="235dp"
-        tools:layout_editor_absoluteY="433dp" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/loudnessCard_Id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="0%"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        tools:layout_editor_absoluteX="193dp"
-        tools:layout_editor_absoluteY="433dp" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/loudnessCard"
-        android:layout_width="346dp"
-        android:layout_height="106dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="396dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="364dp"
-        android:padding="4dp"
-        app:cardBackgroundColor="#D5FFFFFF"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/pitchCard_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="حدة الصوت:"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="548dp" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/pitchCard_Id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="0 hrtz "
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="548dp" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/pitchCard"
-        android:layout_width="346dp"
-        android:layout_height="106dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="548dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginBottom="212dp"
-        android:padding="4dp"
-        app:cardBackgroundColor="#D5FFFFFF"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </androidx.cardview.widget.CardView>
-
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
