@@ -3,13 +3,11 @@ package com.example.aban
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import com.airbnb.lottie.LottieAnimationView
-import com.google.firebase.firestore.FirebaseFirestore
 
 class CancellationResult : AppCompatActivity() {
     private lateinit var nextButton: AppCompatButton
@@ -19,7 +17,6 @@ class CancellationResult : AppCompatActivity() {
     var loudnessTv: AppCompatTextView? = null
     var playClicked = true
     private lateinit var lottieAnimationView: LottieAnimationView
-    private lateinit var firestore: FirebaseFirestore
 
 
 
@@ -79,36 +76,5 @@ class CancellationResult : AppCompatActivity() {
         pitchTv!!.text = pitchRec
         durationTv!!.text = durationRec
         loudnessTv!!.text = loudnessRec
-    }
-    // Function to create a Firestore document for user tracking
-    private fun createUserDocument(userId: String?) {
-        if (userId != null) {
-            firestore = FirebaseFirestore.getInstance()
-
-            // Define the data
-            val userData = hashMapOf(
-                "CancellationResult" to true,
-            )
-
-            // Specify the path for the user document
-            val userDocumentRef = firestore!!.collection("recordingsData").document(userId)
-
-            // Set the data in the Firestore document
-            userDocumentRef.set(userData)
-                .addOnSuccessListener {
-                    Toast.makeText(
-                        this,
-                        " ",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                .addOnFailureListener { e ->
-                    Toast.makeText(
-                        this,
-                        "  ",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-        }
     }
 }
