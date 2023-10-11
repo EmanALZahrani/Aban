@@ -68,6 +68,17 @@
                     android:text="تسجيل الدخول "
                     android:textSize="18sp"
                     app:cornerRadius="20dp" />
+                <Button
+                    android:background="@drawable/rounded_corners"
+                    android:id="@+id/loginButton2"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="30dp"
+                    android:backgroundTint="@color/green"
+                    android:text="تسجيل  "
+                    android:textSize="18sp"
+                    app:cornerRadius="20dp" />
+
 
 
             </LinearLayout>

@@ -1,4 +1,5 @@
 package com.example.aban
+
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -7,33 +8,44 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.aban.databinding.LoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class LogIn : AppCompatActivity() {
 
-    private lateinit var binding: LoginBinding
     private lateinit var email: EditText
     private lateinit var password: EditText
     private lateinit var loginButton: Button
+    private lateinit var loginButton2: Button
     private lateinit var sharedPreferences: SharedPreferences
-
+    private lateinit var firestore: FirebaseFirestore
     // Firebase Authentication
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = LoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.login)
 
         // Initialize Firebase Authentication
         auth = FirebaseAuth.getInstance()
 
         // Initialize UI components
-        email = binding.email
-        password = binding.password
-        loginButton = binding.loginButton
+        email = findViewById(R.id.email)
+        password = findViewById(R.id.password)
+        loginButton = findViewById(R.id.loginButton)
+        loginButton2 = findViewById(R.id.loginButton2)
+
+        // Set click listener for the "loginButton2" button
+        loginButton2.setOnClickListener {
+            // Navigate to the signup page (replace SignUp::class.java with your actual signup activity)
+            val intent = Intent(this, SignUp::class.java)
+            startActivity(intent)
+        }
 
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("user_data", Context.MODE_PRIVATE)
@@ -55,6 +67,8 @@ class LogIn : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
 
+
+
                         // Navigate to the Check Letter activity
                         val intent = Intent(this, Checkletter::class.java)
                         startActivity(intent)
@@ -70,4 +84,7 @@ class LogIn : AppCompatActivity() {
                 }
         }
     }
+
+
+
 }

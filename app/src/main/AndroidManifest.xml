@@ -43,6 +43,7 @@
             android:name=".Cancellation"
             android:exported="true"/>
 
+
         <activity
             android:name=".Diagnosis"
             android:exported="true" />
@@ -86,7 +87,8 @@
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
-        </activity>
-    </application>
+    </activity>
+
+</application>
 
 </manifest>

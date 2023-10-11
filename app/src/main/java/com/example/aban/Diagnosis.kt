@@ -12,12 +12,17 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aban.utils.Constants
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.io.File
@@ -57,7 +62,16 @@ class Diagnosis : AppCompatActivity() {
         }
     }
 
-
+    private fun hasCompletedActivity(userId: String): Boolean {
+        return runBlocking {
+            withContext(Dispatchers.IO) {
+                val userDocRef = firestore?.collection("users")?.document(userId)
+                val completionFlag = userDocRef?.get()?.await()?.getBoolean("Diagnosis_completed")
+                    ?: false
+                completionFlag
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -188,9 +202,7 @@ class Diagnosis : AppCompatActivity() {
                     "saveAudioToFirebaseStorage: on Failure Called " + exception.localizedMessage
                 )
             }
-        val df = firestore!!.collection("recordingsData").document(
-            currentAudioFileName!!
-        )
+        val df = firestore!!.collection("users").document(currentAudioFileName!!)
         val data: MutableMap<String, Any?> = HashMap()
         data["time"] = timeString
         data["Type"] = type
@@ -267,4 +279,6 @@ class Diagnosis : AppCompatActivity() {
             return rand.nextInt(max - min + 1) + min
         }
     }
+
+
 }
