@@ -101,46 +101,48 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/durationCard_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="275dp"
-                android:layout_marginTop="38dp"
-                android:layout_marginEnd="28dp"
-                android:layout_marginBottom="38dp"
-                android:text="المدة:"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/durationCard_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="المدة:"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="306dp"
+        tools:layout_editor_absoluteY="279dp" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/durationCard_Id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="145dp"
-                android:layout_marginTop="38dp"
-                android:layout_marginEnd="145dp"
-                android:layout_marginBottom="38dp"
-                android:hint="00:00"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/durationCard_Id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="00:00"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="179dp"
+        tools:layout_editor_absoluteY="279dp" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/LoudnessCard_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="مستوى الصوت:"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="235dp"
+        tools:layout_editor_absoluteY="433dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/loudnessCard_Id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="0%"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="193dp"
+        tools:layout_editor_absoluteY="433dp" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/loudnessCard"
@@ -157,46 +159,27 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/pitchCard_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="حدة الصوت:"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="548dp" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/LoudnessCard_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="209dp"
-                android:layout_marginTop="38dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="38dp"
-                android:text="مستوى الصوت:"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/loudnessCard_Id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="159dp"
-                android:layout_marginTop="38dp"
-                android:layout_marginEnd="158dp"
-                android:layout_marginBottom="38dp"
-                android:hint="0%"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/pitchCard_Id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="0 hrtz "
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="548dp" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/pitchCard"
@@ -215,54 +198,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/pitchCard_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="232dp"
-                android:layout_marginTop="38dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="38dp"
-                android:text="حدة الصوت:"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/pitchCard_Id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="142dp"
-                android:layout_marginTop="38dp"
-                android:layout_marginEnd="142dp"
-                android:layout_marginBottom="38dp"
-                android:hint="0 hrtz "
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="تست احذفيه"
-        tools:layout_editor_absoluteX="59dp"
-        tools:layout_editor_absoluteY="165dp" />
 
 
-    <!--    Next Button-->
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
