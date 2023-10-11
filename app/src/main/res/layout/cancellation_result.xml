@@ -253,6 +253,14 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="تست احذفيه"
+        tools:layout_editor_absoluteX="59dp"
+        tools:layout_editor_absoluteY="165dp" />
+
 
     <!--    Next Button-->
 

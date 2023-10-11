@@ -2,7 +2,6 @@ package com.example.aban
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
@@ -58,29 +57,8 @@ class CancellationResult : AppCompatActivity() {
 
 
         // ***********************************************************************
-        nextButton = findViewById(R.id.nextButton)
-        nextButton.setOnClickListener(View.OnClickListener { v: View? ->
-            startActivity(
-                Intent(
-                    this,
-                    Levels::class.java
-                )
-            )
-        })
-        playButton = findViewById(R.id.drawable)
-        playButton.setOnClickListener(View.OnClickListener { v: View? ->
-            if (playClicked) {
-                playClicked = false
-                lottieAnimationView.setVisibility(View.VISIBLE)
-                findViewById<View>(R.id.audioTitleTextView).visibility = View.GONE
-                // Start the animation
-                lottieAnimationView.playAnimation()
-            } else {
-                playClicked = true
-                lottieAnimationView.setVisibility(View.GONE)
-                findViewById<View>(R.id.audioTitleTextView).visibility = View.VISIBLE
-            }
-        })
+
+
     }
 
     private fun gettingIntent() {
