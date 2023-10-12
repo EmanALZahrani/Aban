@@ -48,6 +48,8 @@ class SignUp : AppCompatActivity() {
 
         // Set click listener for the "Sign up" button
         SignUpButton.setOnClickListener {
+            val intent = Intent(this, Checkletter::class.java)
+            startActivity(intent)
             // Handle user signup
             handleUserSignup()
         }

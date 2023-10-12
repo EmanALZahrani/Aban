@@ -23,15 +23,15 @@ class CancellationResult : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.cancellation_result)
-        loudnessTv = findViewById(R.id.loudnessCard_Id)
-        durationTv = findViewById(R.id.durationCard_Id)
-        pitchTv = findViewById(R.id.pitchCard_Id)
+        //loudnessTv = findViewById(R.id.loudnessCard_id)
+        //durationTv = findViewById(R.id.durationCard_Id)
+        //pitchTv = findViewById(R.id.pitchCard_Id)
 
         gettingIntent()
 
 
         //        Lottie animation ******************************************
-        lottieAnimationView = findViewById(R.id.lottie_animation_view_medium)
+        //lottieAnimationView = findViewById(R.id.lottie_animation_view_medium)
         // Set animation file (assuming it's in the res/raw directory)
         lottieAnimationView.setAnimation(R.raw.animation_wave)
 
@@ -43,7 +43,7 @@ class CancellationResult : AppCompatActivity() {
 
 
         // ***********************************************************************
-        nextButton = findViewById(R.id.nextButton)
+        //nextButton = findViewById(R.id.nextButton)
         nextButton.setOnClickListener(View.OnClickListener { v: View? ->
             startActivity(
                 Intent(
@@ -52,7 +52,7 @@ class CancellationResult : AppCompatActivity() {
                 )
             )
         })
-        playButton = findViewById(R.id.drawable)
+        //playButton = findViewById(R.id.drawable)
         playButton.setOnClickListener(View.OnClickListener { v: View? ->
             if (playClicked) {
                 playClicked = false
