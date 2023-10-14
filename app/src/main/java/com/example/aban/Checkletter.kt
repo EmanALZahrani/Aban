@@ -74,7 +74,7 @@ class Checkletter : AppCompatActivity() {
             val userDocRef = firestore.collection("users").document(userId)
             userDocRef.update("checkletter_completed", true).await()
 
-            // Update the flag in SharedPreferences
+            // Update the flag in SharedPreferencess
             val editor = sharedPreferences.edit()
             editor.putBoolean("checkletter_completed", true)
             editor.apply()
