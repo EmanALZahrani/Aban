@@ -5,9 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import android.widget.CheckBox
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.lifecycleScope
 import com.example.aban.databinding.CheckletterBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -24,6 +26,7 @@ class Checkletter : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
+    private lateinit var nextButton: AppCompatButton
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +46,16 @@ class Checkletter : AppCompatActivity() {
             startDiagnosisActivity()
         }
 
+
+        nextButton = findViewById(R.id.back)
+        nextButton.setOnClickListener(View.OnClickListener { v: View? ->
+            startActivity(
+                Intent(
+                    this,
+                    Levels::class.java
+                )
+            )
+        })
     }
 
     private fun hasCompletedActivity(userId: String): Boolean {
@@ -74,7 +87,6 @@ class Checkletter : AppCompatActivity() {
                     if (!userEmail.isNullOrEmpty()) {
                         // Retrieve the selected characters
                         val selectedCharacters = getSelectedCharacters()
-
                         // Store selected characters in Firestore
                         val userId = auth.currentUser?.uid
                         if (userId != null) {
@@ -82,7 +94,9 @@ class Checkletter : AppCompatActivity() {
 
                             val userSelections = hashMapOf(
                                 "selected_characters" to selectedCharacters
+
                             )
+
 
                             userDocRef.set(userSelections, SetOptions.merge())
                                 .addOnSuccessListener {
@@ -146,6 +160,7 @@ class Checkletter : AppCompatActivity() {
             val checkBox = findViewById<CheckBox>(checkBoxId)
             if (checkBox.isChecked) {
                 return true
+
             }
         }
 
@@ -168,6 +183,8 @@ class Checkletter : AppCompatActivity() {
             val checkBox = findViewById<CheckBox>(checkBoxId)
             if (checkBox.isChecked) {
                 selectedCharacters.add(checkBox.text.toString())
+                val intent = Intent(this, Cancellation::class.java)
+                intent.putExtra("selectedCharacters", "selectedCharacters")
             }
         }
 

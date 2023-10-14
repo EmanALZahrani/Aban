@@ -113,6 +113,7 @@
             android:layout_height="match_parent"
             android:gravity="bottom|clip_horizontal|center|clip_vertical|start|right|center_horizontal|fill|fill_horizontal|top|left|center_vertical|fill_vertical|end"
             android:textAlignment="center"
+            android:text="Hello World!"
             android:textAllCaps="false"
             android:textDirection="locale"
             android:textSize="28sp"
