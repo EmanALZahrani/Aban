@@ -40,7 +40,8 @@ class Checkletter : AppCompatActivity() {
         setContentView(binding.root)
 
         val userId = auth.currentUser?.uid
-        if (userId != null && !hasCompletedActivity(userId)) {
+        val checkletterCompleted = sharedPreferences.getBoolean("checkletter_completed", false)
+        if (userId != null && !checkletterCompleted) {
             next()
         } else {
             startDiagnosisActivity()
@@ -72,6 +73,11 @@ class Checkletter : AppCompatActivity() {
         withContext(Dispatchers.IO) {
             val userDocRef = firestore.collection("users").document(userId)
             userDocRef.update("checkletter_completed", true).await()
+
+            // Update the flag in SharedPreferences
+            val editor = sharedPreferences.edit()
+            editor.putBoolean("checkletter_completed", true)
+            editor.apply()
         }
     }
     private fun next() {
