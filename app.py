@@ -36,7 +36,7 @@ def predict():
         audio, sample_rate = librosa.load(audio_file, sr=None)
 
         if not contains_sound(audio):
-            return jsonify({"error": "Try againe"})
+            return jsonify({"error": "Try again"})
             
         cleaned_audio = remove_noise(audio)
 
@@ -49,11 +49,10 @@ def predict():
         # Make predictions using the SVM classifier
         prediction = classifier.predict(features)
 
+        return jsonify({ int(prediction[0])})
 
-       return jsonify({ int(prediction[0])})
     except Exception as e:
         return jsonify({"Something went wrong": str(e)})
-
 
 
 if __name__ == '__main__':
