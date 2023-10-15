@@ -10,7 +10,7 @@ def index():
     return 'Hello, World!'
 
 # Load the trained SVM model
-model_filename = 'classifier.pkl'
+model_filename = 'model.pkl'
 classifier = joblib.load(model_filename)
 
 def features_extractor(audio, sample_rate):
@@ -36,7 +36,7 @@ def predict():
         audio, sample_rate = librosa.load(audio_file, sr=None)
 
         if not contains_sound(audio):
-            return jsonify({"error": "لا يوجد صوت سجل مره أخرى"})
+            return jsonify({"error": "Try againe"})
             
         cleaned_audio = remove_noise(audio)
 
@@ -50,9 +50,9 @@ def predict():
         prediction = classifier.predict(features)
 
 
-        return jsonify({"الحالة": str(prediction)})
+       return jsonify({ int(prediction[0])})
     except Exception as e:
-        return jsonify({"حدث خطأ": str(e)})
+        return jsonify({"Something went wrong": str(e)})
 
 
 
