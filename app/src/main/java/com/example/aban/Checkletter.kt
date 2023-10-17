@@ -39,6 +39,8 @@ class Checkletter : AppCompatActivity() {
         binding = CheckletterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        //for show the page only ones
         val userId = auth.currentUser?.uid
         val checkletterCompleted = sharedPreferences.getBoolean("checkletter_completed", false)
         if (userId != null && !checkletterCompleted) {
