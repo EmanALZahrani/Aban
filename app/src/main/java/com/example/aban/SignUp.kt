@@ -7,19 +7,17 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.aban.databinding.SignupBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class SignUp : AppCompatActivity() {
 
-    private lateinit var binding: SignupBinding
     private lateinit var username: EditText
     private lateinit var phone: EditText
     private lateinit var mail: EditText
     private lateinit var password: EditText
     private lateinit var confirmPassword: EditText
-    private lateinit var SignUpButton: Button
+    private lateinit var signUpButton: Button
     private lateinit var signinButton: Button
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var auth: FirebaseAuth
@@ -27,40 +25,33 @@ class SignUp : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = SignupBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.signup)
 
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
         // Initialize UI components
-        username = binding.username
-        phone = binding.phone
-        mail = binding.mail
-        password = binding.password
-        confirmPassword = binding.confirmPassword
-        signinButton = binding.SigninButton
-        SignUpButton = binding.SignUpButton
+        username = findViewById(R.id.username)
+        phone = findViewById(R.id.phone)
+        mail = findViewById(R.id.mail)
+        password = findViewById(R.id.password)
+        confirmPassword = findViewById(R.id.confirmPassword)
+        signUpButton = findViewById(R.id.SignUpButton)
+        signinButton = findViewById(R.id.SigninButton)
+
 
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("user_data", Context.MODE_PRIVATE)
 
-        // Set click listener for the "Sign up" button
-        SignUpButton.setOnClickListener {
-            val intent = Intent(this, Checkletter::class.java)
-            startActivity(intent)
-
-
-        }
-        // Set click listener for the "Sign In" button
+// Set click listener for the "Sign In" button
         signinButton.setOnClickListener {
-            // Navigate to the login page (replace LogIn::class.java with your actual login activity)
             val intent = Intent(this, LogIn::class.java)
             startActivity(intent)
         }
 
-        // Set click listener for the sign-up button
-        SignUpButton.setOnClickListener {
+
+        // Set click listener for the "Sign Up" button
+        signUpButton.setOnClickListener {
             val enteredUsername = username.text.toString()
             val enteredPassword = password.text.toString()
             val enteredPhoneNumber = phone.text.toString()
@@ -73,11 +64,7 @@ class SignUp : AppCompatActivity() {
                     enteredEmail,
                     confirmPassword.text.toString()
                 )
-            )
-
-            // Handling user signup with Firestore data storage
-
-
+            ) {
                 // Create a new user with email and password using Firebase Authentication
                 auth.createUserWithEmailAndPassword(enteredEmail, enteredPassword)
                     .addOnCompleteListener(this) { task ->
@@ -91,19 +78,24 @@ class SignUp : AppCompatActivity() {
                                 val userData = hashMapOf(
                                     "Email" to enteredEmail,
                                     "UserName" to enteredUsername,
-                                    "PhoneNum" to enteredPhoneNumber
-                                    // Add any other user data you want to store
+                                    "PhoneNum" to enteredPhoneNumber,
+                                    "password" to enteredPassword
+
                                 )
 
                                 userDocRef.set(userData)
                                     .addOnSuccessListener {
                                         // User data stored successfully
-                                        // You can proceed to the next step or show a success message
                                         // Save the user's email in SharedPreferences
                                         val editor = sharedPreferences.edit()
                                         editor.putString("email", enteredEmail)
                                         editor.apply()
-                                        // Proceed to the next step or show a success message
+
+                                        // Navigate to the Checkletter activity
+                                        val intent = Intent(this@SignUp, Checkletter::class.java)
+                                        startActivity(intent)
+
+                                        // Show a success message
                                         Toast.makeText(
                                             this@SignUp,
                                             "Signup Successful!",
@@ -124,10 +116,9 @@ class SignUp : AppCompatActivity() {
                             Toast.makeText(this, "Signup Failed! Please try again.", Toast.LENGTH_SHORT).show()
                         }
                     }
-            else {
-                // Display an error message
+            } else {
+                // Display an error message for invalid input
                 Toast.makeText(this, "Signup Failed! Please check your inputs.", Toast.LENGTH_SHORT).show()
-            }
             }
         }
     }
@@ -140,7 +131,7 @@ class SignUp : AppCompatActivity() {
         confirmPassword: String
     ): Boolean {
         val isUsernameValid = username.isNotBlank() // Check if username is not empty
-        val isPasswordValid = password.length >= 6 // Check if password is at least 6 characters long
+        val isPasswordValid = password.length >= 6 // Check if the password is at least 6 characters long
         val isPhoneNumberValid =
             phoneNumber.matches(Regex("\\d+")) && phoneNumber.length == 10 // Check if the phone number contains 10 numeric digits
         val isEmailValid = isValidEmail(email) // Check if the email address has the correct format
@@ -153,3 +144,29 @@ class SignUp : AppCompatActivity() {
         val emailRegex = Regex("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}")
         return emailRegex.matches(email)
     }
+}
+
+
+private fun isSignupValid(
+    username: String,
+    password: String,
+    phoneNumber: String,
+    email: String,
+    confirmPassword: String
+): Boolean {
+    val isUsernameValid = username.isNotBlank() // Check if username is not empty
+    val isPasswordValid = password.length >= 6 // Check if password is at least 6 characters long
+    val isPhoneNumberValid =
+        phoneNumber.matches(Regex("\\d+")) && phoneNumber.length == 10 // Check if the phone number contains 10 numeric digits
+    val isEmailValid = isValidEmail(email) // Check if the email address has the correct format
+    val doPasswordsMatch = password == confirmPassword // Check if the password and confirm password fields match
+
+    return isUsernameValid && isPasswordValid && isPhoneNumberValid && isEmailValid && doPasswordsMatch
+}
+
+private fun isValidEmail(email: String): Boolean {
+    val emailRegex = Regex("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}")
+    return emailRegex.matches(email)
+}
+
+
