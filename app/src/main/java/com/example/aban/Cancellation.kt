@@ -16,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.airbnb.lottie.LottieAnimationView
 import com.example.aban.utils.Constants
 import com.example.aban.utils.PitchDetectionTarso
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
@@ -38,6 +37,7 @@ class Cancellation : AppCompatActivity() {
     var loudnessValue: String? = null
     var lottieAnimationView: LottieAnimationView? = null
     var firestore: FirebaseFirestore? = null
+    private val wordFetcher = WordFetcher()
     private var mediaRecorder: MediaRecorder? = null
     private var isRecording = false
     private var startTime = 0L
@@ -84,62 +84,8 @@ class Cancellation : AppCompatActivity() {
             val intent1 = Intent(this@Cancellation,account ::class.java)
             startActivity(intent1)}
 
-        val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
-        // استعراض كلمات وحروف من Firebase Firestore
-        val wordsCollection = db.collection("words")
-        val currentUser = FirebaseAuth.getInstance().currentUser
-
-// Check if a user is signed in
-        if (currentUser != null) {
-            // Assuming your user documents are stored in a "users" collection
-            val db = FirebaseFirestore.getInstance()
-            val usersCollection = db.collection("recordingsData")
-
-            // Get the current user's document
-            val userId = currentUser.uid
-
-            usersCollection.document(userId).get()
-                .addOnSuccessListener { documentSnapshot ->
-                    if (documentSnapshot.exists()) {
-                        // Retrieve the character field from the user's document
-                        val userChar = documentSnapshot.getString("selected_characters")
-
-                        if (userChar != null) {
-                            // Use the character value as needed
-                            // Now you have the current user's character
-                        } else {
-                            // Handle the case where "character" field is null
-                        }
-                    } else {
-                        // Handle the case where the user's document doesn't exist
-                    }
-                }
-                .addOnFailureListener {
-                    // Handle any errors that occur during the retrieval
-                }
-        } else {
-            // User is not signed in, handle accordingly
-        }
-
-
-
-        // قم بالبحث عن الحرف المطابق في مجموعة الكلمات والحروف
-        wordsCollection.document(userChar).get()
-            .addOnSuccessListener { documentSnapshot ->
-                if (documentSnapshot.exists()) {
-                    val wordsList = documentSnapshot.get("words") as List<String>
-                    // عرض كلمة عشوائية في TextView
-                    val random = Random()
-                    val randomWord = wordsList[random.nextInt(wordsList.size)]
-                    Word.text = randomWord
-                } else {
-                    Word.text = "لا توجد كلمات متاحة لهذا الحرف."
-                }
-            }
-            .addOnFailureListener { exception ->
-                Word.text = "حدث خطأ: ${exception.message}"
-            }
+        getRandomWord()
 
 
         btnRecord.setOnClickListener {
@@ -163,6 +109,25 @@ class Cancellation : AppCompatActivity() {
 
     }
 
+
+
+
+    private fun getRandomWord() {
+        wordFetcher.fetchRandomWordForCurrentUser(
+            onSuccess = { randomWord ->
+                displayWord(randomWord)
+            },
+            onFailure = { exception ->
+                // Handle the error (e.g., show a message to the user)
+                Toast.makeText(this, "Error fetching word: ${exception.message}", Toast.LENGTH_LONG).show()
+            }
+        )
+    }
+
+    private fun displayWord(word: String) {
+        val textView: TextView = findViewById(R.id.Word)
+        textView.text = word
+    }
 
 
 
@@ -299,37 +264,6 @@ class Cancellation : AppCompatActivity() {
         fun randInt(min: Int, max: Int): Int {
             val rand = Random()
             return rand.nextInt(max - min + 1) + min
-        }
-    }
-    // Function to create a Firestore document for user tracking
-    private fun createUserDocument(userId: String?) {
-        if (userId != null) {
-            firestore = FirebaseFirestore.getInstance()
-
-            // Define the data
-            val userData = hashMapOf(
-                "Cancellation" to true,
-            )
-
-            // Specify the path for the user document
-            val userDocumentRef = firestore!!.collection("recordingsData").document(userId)
-
-            // Set the data in the Firestore document
-            userDocumentRef.set(userData)
-                .addOnSuccessListener {
-                    Toast.makeText(
-                        this,
-                        " ",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                .addOnFailureListener { e ->
-                    Toast.makeText(
-                        this,
-                        "  ",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
         }
     }
 }
