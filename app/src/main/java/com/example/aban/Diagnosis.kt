@@ -25,6 +25,7 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import org.json.JSONObject
 import java.io.File
 import java.io.IOException
 import java.util.Random
@@ -79,7 +80,7 @@ class Diagnosis : AppCompatActivity() {
         setContentView(R.layout.diagnosis)
         btnRecord = findViewById<ToggleButton>(R.id.btnRecord)
         tvDuration = findViewById(R.id.tvDuration)
-        // firestore = FirebaseFirestore.getInstance()
+        //firestore = FirebaseFirestore.getInstance()
 
         val button6 = findViewById<ImageButton>(R.id.back)
         button6.setOnClickListener {
@@ -113,9 +114,6 @@ class Diagnosis : AppCompatActivity() {
 
 
     }
-
-
-
 
 
     fun startRecording() {
@@ -156,7 +154,6 @@ class Diagnosis : AppCompatActivity() {
             btnRecord!!.background = getDrawable(R.drawable.button_bg_on)
             tvDuration!!.text = " المدة : ٠٠:٠٠"
 
-
             // Stop recording
             mediaRecorder!!.stop()
             mediaRecorder!!.release()
@@ -164,17 +161,32 @@ class Diagnosis : AppCompatActivity() {
             isRecording = false
             handler.removeCallbacks(updateTimerThread)
             timeString = minutes.toString() + ":" + String.format("%02d", seconds)
-            saveAudioToFirebaseStorage()
+
+            // Check if the audio file is not empty
+            checkAudioFileNotEmpty()
+        }
+    }
+
+    private fun checkAudioFileNotEmpty() {
+        val filePath = getOutputFilePath(currentAudioFileName)
+        val file = File(filePath)
+
+        if (file.exists() && file.length() > 0) {
+            // The file exists and is not empty, proceed with your logic (upload, etc.)
+            //saveAudioToFirebaseStorage()
             accessFlaskServer()
 
             // Starting Medium activity
             val intent = Intent(this@Diagnosis, DiagnosisResult::class.java)
-            //intent.putExtra("durationIntent", timeString)
-            intent.putExtra("typeIntent",type)//نضيف النتيجة حقت التشخيص هنا
+       //     intent.putExtra("durationIntent", timeString)
+            intent.putExtra("typeIntent", type) // Add the result of the diagnosis here
             startActivity(intent)
-
+        } else {
+            // The file is empty or doesn't exist, handle this case (show a message, prompt for re-recording, etc.)
+            runOnUiThread {
+                Toast.makeText(this, "Recording failed or the audio is empty, please try again.", Toast.LENGTH_LONG).show()
+            }
         }
-
     }
 
     private fun getOutputFilePath(fileName: String?): String {
@@ -252,33 +264,38 @@ class Diagnosis : AppCompatActivity() {
                 // Check if the response was successful (HTTP status code 200)
                 if (response.isSuccessful) {
                     try {
-                        val responseBody = response.body?.string() // Read the response body as a string
+                        val responseBody = response.body?.string()
+                        val jsonResponse = JSONObject(responseBody)
 
-                        // Now you can use responseBody to update your UI with the result
-                        runOnUiThread {
-                            type = responseBody // Save the result in the 'type' variable as a String
-                            resultTextView.text = type // Update the resultTextView with the result
+                        if (jsonResponse.has("error")) {
+                            val error = jsonResponse.getString("error")
+                            runOnUiThread {
+                                resultTextView.text = "Error: $error"
+                            }
+                        } else {
+                            val normal = jsonResponse.getString("Normal")
+                            val stutter = jsonResponse.getString("Stutter")
+                            runOnUiThread {
+                                resultTextView.text = "Normal: $normal\nStutter: $stutter"
+                            }
                         }
                     } catch (e: IOException) {
                         e.printStackTrace()
-                        // Handle error while reading the response body
+                        runOnUiThread {
+                            resultTextView.text = "Error reading response: ${e.message}"
+                        }
                     }
                 } else {
-                    // Handle non-successful response (e.g., HTTP status code is not 200)
-                    // You can check response.code() for the HTTP status code
+                    runOnUiThread {
+                        resultTextView.text = "Server responded with status: ${response.code}"
+                    }
                 }
             }
         })
-
     }
 
 
-    companion object {
-        fun randInt(min: Int, max: Int): Int {
-            val rand = Random()
-            return rand.nextInt(max - min + 1) + min
-        }
-    }
+
 
 
 }

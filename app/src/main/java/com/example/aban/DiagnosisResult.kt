@@ -6,6 +6,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatTextView
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -15,11 +16,14 @@ import kotlinx.coroutines.withContext
 class DiagnosisResult : AppCompatActivity() {
 
     private lateinit var firestore: FirebaseFirestore
+    var type: AppCompatTextView? = null
     private lateinit var typeIntent: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.diagnosis_result)
+        type  = findViewById(R.id.nameresult)
+
 
         // next button listener
         val Dresult = findViewById<ImageButton>(R.id.back)
@@ -37,12 +41,12 @@ class DiagnosisResult : AppCompatActivity() {
         }
 
         // Extract the probability values from the intent
-        val normalProb = intent.getStringExtra("NormalProbability") ?: "0"
-        val stutterProb = intent.getStringExtra("StutterProbability") ?: "0"
+        val normalProb = intent.getStringExtra("typeIntent")
+     //   val stutterProb = intent.getStringExtra("StutterProbability") ?: "0"
 
         // Update the TextView with the probabilities
-        val resultTextView = findViewById<TextView>(R.id.nameresult)
-        resultTextView.text = "طبيعي: $normalProb% \nتأتأة: $stutterProb%"
+
+        type!!.text = "$normalProb"
     }
 
     private fun hasCompletedActivity(userId: String): Boolean {
