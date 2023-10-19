@@ -20,9 +20,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+
     <ImageButton
         android:id="@+id/back"
-        android:layout_width="69dp"
+        android:layout_width="70dp"
         android:layout_height="31dp"
         android:backgroundTint="#002E8B57"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
@@ -48,8 +49,8 @@
 
     <ImageButton
         android:id="@+id/account"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
+        android:layout_width="70dp"
+        android:layout_height="24dp"
         android:backgroundTint="#002E8B57"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
         app:layout_constraintEnd_toStartOf="@+id/textView9"
@@ -62,26 +63,19 @@
 
     <Button
         android:id="@+id/btnStart"
-        android:layout_width="164dp"
-        android:layout_height="71dp"
-        android:layout_marginStart="123dp"
-        android:layout_marginTop="725dp"
-        android:layout_marginEnd="124dp"
-        android:layout_marginBottom="70dp"
+        android:layout_width="205dp"
+        android:layout_height="73dp"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/rounded_corners"
         android:backgroundTint="@color/darkgreen"
-        android:clickable="true"
-        android:onClick="next"
-        android:text="أبدأ"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="ابدأ"
+        android:textAlignment="center"
         android:textColor="@color/beige"
         android:textSize="20sp"
-        android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.89" />
+        app:layout_constraintStart_toStartOf="parent"/>
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView4"
@@ -112,9 +106,7 @@
             android:textDirection="locale"
             android:textSize="28sp"
             android:typeface="monospace" />
-
     </androidx.cardview.widget.CardView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
