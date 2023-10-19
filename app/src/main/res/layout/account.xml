@@ -67,14 +67,14 @@
 
     <Button
         android:id="@+id/result"
-        android:layout_width="164dp"
-        android:layout_height="71dp"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
         android:layout_marginStart="123dp"
         android:layout_marginTop="725dp"
         android:layout_marginEnd="124dp"
         android:layout_marginBottom="70dp"
         android:background="@drawable/rounded_corners"
-        android:backgroundTint="@color/darkgreen"
+        android:backgroundTint="#8FA174"
         android:text="النتائج"
         android:textAlignment="center"
         android:textColor="@color/beige"
