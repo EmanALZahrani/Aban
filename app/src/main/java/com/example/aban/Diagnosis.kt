@@ -25,6 +25,7 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
 import java.io.IOException
@@ -36,7 +37,7 @@ class Diagnosis : AppCompatActivity() {
     var storage: FirebaseStorage? = null
     var currentAudioFileName: String? = null
     var timeString: String? = null
-    var type : String? = null
+    var type: String? = null
     var firestore: FirebaseFirestore? = null
     private var mediaRecorder: MediaRecorder? = null
     private var isRecording = false
@@ -47,7 +48,7 @@ class Diagnosis : AppCompatActivity() {
     private var timeInMilliseconds: Long = 0
     private var minutes = 0
     private lateinit var btnRecord: Button
-    private lateinit var resultTextView : TextView
+    private lateinit var resultTextView: TextView
     val okHttpClient = OkHttpClient()
 
 
@@ -85,11 +86,13 @@ class Diagnosis : AppCompatActivity() {
         val button6 = findViewById<ImageButton>(R.id.back)
         button6.setOnClickListener {
             val intent = Intent(this@Diagnosis, Levels::class.java)
-            startActivity(intent)}
+            startActivity(intent)
+        }
         val button7 = findViewById<ImageButton>(R.id.account)
         button7.setOnClickListener {
-            val intent1 = Intent(this@Diagnosis,account ::class.java)
-            startActivity(intent1)}
+            val intent1 = Intent(this@Diagnosis, account::class.java)
+            startActivity(intent1)
+        }
 
 
         btnRecord.setOnClickListener {
@@ -148,6 +151,7 @@ class Diagnosis : AppCompatActivity() {
 
 
     }
+
     private fun stopRecording() {
         if (isRecording) {
             btnRecord!!.text = "توقف التسجيل"
@@ -178,13 +182,17 @@ class Diagnosis : AppCompatActivity() {
 
             // Starting Medium activity
             val intent = Intent(this@Diagnosis, DiagnosisResult::class.java)
-       //     intent.putExtra("durationIntent", timeString)
+            //     intent.putExtra("durationIntent", timeString)
             intent.putExtra("typeIntent", type) // Add the result of the diagnosis here
             startActivity(intent)
         } else {
             // The file is empty or doesn't exist, handle this case (show a message, prompt for re-recording, etc.)
             runOnUiThread {
-                Toast.makeText(this, "Recording failed or the audio is empty, please try again.", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this,
+                    "Recording failed or the audio is empty, please try again.",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }
@@ -232,13 +240,15 @@ class Diagnosis : AppCompatActivity() {
             }
 
     }
+
     private fun accessFlaskServer() {
         val audioFilePath = getOutputFilePath(currentAudioFileName)
         sendAudioToFlaskServer(audioFilePath)
     }
 
     private fun sendAudioToFlaskServer(audioFilePath: String) {
-        val url = "https://aban-app-521459a5fe97.herokuapp.com/predict" // Replace with your Flask server URL
+        val url =
+            "https://aban-app-521459a5fe97.herokuapp.com/predict" // Replace with your Flask server URL
 
         val file = File(audioFilePath)
         val audioRequestBody = RequestBody.create("audio/*".toMediaTypeOrNull(), file.readBytes())
@@ -259,43 +269,55 @@ class Diagnosis : AppCompatActivity() {
                 e.printStackTrace()
             }
 
-            @SuppressLint("WrongViewCast")
             override fun onResponse(call: Call, response: Response) {
-                // Check if the response was successful (HTTP status code 200)
-                if (response.isSuccessful) {
-                    try {
-                        val responseBody = response.body?.string()
-                        val jsonResponse = JSONObject(responseBody)
+                runOnUiThread {
+                    if (response.isSuccessful) {
+                        try {
+                            val responseBody = response.body?.string()
+                            val jsonResponse = JSONObject(responseBody)
 
-                        if (jsonResponse.has("error")) {
-                            val error = jsonResponse.getString("error")
-                            runOnUiThread {
-                                resultTextView.text = "Error: $error"
+                            if (jsonResponse.has("error")) {
+                                val error = jsonResponse.getString("error")
+                                // Show a Toast or any other UI element to display the error.
+                                Toast.makeText(this@Diagnosis, "Error: $error", Toast.LENGTH_SHORT)
+                                    .show()
+                            } else {
+                                val normal = jsonResponse.getString("Normal")
+                                val stutter = jsonResponse.getString("Stutter")
+
+                                val intent = Intent(this@Diagnosis, DiagnosisResult::class.java)
+                                intent.putExtra("typeIntent", "Normal: $normal\nStutter: $stutter")
+                                startActivity(intent)
                             }
-                        } else {
-                            val normal = jsonResponse.getString("Normal")
-                            val stutter = jsonResponse.getString("Stutter")
-                            runOnUiThread {
-                                resultTextView.text = "Normal: $normal\nStutter: $stutter"
-                            }
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                            // Display the IOException error.
+                            Toast.makeText(
+                                this@Diagnosis,
+                                "Error processing the response: ${e.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                            // Display the JSON parsing error.
+                            Toast.makeText(
+                                this@Diagnosis,
+                                "Error parsing the response: ${e.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                        runOnUiThread {
-                            resultTextView.text = "Error reading response: ${e.message}"
-                        }
-                    }
-                } else {
-                    runOnUiThread {
-                        resultTextView.text = "Server responded with status: ${response.code}"
+                    } else {
+                        // Display the server response error.
+                        Toast.makeText(
+                            this@Diagnosis,
+                            "Server responded with status: ${response.code}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
+
+
         })
     }
-
-
-
-
-
 }

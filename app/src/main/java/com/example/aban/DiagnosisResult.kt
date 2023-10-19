@@ -16,7 +16,7 @@ import kotlinx.coroutines.withContext
 class DiagnosisResult : AppCompatActivity() {
 
     private lateinit var firestore: FirebaseFirestore
-    var type: AppCompatTextView? = null
+    private lateinit var type: AppCompatTextView
     private lateinit var typeIntent: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,14 +31,8 @@ class DiagnosisResult : AppCompatActivity() {
             val intent = Intent(this@DiagnosisResult, ResultType::class.java)
             startActivity(intent)
         }
-
-        // Extract the probability values from the intent
         val normalProb = intent.getStringExtra("typeIntent")
-     //   val stutterProb = intent.getStringExtra("StutterProbability") ?: "0"
-
-        // Update the TextView with the probabilities
-
-        type!!.text = "$normalProb"
+        type.text = normalProb
     }
 
     private fun hasCompletedActivity(userId: String): Boolean {

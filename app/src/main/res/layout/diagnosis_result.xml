@@ -78,8 +78,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/age"
-        android:layout_width="346dp"
-        android:layout_height="106dp"
+        android:layout_width="361dp"
+        android:layout_height="200dp"
         android:layout_margin="30dp"
         app:cardBackgroundColor="#D5FFFFFF"
         app:cardCornerRadius="30dp"
@@ -94,8 +94,8 @@
 
         <TextView
             android:id="@+id/nametext1"
-            android:layout_width="84dp"
-            android:layout_height="58dp"
+            android:layout_width="81dp"
+            android:layout_height="85dp"
             android:layout_gravity="center|right"
             android:gravity="center"
             android:text="الحالة: "
@@ -105,8 +105,8 @@
 
         <TextView
             android:id="@+id/nameresult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="236dp"
+            android:layout_height="95dp"
             android:layout_gravity="center"
             android:text="النتيجة"
             android:textAlignment="center"
