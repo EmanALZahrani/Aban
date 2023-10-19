@@ -161,16 +161,15 @@
         android:layout_width="349dp"
         android:layout_height="89dp"
         android:layout_marginStart="31dp"
-        android:layout_marginTop="581dp"
         android:layout_marginEnd="31dp"
-        android:layout_marginBottom="196dp"
         app:cardBackgroundColor="#D5FFFFFF"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.78"
         tools:ignore="MissingConstraints">
 
         <TextView
@@ -199,16 +198,15 @@
         android:layout_width="349dp"
         android:layout_height="89dp"
         android:layout_marginStart="31dp"
-        android:layout_marginTop="461dp"
         android:layout_marginEnd="31dp"
-        android:layout_marginBottom="316dp"
         app:cardBackgroundColor="#D5FFFFFF"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.61"
         tools:ignore="MissingConstraints">
 
         <TextView

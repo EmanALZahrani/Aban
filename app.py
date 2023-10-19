@@ -10,7 +10,7 @@ def index():
     return 'Hello, World!'
 
 # Load the trained Logistic Regression model
-model_filename = 'regression_model.pkl'
+model_filename = 'Rmodel.pkl'
 log_reg = joblib.load(model_filename)
 
 def features_extractor(audio, sample_rate):
@@ -21,12 +21,6 @@ def contains_sound(audio, threshold=0.02):
     energy = np.sum(audio ** 2)
     return energy > threshold
 
-def remove_noise(audio, threshold=0.02):
-    energy = np.sum(audio ** 2)
-    if energy > threshold:
-        return audio
-    else:
-        return np.zeros_like(audio)
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -38,10 +32,10 @@ def predict():
         if not contains_sound(audio):
             return jsonify({"error": "The audio file is too silent. Please try again."})
             
-        cleaned_audio = remove_noise(audio)
+        
 
         # Extract features from the audio
-        features = features_extractor(cleaned_audio, sample_rate)
+        features = features_extractor(audio, sample_rate)
 
         # Reshape features for prediction
         features = features.reshape(1, -1)

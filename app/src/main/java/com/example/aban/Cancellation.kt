@@ -23,11 +23,6 @@ import java.io.File
 import java.util.Random
 
 
-
-
-
-
-
 class Cancellation : AppCompatActivity() {
 
     var storage: FirebaseStorage? = null
@@ -37,7 +32,6 @@ class Cancellation : AppCompatActivity() {
     var loudnessValue: String? = null
     var lottieAnimationView: LottieAnimationView? = null
     var firestore: FirebaseFirestore? = null
-    private val wordFetcher = WordFetcher()
     private var mediaRecorder: MediaRecorder? = null
     private var isRecording = false
     private var startTime = 0L
@@ -46,9 +40,8 @@ class Cancellation : AppCompatActivity() {
     private var seconds = 0
     private var timeInMilliseconds: Long = 0
     private var minutes = 0
-    private lateinit var userChar: String // الحرف المختار من قبل المستخدم
-    private lateinit var Word: TextView // TextView لعرض الكلمة
     private lateinit var btnRecord: Button
+    private val wordFetcher = WordFetcher()
 
 
     private val updateTimerThread: Runnable = object : Runnable {
@@ -74,7 +67,7 @@ class Cancellation : AppCompatActivity() {
         lottieAnimationView = findViewById(R.id.lottie_animation_view)
         firestore = FirebaseFirestore.getInstance()
 
-
+        getRandomWord()
         val button6 = findViewById<ImageButton>(R.id.backBtn)
         button6.setOnClickListener {
             val intent = Intent(this@Cancellation, LevelOne::class.java)
@@ -85,8 +78,6 @@ class Cancellation : AppCompatActivity() {
             startActivity(intent1)}
 
 
-        getRandomWord()
-
 
         btnRecord.setOnClickListener {
             Constants.createTempFolder()
@@ -96,21 +87,9 @@ class Cancellation : AppCompatActivity() {
                 startRecording()
             }
         }
-       /* val btnShowFiles = findViewById<AppCompatButton>(R.id.btnShowFiles)
-        btnShowFiles.setOnClickListener { view: View? ->
-            startActivity(
-                Intent(
-                    this@Cancellation,
-                    DisplayAudioFilesActivity::class.java
-                )
-            )
-        }*/
 
 
     }
-
-
-
 
     private fun getRandomWord() {
         wordFetcher.fetchRandomWordForCurrentUser(
@@ -128,6 +107,8 @@ class Cancellation : AppCompatActivity() {
         val textView: TextView = findViewById(R.id.Word)
         textView.text = word
     }
+
+
 
 
 
@@ -264,6 +245,37 @@ class Cancellation : AppCompatActivity() {
         fun randInt(min: Int, max: Int): Int {
             val rand = Random()
             return rand.nextInt(max - min + 1) + min
+        }
+    }
+    // Function to create a Firestore document for user tracking
+    private fun createUserDocument(userId: String?) {
+        if (userId != null) {
+            firestore = FirebaseFirestore.getInstance()
+
+            // Define the data
+            val userData = hashMapOf(
+                "Cancellation" to true,
+            )
+
+            // Specify the path for the user document
+            val userDocumentRef = firestore!!.collection("recordingsData").document(userId)
+
+            // Set the data in the Firestore document
+            userDocumentRef.set(userData)
+                .addOnSuccessListener {
+                    Toast.makeText(
+                        this,
+                        " ",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(
+                        this,
+                        "  ",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
         }
     }
 }

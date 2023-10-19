@@ -79,7 +79,7 @@ class Diagnosis : AppCompatActivity() {
         setContentView(R.layout.diagnosis)
         btnRecord = findViewById<ToggleButton>(R.id.btnRecord)
         tvDuration = findViewById(R.id.tvDuration)
-        firestore = FirebaseFirestore.getInstance()
+        // firestore = FirebaseFirestore.getInstance()
 
         val button6 = findViewById<ImageButton>(R.id.back)
         button6.setOnClickListener {
