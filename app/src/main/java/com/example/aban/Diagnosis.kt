@@ -133,7 +133,6 @@ class Diagnosis : AppCompatActivity() {
 
 
 
-
     fun startRecording() {
         // Ensure that the MediaRecorder is not already recording
         if (isRecording) {

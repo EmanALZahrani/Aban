@@ -1,7 +1,6 @@
 package com.example.aban
-import android.content.Context
+
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -19,7 +18,6 @@ class SignUp : AppCompatActivity() {
     private lateinit var confirmPassword: EditText
     private lateinit var signUpButton: Button
     private lateinit var signinButton: Button
-    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
 
@@ -39,16 +37,11 @@ class SignUp : AppCompatActivity() {
         signUpButton = findViewById(R.id.SignUpButton)
         signinButton = findViewById(R.id.SigninButton)
 
-
-        // Initialize SharedPreferences
-        sharedPreferences = getSharedPreferences("user_data", Context.MODE_PRIVATE)
-
-// Set click listener for the "Sign In" button
+        // Set click listener for the "Sign In" button
         signinButton.setOnClickListener {
             val intent = Intent(this, LogIn::class.java)
             startActivity(intent)
         }
-
 
         // Set click listener for the "Sign Up" button
         signUpButton.setOnClickListener {
@@ -80,17 +73,11 @@ class SignUp : AppCompatActivity() {
                                     "UserName" to enteredUsername,
                                     "PhoneNum" to enteredPhoneNumber,
                                     "password" to enteredPassword
-
                                 )
 
                                 userDocRef.set(userData)
                                     .addOnSuccessListener {
                                         // User data stored successfully
-                                        // Save the user's email in SharedPreferences
-                                        val editor = sharedPreferences.edit()
-                                        editor.putString("email", enteredEmail)
-                                        editor.apply()
-
                                         // Navigate to the Checkletter activity
                                         val intent = Intent(this@SignUp, Checkletter::class.java)
                                         startActivity(intent)
@@ -145,28 +132,3 @@ class SignUp : AppCompatActivity() {
         return emailRegex.matches(email)
     }
 }
-
-
-private fun isSignupValid(
-    username: String,
-    password: String,
-    phoneNumber: String,
-    email: String,
-    confirmPassword: String
-): Boolean {
-    val isUsernameValid = username.isNotBlank() // Check if username is not empty
-    val isPasswordValid = password.length >= 6 // Check if password is at least 6 characters long
-    val isPhoneNumberValid =
-        phoneNumber.matches(Regex("\\d+")) && phoneNumber.length == 10 // Check if the phone number contains 10 numeric digits
-    val isEmailValid = isValidEmail(email) // Check if the email address has the correct format
-    val doPasswordsMatch = password == confirmPassword // Check if the password and confirm password fields match
-
-    return isUsernameValid && isPasswordValid && isPhoneNumberValid && isEmailValid && doPasswordsMatch
-}
-
-private fun isValidEmail(email: String): Boolean {
-    val emailRegex = Regex("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}")
-    return emailRegex.matches(email)
-}
-
-
