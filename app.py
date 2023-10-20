@@ -2,7 +2,6 @@ from flask import Flask, request, jsonify
 import joblib
 import librosa
 import numpy as np
-from pydub import AudioSegment
 
 app = Flask(__name__)
 
@@ -22,21 +21,18 @@ def contains_sound(audio, threshold=0.02):
     energy = np.sum(audio ** 2)
     return energy > threshold
 
+
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
         # Get the uploaded audio file from the request
         audio_file = request.files['audio']
-
-        # Convert the received AAC audio to WAV format
-        audio = AudioSegment.from_file(audio_file)
-        audio.export("input.wav", format="wav")
-
-        # Load the audio in WAV format for processing
-        audio, sample_rate = librosa.load("input.wav", sr=None)
+        audio, sample_rate = librosa.load(audio_file, sr=None)
 
         if not contains_sound(audio):
             return jsonify({"error": "The audio file is too silent. Please try again."})
+            
+        
 
         # Extract features from the audio
         features = features_extractor(audio, sample_rate)
@@ -47,7 +43,7 @@ def predict():
         # Make predictions using the Logistic Regression model
         probabilities = log_reg.predict_proba(features)
 
-        # Assuming class 0 is "Normal" and class 1 is "Stutter"
+# Assuming class 0 is "Normal" and class 1 is "Stutter"
         normal_prob = probabilities[0][0]
         stutter_prob = probabilities[0][1]
 
