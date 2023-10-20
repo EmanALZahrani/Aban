@@ -51,7 +51,7 @@ class Cancellation : AppCompatActivity() {
             minutes = seconds / 60
             seconds = seconds % 60
             var tvDuration1: TextView = findViewById(R.id.tvDuration)
-            tvDuration1.setText("Duration: " + minutes + ":" + String.format("%02d", seconds))
+            tvDuration1.setText("المدة: " + minutes + ":" + String.format("%02d", seconds))
             handler.postDelayed(this, 1000)
         }
     }

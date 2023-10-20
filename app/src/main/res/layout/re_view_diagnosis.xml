@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#DDDFD1"
-        tools:context=".DisplayAudioFilesActivity">
+        tools:context=".ReViewDiagnosis">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar2"
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text=" نتائج التمارين"
+            android:text=" نتائج التشخيص"
             android:textColor="#F4EBEB"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,14 +72,14 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
-            android:layout_width="375dp"
-            android:layout_height="502dp"
+            android:layout_width="395dp"
+            android:layout_height="498dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.469"
-            tools:listitem="@layout/audio_item" />
+            tools:listitem="@layout/audio_item_diagnosis" />
 
         <ProgressBar
             android:id="@+id/mainProgressBar"
