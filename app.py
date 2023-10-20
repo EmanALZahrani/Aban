@@ -4,7 +4,7 @@ import librosa
 import numpy as np
 from pydub import AudioSegment
 
-app = Flask(__name)
+app = Flask(__name__)
 
 @app.route('/')
 def index():
