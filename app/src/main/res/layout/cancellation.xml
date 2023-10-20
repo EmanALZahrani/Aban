@@ -143,7 +143,7 @@
         android:layout_marginBottom="70dp"
         android:background="@drawable/rounded_corners"
         android:backgroundTint="#8FA174"
-        android:text="<  التالي "
+        android:text= "التالي"
         android:textAlignment="center"
         android:textColor="@color/beige"
         android:textSize="20sp"

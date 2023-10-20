@@ -1,8 +1,10 @@
 package com.example.aban
 
 
+import android.content.Context
 import android.content.Intent
 import android.media.MediaRecorder
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -166,20 +168,26 @@ class Diagnosis : AppCompatActivity() {
     }
     private fun stopRecording() {
         if (isRecording) {
-            btnRecord!!.text = "توقف التسجيل"
-            btnRecord!!.background = getDrawable(R.drawable.button_bg_on)
-            tvDuration!!.text = " المدة : ٠٠:٠٠"
+            btnRecord?.text = "توقف التسجيل"
+            btnRecord?.background = getDrawable(R.drawable.button_bg_on)
+            tvDuration?.text = " المدة : ٠٠:٠٠"
 
 
             // Stop recording
-            mediaRecorder!!.stop()
-            mediaRecorder!!.release()
+            mediaRecorder?.stop()
+            mediaRecorder?.release()
             mediaRecorder = null
             isRecording = false
             handler.removeCallbacks(updateTimerThread)
             timeString = minutes.toString() + ":" + String.format("%02d", seconds)
             saveAudioToFirebaseStorage()
-            accessFlaskServer()
+            if (isNetworkAvailable(this)) {
+                // Proceed to send the audio file
+                accessFlaskServer()
+            } else {
+                Toast.makeText(this, "No internet connection. Please check your network settings.", Toast.LENGTH_SHORT).show()
+            }
+
 
             // Starting Medium activity
             val intent = Intent(this@Diagnosis, DiagnosisResult::class.java)
@@ -303,6 +311,13 @@ class Diagnosis : AppCompatActivity() {
         val appCheckProviderFactory = SafetyNetAppCheckProviderFactory.getInstance()
         firebaseAppCheck.installAppCheckProviderFactory(appCheckProviderFactory)
     }
+
+    fun isNetworkAvailable(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
+    }
+
 
 
 

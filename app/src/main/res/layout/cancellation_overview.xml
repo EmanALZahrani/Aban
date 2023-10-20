@@ -61,11 +61,12 @@
         app:srcCompat="@drawable/account"
         tools:ignore="MissingConstraints" />
 
+
     <Button
         android:id="@+id/btnStart"
         android:layout_width="200dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="216dp"
         android:background="@drawable/rounded_corners"
         android:backgroundTint="#8FA174"
         android:text="ابدأ"
@@ -74,31 +75,31 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView4"
-        android:layout_width="340dp"
-        android:layout_height="377dp"
+        android:layout_width="332dp"
+        android:layout_height="339dp"
         android:layout_marginStart="26dp"
-        android:layout_marginTop="276dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginBottom="213dp"
+        android:layout_marginTop="26dp"
         app:cardBackgroundColor="#C8FFFFFF"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnStart"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.245"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.497"
         tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/textView"
             style="@style/Widget.AppCompat.TextView.SpinnerItem"
-            android:layout_width="340dp"
-            android:layout_height="380dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="bottom|clip_horizontal|center|clip_vertical|start|right|center_horizontal|fill|fill_horizontal|top|left|center_vertical|fill_vertical|end"
             android:text="في مرحلة الالغاء يهدف التمرين لتخفيف التوتر في نطق الكلمه قم بتكرار الصوت أو المقطع الأول من الكلمة أو الكلمة المفردة أكثر من مرتين مثل\n:(ب ب ب باص)"
             android:textAlignment="center"
@@ -107,6 +108,17 @@
             android:textSize="28sp"
             android:typeface="monospace" />
     </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="415dp"
+        android:layout_height="169dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.977"
+        app:srcCompat="@drawable/logo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
