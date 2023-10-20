@@ -325,4 +325,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="اختبار"
+        tools:layout_editor_absoluteX="190dp"
+        tools:layout_editor_absoluteY="104dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
