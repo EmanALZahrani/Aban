@@ -1,7 +1,6 @@
 // Checkletter.kt
 package com.example.aban
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.widget.CheckBox
@@ -11,7 +10,6 @@ import com.example.aban.databinding.CheckletterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-
 
 class Checkletter : AppCompatActivity() {
     private lateinit var binding: CheckletterBinding
@@ -56,8 +54,8 @@ class Checkletter : AppCompatActivity() {
     private fun next() {
         binding.apply {
             next.setOnClickListener {
-                // Check if at least one character checkbox is checked
-                if (atLeastOneCharacterSelected()) {
+                // Check if one of the specific character checkboxes is checked
+                if (isOneOfSpecificCharactersSelected()) {
                     // Retrieve the selected characters
                     val selectedCharacters = getSelectedCharacters()
 
@@ -96,11 +94,10 @@ class Checkletter : AppCompatActivity() {
                             }
                     }
                 } else {
-
-                    // Display a message indicating that the user must select at least one character
+                    // Display a message indicating that the user must select one of the specific characters
                     Toast.makeText(
                         this@Checkletter,
-                        "Please select at least one character.",
+                        "Please select one of the characters R, S, or T.",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -108,7 +105,7 @@ class Checkletter : AppCompatActivity() {
         }
     }
 
-    private fun atLeastOneCharacterSelected(): Boolean {
+    private fun isOneOfSpecificCharactersSelected(): Boolean {
         // Define your character CheckBox IDs as you did before
         val characterCheckBoxIds = arrayOf(
             R.id.checkBox6,
@@ -116,7 +113,7 @@ class Checkletter : AppCompatActivity() {
             R.id.checkBox20
         )
 
-        // Loop through the CheckBox IDs and check if at least one is checked
+        // Check if at least one of the specific character CheckBoxes is checked
         for (checkBoxId in characterCheckBoxIds) {
             val checkBox = findViewById<CheckBox>(checkBoxId)
             if (checkBox.isChecked) {
@@ -124,7 +121,7 @@ class Checkletter : AppCompatActivity() {
             }
         }
 
-        // None of the character CheckBoxes are checked
+        // None of the specific character CheckBoxes are checked
         return false
     }
 
@@ -149,5 +146,3 @@ class Checkletter : AppCompatActivity() {
         return selectedCharacters
     }
 }
-
-

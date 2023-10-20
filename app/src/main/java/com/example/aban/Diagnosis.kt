@@ -90,7 +90,7 @@ class Diagnosis : AppCompatActivity() {
         setContentView(R.layout.diagnosis)
         btnRecord = findViewById<ToggleButton>(R.id.btnRecord)
         tvDuration = findViewById(R.id.tvDuration)
-        // firestore = FirebaseFirestore.getInstance()
+         firestore = FirebaseFirestore.getInstance()
 
 
 
@@ -129,7 +129,6 @@ class Diagnosis : AppCompatActivity() {
 
 
     }
-
 
 
 
@@ -224,7 +223,7 @@ class Diagnosis : AppCompatActivity() {
                     "saveAudioToFirebaseStorage: on Failure Called " + exception.localizedMessage
                 )
             }
-        /*val df = firestore!!.collection("users").document(currentAudioFileName!!)
+        val df = firestore!!.collection("recordingsData").document(currentAudioFileName!!)
         val data: MutableMap<String, Any?> = HashMap()
         data["time"] = timeString
         data["Type"] = type
@@ -239,7 +238,7 @@ class Diagnosis : AppCompatActivity() {
                     "TAG",
                     "saveAudioToFirebaseStorage: EXCEp " + e.localizedMessage
                 )
-            }*/
+            }
 
     }
     private fun accessFlaskServer() {

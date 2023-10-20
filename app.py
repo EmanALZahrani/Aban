@@ -22,7 +22,7 @@ def contains_sound(audio, threshold=0.02):
     return energy > threshold
 
 
-@app.route('/predict', methods=['POST','GET'])
+@app.route('/predict', methods=['POST'])
 def predict():
     try:
         # Get the uploaded audio file from the request
