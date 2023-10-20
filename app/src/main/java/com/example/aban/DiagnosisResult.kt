@@ -25,6 +25,14 @@ class DiagnosisResult : AppCompatActivity() {
         type  = findViewById(R.id.nameresult)
 
 
+        // next button listener
+        val Dresult = findViewById<ImageButton>(R.id.back)
+        Dresult.setOnClickListener {
+            val intent = Intent(this@DiagnosisResult, Levels::class.java)
+            startActivity(intent)
+        }
+
+
         // Back button listener
         val button6 = findViewById<ImageButton>(R.id.back)
         button6.setOnClickListener {

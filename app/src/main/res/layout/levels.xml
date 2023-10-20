@@ -2,18 +2,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/ggreenbackground"
+    android:background="#DDDFD1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Levels">
 
     <Button
         android:id="@+id/button11"
-        android:layout_width="205dp"
-        android:layout_height="73dp"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="184dp"
         android:background="@drawable/rounded_corners"
-        android:backgroundTint="@color/darkgreen"
+        android:backgroundTint="#8FA174"
         android:text="المستوى الثاني"
         android:textAlignment="center"
         android:textColor="@color/beige"
@@ -24,11 +24,11 @@
 
     <Button
         android:id="@+id/button10"
-        android:layout_width="204dp"
-        android:layout_height="71dp"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="400dp"
         android:background="@drawable/rounded_corners"
-        android:backgroundTint="@color/darkgreen"
+        android:backgroundTint="#8FA174"
         android:text="المستوى الأول"
         android:textAlignment="center"
         android:textColor="@color/beige"

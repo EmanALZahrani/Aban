@@ -66,6 +66,7 @@ class Cancellation : AppCompatActivity() {
         tvDuration = findViewById(R.id.tvDuration)
         lottieAnimationView = findViewById(R.id.lottie_animation_view)
         firestore = FirebaseFirestore.getInstance()
+       // var nextCans = findViewById(R.id.nextCans)
 
         getRandomWord()
         val button6 = findViewById<ImageButton>(R.id.backBtn)
@@ -76,6 +77,11 @@ class Cancellation : AppCompatActivity() {
         button7.setOnClickListener {
             val intent1 = Intent(this@Cancellation,account ::class.java)
             startActivity(intent1)}
+        // Set click listener for the "nextCans" button
+       // val nextCans.setOnClickListener {
+           // val intent = Intent(this, CancellationResult::class.java)
+            //startActivity(intent)
+        //}
 
 
 
