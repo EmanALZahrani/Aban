@@ -33,10 +33,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteY="29dp" />
+        tools:srcCompat="@android:drawable/ic_menu_edit" />
 
     <ImageButton
-        android:id="@+id/menu"
+        android:id="@+id/update"
         android:layout_width="80dp"
         android:layout_height="63dp"
         android:backgroundTint="#002E8B57"
@@ -46,7 +46,7 @@
         app:layout_constraintStart_toStartOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.461"
-        app:srcCompat="@drawable/ic_menu"
+        app:srcCompat="@android:drawable/ic_menu_edit"
         tools:ignore="MissingConstraints" />
 
     <ImageButton
@@ -81,7 +81,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneno"
-        app:layout_constraintVertical_bias="0.585" />
+        app:layout_constraintVertical_bias="0.744" />
+
+    <Button
+        android:id="@+id/ok"
+        android:layout_width="164dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="636dp"
+        android:layout_marginBottom="177dp"
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="@color/DarkSeaGreen"
+        android:text="تأكيد"
+        android:textAlignment="center"
+        android:textColor="@color/Light"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/name"
@@ -104,9 +122,9 @@
             android:layout_height="58dp"
             android:layout_gravity="center|right"
             android:gravity="center"
-            android:text="الأسم :"
+            android:text="الإسم :"
             android:textAlignment="center"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
@@ -114,44 +132,69 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="الأسم"
+            android:text="الإسم"
             android:textAlignment="center"
             android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/nameEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="تعديل الإسم"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:visibility="gone" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/age"
+        android:id="@+id/password"
         android:layout_width="349dp"
         android:layout_height="89dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="517dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="260dp"
         app:cardBackgroundColor="#D5FFFFFF"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.293"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
         <TextView
-            android:id="@+id/agetext"
-            android:layout_width="84dp"
+            android:id="@+id/passwordtext"
+            android:layout_width="126dp"
             android:layout_height="58dp"
             android:layout_gravity="center|right"
             android:gravity="center"
-            android:text="العمر :"
+            android:text="كلمة السر:"
             android:textAlignment="center"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/ageresult"
+            android:id="@+id/passwordresult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="العمر"
+            android:text=" كلمة السر"
             android:textAlignment="center"
             android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="تعديل كلمة السر"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:visibility="gone" />
+
+
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -159,16 +202,16 @@
         android:layout_width="349dp"
         android:layout_height="89dp"
         android:layout_marginStart="31dp"
+        android:layout_marginTop="401dp"
         android:layout_marginEnd="31dp"
+        android:layout_marginBottom="376dp"
         app:cardBackgroundColor="#D5FFFFFF"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.678"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
         <TextView
@@ -179,7 +222,7 @@
             android:gravity="center"
             android:text="رقم الجوال :"
             android:textAlignment="center"
-            android:textSize="19sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
@@ -190,6 +233,16 @@
             android:text="الرقم"
             android:textAlignment="center"
             android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/phoneEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="تعديل رقم الجوال"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:visibility="gone" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -206,18 +259,18 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.512"
+        app:layout_constraintVertical_bias="0.356"
         tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/emailtext"
-            android:layout_width="145dp"
+            android:layout_width="wrap_content"
             android:layout_height="58dp"
             android:layout_gravity="center|right"
             android:gravity="center"
             android:text="البريد الالكتروني :"
             android:textAlignment="center"
-            android:textSize="19sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -229,7 +282,19 @@
             android:textAlignment="center"
             android:textSize="24sp" />
 
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="تعديل البريد الإلكتروني"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:visibility="gone" />
+
+
     </androidx.cardview.widget.CardView>
+
 
     <ImageView
         android:id="@+id/imageView"
@@ -241,5 +306,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.977"
         app:srcCompat="@drawable/logo" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="164dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="636dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="177dp"
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="@color/grayDark"
+        android:text="إلغاء"
+        android:textAlignment="center"
+        android:textColor="@color/Light"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
