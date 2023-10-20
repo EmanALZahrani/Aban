@@ -56,9 +56,4 @@ class account : AppCompatActivity() {
             Log.d("FirebaseAuth", "No user is currently signed in.")
         }
     }
-
-
-
-
-    // Retrieve current user's ID
-   }
+}

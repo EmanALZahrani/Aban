@@ -1,7 +1,6 @@
 package com.example.aban
 
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.media.MediaRecorder
 import android.net.Uri
@@ -16,6 +15,8 @@ import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aban.utils.Constants
+import com.google.firebase.appcheck.FirebaseAppCheck
+import com.google.firebase.appcheck.safetynet.SafetyNetAppCheckProviderFactory
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
@@ -23,8 +24,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import okhttp3.*
+import okhttp3.Call
+import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody
+import okhttp3.Response
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
@@ -37,7 +44,7 @@ class Diagnosis : AppCompatActivity() {
     var storage: FirebaseStorage? = null
     var currentAudioFileName: String? = null
     var timeString: String? = null
-    var type: String? = null
+    var type : String? = null
     var firestore: FirebaseFirestore? = null
     private var mediaRecorder: MediaRecorder? = null
     private var isRecording = false
@@ -48,7 +55,7 @@ class Diagnosis : AppCompatActivity() {
     private var timeInMilliseconds: Long = 0
     private var minutes = 0
     private lateinit var btnRecord: Button
-    private lateinit var resultTextView: TextView
+    private lateinit var resultTextView : TextView
     val okHttpClient = OkHttpClient()
 
 
@@ -81,18 +88,18 @@ class Diagnosis : AppCompatActivity() {
         setContentView(R.layout.diagnosis)
         btnRecord = findViewById<ToggleButton>(R.id.btnRecord)
         tvDuration = findViewById(R.id.tvDuration)
-        //firestore = FirebaseFirestore.getInstance()
+        // firestore = FirebaseFirestore.getInstance()
+
+
 
         val button6 = findViewById<ImageButton>(R.id.back)
         button6.setOnClickListener {
             val intent = Intent(this@Diagnosis, Levels::class.java)
-            startActivity(intent)
-        }
+            startActivity(intent)}
         val button7 = findViewById<ImageButton>(R.id.account)
         button7.setOnClickListener {
-            val intent1 = Intent(this@Diagnosis, account::class.java)
-            startActivity(intent1)
-        }
+            val intent1 = Intent(this@Diagnosis,account ::class.java)
+            startActivity(intent1)}
 
 
         btnRecord.setOnClickListener {
@@ -105,6 +112,9 @@ class Diagnosis : AppCompatActivity() {
             }
 
         }
+
+        initializeAppCheck()
+
         /* val btnShowFiles = findViewById<AppCompatButton>(R.id.btnShowFiles)
          btnShowFiles.setOnClickListener { view: View? ->
              startActivity(
@@ -117,6 +127,9 @@ class Diagnosis : AppCompatActivity() {
 
 
     }
+
+
+
 
 
     fun startRecording() {
@@ -151,12 +164,12 @@ class Diagnosis : AppCompatActivity() {
 
 
     }
-
     private fun stopRecording() {
         if (isRecording) {
             btnRecord!!.text = "توقف التسجيل"
             btnRecord!!.background = getDrawable(R.drawable.button_bg_on)
             tvDuration!!.text = " المدة : ٠٠:٠٠"
+
 
             // Stop recording
             mediaRecorder!!.stop()
@@ -165,36 +178,17 @@ class Diagnosis : AppCompatActivity() {
             isRecording = false
             handler.removeCallbacks(updateTimerThread)
             timeString = minutes.toString() + ":" + String.format("%02d", seconds)
-
-            // Check if the audio file is not empty
-            checkAudioFileNotEmpty()
-        }
-    }
-
-    private fun checkAudioFileNotEmpty() {
-        val filePath = getOutputFilePath(currentAudioFileName)
-        val file = File(filePath)
-
-        if (file.exists() && file.length() > 0) {
-            // The file exists and is not empty, proceed with your logic (upload, etc.)
-            //saveAudioToFirebaseStorage()
+            saveAudioToFirebaseStorage()
             accessFlaskServer()
 
             // Starting Medium activity
             val intent = Intent(this@Diagnosis, DiagnosisResult::class.java)
-            //     intent.putExtra("durationIntent", timeString)
-            intent.putExtra("typeIntent", type) // Add the result of the diagnosis here
+            //intent.putExtra("durationIntent", timeString)
+            intent.putExtra("typeIntent",type)//نضيف النتيجة حقت التشخيص هنا
             startActivity(intent)
-        } else {
-            // The file is empty or doesn't exist, handle this case (show a message, prompt for re-recording, etc.)
-            runOnUiThread {
-                Toast.makeText(
-                    this,
-                    "Recording failed or the audio is empty, please try again.",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
+
         }
+
     }
 
     private fun getOutputFilePath(fileName: String?): String {
@@ -222,7 +216,7 @@ class Diagnosis : AppCompatActivity() {
                     "saveAudioToFirebaseStorage: on Failure Called " + exception.localizedMessage
                 )
             }
-        val df = firestore!!.collection("users").document(currentAudioFileName!!)
+        /*val df = firestore!!.collection("users").document(currentAudioFileName!!)
         val data: MutableMap<String, Any?> = HashMap()
         data["time"] = timeString
         data["Type"] = type
@@ -237,18 +231,16 @@ class Diagnosis : AppCompatActivity() {
                     "TAG",
                     "saveAudioToFirebaseStorage: EXCEp " + e.localizedMessage
                 )
-            }
+            }*/
 
     }
-
     private fun accessFlaskServer() {
         val audioFilePath = getOutputFilePath(currentAudioFileName)
         sendAudioToFlaskServer(audioFilePath)
     }
 
     private fun sendAudioToFlaskServer(audioFilePath: String) {
-        val url =
-            "https://aban-app-521459a5fe97.herokuapp.com/predict" // Replace with your Flask server URL
+        val url = "https://aban-app-521459a5fe97.herokuapp.com/predict" // Replace with your Flask server URL
 
         val file = File(audioFilePath)
         val audioRequestBody = RequestBody.create("audio/*".toMediaTypeOrNull(), file.readBytes())
@@ -265,7 +257,6 @@ class Diagnosis : AppCompatActivity() {
 
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                // Handle failure (e.g., network error)
                 e.printStackTrace()
             }
 
@@ -279,8 +270,7 @@ class Diagnosis : AppCompatActivity() {
                             if (jsonResponse.has("error")) {
                                 val error = jsonResponse.getString("error")
                                 // Show a Toast or any other UI element to display the error.
-                                Toast.makeText(this@Diagnosis, "Error: $error", Toast.LENGTH_SHORT)
-                                    .show()
+                                Toast.makeText(this@Diagnosis, "Error: $error", Toast.LENGTH_SHORT).show()
                             } else {
                                 val normal = jsonResponse.getString("Normal")
                                 val stutter = jsonResponse.getString("Stutter")
@@ -292,32 +282,36 @@ class Diagnosis : AppCompatActivity() {
                         } catch (e: IOException) {
                             e.printStackTrace()
                             // Display the IOException error.
-                            Toast.makeText(
-                                this@Diagnosis,
-                                "Error processing the response: ${e.message}",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Toast.makeText(this@Diagnosis, "Error processing the response: ${e.message}", Toast.LENGTH_SHORT).show()
                         } catch (e: JSONException) {
                             e.printStackTrace()
                             // Display the JSON parsing error.
-                            Toast.makeText(
-                                this@Diagnosis,
-                                "Error parsing the response: ${e.message}",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Toast.makeText(this@Diagnosis, "Error parsing the response: ${e.message}", Toast.LENGTH_SHORT).show()
                         }
                     } else {
                         // Display the server response error.
-                        Toast.makeText(
-                            this@Diagnosis,
-                            "Server responded with status: ${response.code}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(this@Diagnosis, "Server responded with status: ${response.code}", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
-
-
         })
     }
+
+
+    private fun initializeAppCheck() {
+        val firebaseAppCheck = FirebaseAppCheck.getInstance()
+        val appCheckProviderFactory = SafetyNetAppCheckProviderFactory.getInstance()
+        firebaseAppCheck.installAppCheckProviderFactory(appCheckProviderFactory)
+    }
+
+
+
+    companion object {
+        fun randInt(min: Int, max: Int): Int {
+            val rand = Random()
+            return rand.nextInt(max - min + 1) + min
+        }
+    }
+
+
 }
