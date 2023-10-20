@@ -54,7 +54,7 @@ def predict():
         return jsonify({"Normal": f"{normal_prob * 100:.2f}%", "Stutter": f"{stutter_prob * 100:.2f}%"})
 
     except Exception as e:
-        return jsonify({"error": "Something went wrong: " + str(e})
+        return jsonify({"error": "Something went wrong: " + str(e)})
 
 if name == '__main__':
     app.run(debug=True)
