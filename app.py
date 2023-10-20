@@ -56,5 +56,5 @@ def predict():
     except Exception as e:
         return jsonify({"error": "Something went wrong: " + str(e)})
 
-if name == '__main__':
+if __name__ == '__main__':
     app.run(debug=True)
