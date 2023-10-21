@@ -24,15 +24,10 @@ def contains_sound(audio, threshold=0.02):
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    try:
         # Get the uploaded audio file from the request
         audio_file = request.files['audio']
         audio, sample_rate = librosa.load(audio_file, sr=None)
 
-        if not contains_sound(audio):
-            return jsonify({"error": "The audio file is too silent. Please try again."})
-            
-        
 
         # Extract features from the audio
         features = features_extractor(audio, sample_rate)
@@ -49,8 +44,6 @@ def predict():
 
         return jsonify({"Normal": f"{normal_prob * 100:.2f}%", "Stutter": f"{stutter_prob * 100:.2f}%"})
 
-    except Exception as e:
-        return jsonify({"error": "Something went wrong: " + str(e)})
 
 if __name__ == '__main__':
     app.run(debug=True)
