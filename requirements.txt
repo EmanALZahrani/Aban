@@ -5,3 +5,5 @@ gunicorn
 joblib
 librosa
 pydub
+os
+subprocess
