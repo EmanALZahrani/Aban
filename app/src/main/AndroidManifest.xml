@@ -70,7 +70,7 @@
             android:exported="true" />
 
         <activity
-            android:name=".SignUp"
+            android:name=".account"
             android:exported="true" />
 
         <activity
@@ -81,7 +81,7 @@
 
 
         <activity
-            android:name=".account"
+            android:name=".SignUp"
             android:exported="true"
             tools:ignore="IntentFilterExportedReceiver">
         <intent-filter>

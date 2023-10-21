@@ -13,15 +13,15 @@ class ResultType : AppCompatActivity() {
         setContentView(R.layout.result_type)
 
 
-        val imageButton = findViewById<ImageButton>(R.id.imageButton)
-        imageButton.setOnClickListener {
-            val intent1 = Intent(this@ResultType,LevelOneResult ::class.java)
+        val cardView = findViewById<ImageButton>(R.id.cardView)
+        cardView.setOnClickListener {
+            val intent1 = Intent(this@ResultType,ReViewDiagnosis ::class.java)
             startActivity(intent1)}
 
-    val imageButton3 = findViewById<ImageButton>(R.id.imageButton3)
-    imageButton3.setOnClickListener {
-        val intent1 = Intent(this@ResultType,LevelOneResult ::class.java)
-        startActivity(intent1)}
+       val cardView2 = findViewById<ImageButton>(R.id.cardView2)
+        cardView2.setOnClickListener {
+        val intent = Intent(this@ResultType,LevelOneResult ::class.java)
+        startActivity(intent)}
 }
     private lateinit var firestore: FirebaseFirestore
     // Function to create a Firestore document for user tracking

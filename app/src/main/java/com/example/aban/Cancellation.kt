@@ -42,6 +42,7 @@ class Cancellation : AppCompatActivity() {
     private var minutes = 0
     private lateinit var btnRecord: Button
     private val wordFetcher = WordFetcher()
+    private lateinit var nextCans: Button
 
 
     private val updateTimerThread: Runnable = object : Runnable {
@@ -66,7 +67,7 @@ class Cancellation : AppCompatActivity() {
         tvDuration = findViewById(R.id.tvDuration)
         lottieAnimationView = findViewById(R.id.lottie_animation_view)
         firestore = FirebaseFirestore.getInstance()
-       // var nextCans = findViewById(R.id.nextCans)
+       nextCans = findViewById(R.id.nextCans)
 
         getRandomWord()
         val button6 = findViewById<ImageButton>(R.id.backBtn)
@@ -78,10 +79,11 @@ class Cancellation : AppCompatActivity() {
             val intent1 = Intent(this@Cancellation,account ::class.java)
             startActivity(intent1)}
         // Set click listener for the "nextCans" button
-       // val nextCans.setOnClickListener {
-           // val intent = Intent(this, CancellationResult::class.java)
-            //startActivity(intent)
-        //}
+        nextCans.setOnClickListener {
+            val intent3 = Intent(this@Cancellation, CancellationResult::class.java)
+            startActivity(intent3)
+        }
+
 
 
 

@@ -2,6 +2,7 @@ package com.example.aban
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,18 +18,22 @@ class DiagnosisResult : AppCompatActivity() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var typeIntent: String
     private lateinit var type: AppCompatTextView
+    private lateinit var Dresult: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.diagnosis_result)
         type = findViewById(R.id.nameresult)
+        Dresult = findViewById(R.id.Dresult)
 
         // next button listener
-        val Dresult = findViewById<ImageButton>(R.id.back)
+
         Dresult.setOnClickListener {
-            val intent = Intent(this@DiagnosisResult, Levels::class.java)
+            // Navigate to the signup page (replace SignUp::class.java with your actual signup activity)
+            val intent = Intent(this, Levels::class.java)
             startActivity(intent)
         }
+
 
 
         // Back button listener
