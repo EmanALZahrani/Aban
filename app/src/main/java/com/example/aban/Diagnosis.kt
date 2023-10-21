@@ -144,14 +144,14 @@ class Diagnosis : AppCompatActivity() {
         // Initialize MediaRecorder
         mediaRecorder = MediaRecorder()
         mediaRecorder!!.setAudioSource(MediaRecorder.AudioSource.MIC)
-        mediaRecorder!!.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
+        mediaRecorder!!.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
 
         // Create a unique file name for each recording (e.g., timestamp)
-        val audioFileName = "audio_" + System.currentTimeMillis() + ".wav"
+        val audioFileName = "audio_" + System.currentTimeMillis() + ".m4a"
         // Save the audio file name for later use
         currentAudioFileName = audioFileName // Declare this variable at the class level
         mediaRecorder!!.setOutputFile(getOutputFilePath(audioFileName)) // Use a local path for recording
-        mediaRecorder!!.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+        mediaRecorder!!.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
         try {
             mediaRecorder!!.prepare()
             mediaRecorder!!.start() // Start recording
@@ -250,7 +250,7 @@ class Diagnosis : AppCompatActivity() {
         val url = "https://aban-app-521459a5fe97.herokuapp.com/predict" // Replace with your Flask server URL
 
         val file = File(audioFilePath)
-        val audioRequestBody = RequestBody.create("audio/*".toMediaTypeOrNull(), file.readBytes())
+        val audioRequestBody = RequestBody.create("audio/x-m4a".toMediaTypeOrNull(), file.readBytes())
 
         val requestBody = MultipartBody.Builder()
             .setType(MultipartBody.FORM)

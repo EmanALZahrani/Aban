@@ -77,13 +77,11 @@
             android:name=".account"
             android:exported="true" />
 
+
+
+
         <activity
             android:name=".Diagnosis"
-            android:exported="true" />
-
-
-        <activity
-            android:name=".SignUp"
             android:exported="true"
             tools:ignore="IntentFilterExportedReceiver">
         <intent-filter>
