@@ -179,14 +179,14 @@ class Cancellation : AppCompatActivity() {
         // Initialize MediaRecorder
         mediaRecorder = MediaRecorder()
         mediaRecorder!!.setAudioSource(MediaRecorder.AudioSource.MIC)
-        mediaRecorder!!.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
+        mediaRecorder!!.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
 
         // Create a unique file name for each recording (e.g., timestamp)
-        val audioFileName = "audio_" + System.currentTimeMillis() + ".wav"
+        val audioFileName = "audio_" + System.currentTimeMillis() + ".mp4"
         // Save the audio file name for later use
         currentAudioFileName = audioFileName // Declare this variable at the class level
         mediaRecorder!!.setOutputFile(getOutputFilePath(audioFileName)) // Use a local path for recording
-        mediaRecorder!!.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+        mediaRecorder!!.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
         try {
             mediaRecorder!!.prepare()
             mediaRecorder!!.start() // Start recording

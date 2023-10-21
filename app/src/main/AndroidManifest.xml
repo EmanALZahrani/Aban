@@ -78,6 +78,8 @@
             android:exported="true" />
 
 
+
+
         <activity
             android:name=".account"
             android:exported="true"
