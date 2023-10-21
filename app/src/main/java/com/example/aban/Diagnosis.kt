@@ -283,7 +283,8 @@ class Diagnosis : AppCompatActivity() {
                                 val stutter = jsonResponse.getString("Stutter")
 
                                 val intent = Intent(this@Diagnosis, DiagnosisResult::class.java)
-                                intent.putExtra("typeIntent", "Normal: $normal\nStutter: $stutter")
+                                intent.putExtra("normal", normal)
+                                intent.putExtra("stutter", stutter)
                                 startActivity(intent)
                             }
                         } catch (e: IOException) {

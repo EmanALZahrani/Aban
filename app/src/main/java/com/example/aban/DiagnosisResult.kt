@@ -17,11 +17,16 @@ class DiagnosisResult : AppCompatActivity() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var typeIntent: String
     private lateinit var type: AppCompatTextView
+    private lateinit var type2: AppCompatTextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.diagnosis_result)
-        type = findViewById(R.id.nameresult)
+        type = findViewById(R.id.normal)
+        type2 = findViewById(R.id.stutter)
+
+
 
         // next button listener
         val Dresult = findViewById<ImageButton>(R.id.back)
@@ -38,8 +43,11 @@ class DiagnosisResult : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val normalProb = intent.getStringExtra("typeIntent")
-        type.text = normalProb
+        val normal = intent.getStringExtra("normal")
+        val stutter = intent.getStringExtra("stutter")
+        type.text = normal
+        type2.text = stutter
+
     }
 
     private fun hasCompletedActivity(userId: String): Boolean {

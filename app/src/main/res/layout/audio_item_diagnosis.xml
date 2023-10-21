@@ -47,12 +47,12 @@
             android:text="التشخيص:"
             android:textColor="@color/white"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/pitch"
+            app:layout_constraintStart_toEndOf="@+id/type"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteY="63dp" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/pitch"
+            android:id="@+id/type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="التشخيص"
