@@ -79,7 +79,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profiletext"
-        app:layout_constraintVertical_bias="0.805" />
+        app:layout_constraintVertical_bias="0.831" />
 
     <Button
         android:id="@+id/ok"
@@ -150,6 +150,7 @@
         android:id="@+id/password"
         android:layout_width="349dp"
         android:layout_height="89dp"
+        android:layout_marginBottom="240dp"
         app:cardBackgroundColor="#D5FFFFFF"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp"
@@ -269,7 +270,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="الايميل"
-            android:textAlignment="center"
+            android:textAlignment="gravity"
             android:textSize="24sp" />
 
         <EditText
@@ -287,8 +288,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="415dp"
-        android:layout_height="169dp"
+        android:layout_width="397dp"
+        android:layout_height="114dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -314,12 +315,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="اختبار"
-        tools:layout_editor_absoluteX="190dp"
-        tools:layout_editor_absoluteY="104dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
