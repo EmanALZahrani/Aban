@@ -24,6 +24,21 @@ def contains_sound(audio, threshold=0.02):
 
 @app.route('/predict', methods=['POST'])
 def predict():
+        audio_file = request.files['file']
+    
+    # Define a path for the uploaded file
+        path_to_write = "/tmp/" + audio_file.filename
+        audio_file.save(path_to_write)
+
+    # Define a path for the converted file
+        converted_file_path = "/tmp/converted_" + os.path.splitext(audio_file.filename)[0] + ".wav"
+
+    # Convert the audio file to WAV using ffmpeg
+        subprocess.run(["ffmpeg", "-i", path_to_write, converted_file_path])
+
+    # Now, load the converted file with librosa
+        audio, sample_rate = librosa.load(converted_file_path, sr=None)
+
         # Get the uploaded audio file from the request
         audio_file = request.files['audio']
         audio, sample_rate = librosa.load(audio_file, sr=None)
