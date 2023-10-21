@@ -24,12 +24,10 @@ class DiagnosisResult : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.diagnosis_result)
         type = findViewById(R.id.nameresult)
-        Dresult = findViewById(R.id.Dresult)
+        Dresult = findViewById(R.id.next_bt)
 
         // next button listener
-
         Dresult.setOnClickListener {
-            // Navigate to the signup page (replace SignUp::class.java with your actual signup activity)
             val intent = Intent(this, Levels::class.java)
             startActivity(intent)
         }
