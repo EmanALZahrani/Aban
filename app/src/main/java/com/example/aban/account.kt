@@ -25,7 +25,7 @@ class account : AppCompatActivity() {
         // button to show result page
         val button = findViewById<Button>(R.id.result)
         button.setOnClickListener {
-            val intent = Intent(this@account, DisplayAudioFilesActivity::class.java)
+            val intent = Intent(this@account, ResultType::class.java)
             startActivity(intent)
         }
 
