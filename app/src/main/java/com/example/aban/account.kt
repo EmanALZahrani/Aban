@@ -18,6 +18,8 @@ class account : AppCompatActivity() {
     private val auth = FirebaseAuth.getInstance()
     val user = FirebaseAuth.getInstance().currentUser
     val userId = user?.uid
+    //val usersCollection = db.collection("users")
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -105,7 +107,7 @@ class account : AppCompatActivity() {
                                 updatedFields["password"] = updatedPassword
                             }
 
-                            // Update the document in Firebase Database
+                            // Update the document in Firebase Firestore
                             userDocRef.update(updatedFields)
                                 .addOnSuccessListener {
                                     // Update successful
