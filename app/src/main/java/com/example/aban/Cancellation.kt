@@ -123,9 +123,9 @@ class Cancellation : AppCompatActivity() {
 
     private fun stopRecording() {
         if (isRecording) {
-            btnRecord!!.text = "Recording Audio Stopped"
+            btnRecord!!.text = "توقف التسجيل"
             btnRecord!!.background = getDrawable(R.drawable.button_bg_on)
-            tvDuration!!.text = "Duration : 00:00"
+            tvDuration!!.text = "المدة : ٠٠:٠٠"
             lottieAnimationView!!.visibility = View.GONE
 
             // Stop recording
@@ -155,7 +155,7 @@ class Cancellation : AppCompatActivity() {
         if (isRecording) {
             return
         }
-        btnRecord!!.text = "Recording Audio .."
+        btnRecord!!.text = "يتم التسجيل .."
         btnRecord!!.background = getDrawable(R.drawable.button_bg_off)
 
 //        Lottie animation ******************************************

@@ -18,16 +18,16 @@ class DiagnosisResult : AppCompatActivity() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var typeIntent: String
     private lateinit var type: AppCompatTextView
-    private lateinit var Dresult: Button
+    private lateinit var next_bt: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.diagnosis_result)
         type = findViewById(R.id.nameresult)
-        Dresult = findViewById(R.id.next_bt)
+        next_bt = findViewById(R.id.next_bt)
 
         // next button listener
-        Dresult.setOnClickListener {
+        next_bt.setOnClickListener {
             val intent = Intent(this, Levels::class.java)
             startActivity(intent)
         }

@@ -77,22 +77,27 @@ class Diagnosis : AppCompatActivity() {
         }
 
         override fun onCreate(savedInstanceState: Bundle?) {
-
             super.onCreate(savedInstanceState)
-            setContentView(R.layout.diagnosis)
+
 
             // Get the user's UID from Firebase Authentication
             val currentUser = FirebaseAuth.getInstance().currentUser
             val userId = currentUser?.uid
 
-            // Check if the user has already completed the diagnosis
-            if (userId != null && hasCompletedActivity(userId)) {
-                // User has already completed the diagnosis, so redirect to another activity
-                val intent = Intent(this, Levels::class.java)
+            // Check if the user has already opened the page
+            val hasOpenedPage = runBlocking {
+                checkIfUserOpenedPage(userId)
+            }
+
+            if (hasOpenedPage) {
+                // User has already opened the page, so show the result immediately
+                val intent = Intent(this@Diagnosis, Levels::class.java)
                 startActivity(intent)
                 finish()
                 return
             }
+
+            setContentView(R.layout.diagnosis)
             btnRecord = findViewById<ToggleButton>(R.id.btnRecord)
             tvDuration = findViewById(R.id.tvDuration)
             firestore = FirebaseFirestore.getInstance()
@@ -108,7 +113,6 @@ class Diagnosis : AppCompatActivity() {
                 val intent1 = Intent(this@Diagnosis,account ::class.java)
                 startActivity(intent1)}
 
-
             btnRecord.setOnClickListener {
                 Constants.createTempFolder()
                 if (isRecording) {
@@ -119,6 +123,10 @@ class Diagnosis : AppCompatActivity() {
                 }
 
             }
+            btnResult.setOnClickListener {
+
+                showResult()
+            }
 
             initializeAppCheck()
 
@@ -126,18 +134,21 @@ class Diagnosis : AppCompatActivity() {
 
         }
 
-    private fun hasCompletedActivity(userId: String): Boolean {
-        return runBlocking {
-            withContext(Dispatchers.IO) {
-                val userDocRef = firestore?.collection("users")?.document(userId)
-                val completionFlag = userDocRef?.get()?.await()?.getBoolean("Diagnosis_completed")
-                    ?: false
-                completionFlag
-            }
-        }
+    private suspend fun checkIfUserOpenedPage(userId: String?): Boolean = withContext(Dispatchers.IO) {
+        val userDocRef = userId?.let { firestore?.collection("users")?.document(it) }
+        val openedFlag = userDocRef?.get()?.await()?.getBoolean("Opened_diagnosis_page") ?: false
+        return@withContext openedFlag
+
+        false
     }
 
-        fun startRecording() {
+    private suspend fun saveUserOpenedPage(userId: String?) = withContext(Dispatchers.IO) {
+        val userDocRef = userId?.let { firestore?.collection("users")?.document(it) }
+            userDocRef?.update("Opened_diagnosis_page", true)
+
+    }
+
+    fun startRecording() {
             // Ensure that the MediaRecorder is not already recording
             if (isRecording) {
                 return
@@ -184,33 +195,15 @@ class Diagnosis : AppCompatActivity() {
                 handler.removeCallbacks(updateTimerThread)
                 timeString = minutes.toString() + ":" + String.format("%02d", seconds)
                 saveAudioToFirebaseStorage()
-                if (isNetworkAvailable(this)) {
+                //if (isNetworkAvailable(this)) {
                     // Proceed to send the audio file
-                    accessFlaskServer()
-                } else {
-                    Toast.makeText(this, "No internet connection. Please check your network settings.", Toast.LENGTH_SHORT).show()
-                }
-
-                // Update the Diagnosis_completed flag for the user in Firestore
-                val currentUser = FirebaseAuth.getInstance().currentUser
-                val userId = currentUser?.uid
-                if (userId != null) {
-                    firestore?.collection("users")?.document(userId)
-                        ?.update("Diagnosis_completed", true)
-                        ?.addOnSuccessListener {
-                            Log.d("TAG", "Diagnosis_completed flag updated for user: $userId")
-                        }
-                        ?.addOnFailureListener { e ->
-                            Log.e(
-                                "TAG",
-                                "Failed to update Diagnosis_completed flag for user: $userId",
-                                e
-                            )
-                        }
-                }
+                   // accessFlaskServer()
+               // } else {
+                   // Toast.makeText(this, "No internet connection. Please check your network settings.", Toast.LENGTH_SHORT).show()
+                //}
                 findViewById<Button>(R.id.result_bt).visibility = View.VISIBLE
-            }
 
+            }
 
         }
 
@@ -333,12 +326,35 @@ class Diagnosis : AppCompatActivity() {
         }
 
     fun showResult(){
+        if (isNetworkAvailable(this)) {
+            // Proceed to send the audio file
+            accessFlaskServer()
+        } else {
+            Toast.makeText(this, "No internet connection. Please check your network settings.", Toast.LENGTH_SHORT).show()
+        }
         btnResult.setOnClickListener {
             // Starting Diagnosis result activity and send the result to it
             val intent = Intent(this@Diagnosis, DiagnosisResult::class.java)
             //intent.putExtra("durationIntent", timeString)
             intent.putExtra("typeIntent", type)
             startActivity(intent)
+            // Update the Diagnosis_completed flag for the user in Firestore
+            val currentUser = FirebaseAuth.getInstance().currentUser
+            val userId = currentUser?.uid
+            if (userId != null) {
+                firestore?.collection("users")?.document(userId)
+                    ?.update("Diagnosis_completed", true)
+                    ?.addOnSuccessListener {
+                        Log.d("TAG", "Diagnosis_completed flag updated for user: $userId")
+                    }
+                    ?.addOnFailureListener { e ->
+                        Log.e(
+                            "TAG",
+                            "Failed to update Diagnosis_completed flag for user: $userId",
+                            e
+                        )
+                    }
+            }
             finish()
         }
     }

@@ -18,7 +18,7 @@ class account : AppCompatActivity() {
     private val auth = FirebaseAuth.getInstance()
     val user = FirebaseAuth.getInstance().currentUser
     val userId = user?.uid
-    //val usersCollection = db.collection("users")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -183,5 +183,5 @@ class account : AppCompatActivity() {
     }
 
 
-    // Retrieve current user's ID
+
 }
