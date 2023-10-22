@@ -101,7 +101,7 @@ class Checkletter : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-            }
+               }
         }
     }
 
@@ -144,5 +144,6 @@ class Checkletter : AppCompatActivity() {
         }
 
         return selectedCharacters
+        finish()
     }
 }

@@ -42,6 +42,7 @@ class Cancellation : AppCompatActivity() {
     private var minutes = 0
     private lateinit var btnRecord: Button
     private val wordFetcher = WordFetcher()
+    private lateinit var nextCans: Button
 
 
     private val updateTimerThread: Runnable = object : Runnable {
@@ -66,7 +67,7 @@ class Cancellation : AppCompatActivity() {
         tvDuration = findViewById(R.id.tvDuration)
         lottieAnimationView = findViewById(R.id.lottie_animation_view)
         firestore = FirebaseFirestore.getInstance()
-       // var nextCans = findViewById(R.id.nextCans)
+       // nextCans = findViewById(R.id.nextCans)
 
         getRandomWord()
         val button6 = findViewById<ImageButton>(R.id.backBtn)
@@ -78,10 +79,12 @@ class Cancellation : AppCompatActivity() {
             val intent1 = Intent(this@Cancellation,account ::class.java)
             startActivity(intent1)}
         // Set click listener for the "nextCans" button
-       // val nextCans.setOnClickListener {
-           // val intent = Intent(this, CancellationResult::class.java)
-            //startActivity(intent)
-        //}
+        val next = findViewById<Button>(R.id.nextCans)
+        next.setOnClickListener {
+            val intent3 = Intent(this@Cancellation, CancellationResult::class.java)
+            startActivity(intent3)
+        }
+
 
 
 
@@ -120,9 +123,9 @@ class Cancellation : AppCompatActivity() {
 
     private fun stopRecording() {
         if (isRecording) {
-            btnRecord!!.text = "Recording Audio Stopped"
+            btnRecord!!.text = "توقف التسجيل"
             btnRecord!!.background = getDrawable(R.drawable.button_bg_on)
-            tvDuration!!.text = "Duration : 00:00"
+            tvDuration!!.text = "المدة : ٠٠:٠٠"
             lottieAnimationView!!.visibility = View.GONE
 
             // Stop recording
@@ -152,7 +155,7 @@ class Cancellation : AppCompatActivity() {
         if (isRecording) {
             return
         }
-        btnRecord!!.text = "Recording Audio .."
+        btnRecord!!.text = "يتم التسجيل .."
         btnRecord!!.background = getDrawable(R.drawable.button_bg_off)
 
 //        Lottie animation ******************************************
@@ -179,14 +182,14 @@ class Cancellation : AppCompatActivity() {
         // Initialize MediaRecorder
         mediaRecorder = MediaRecorder()
         mediaRecorder!!.setAudioSource(MediaRecorder.AudioSource.MIC)
-        mediaRecorder!!.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
+        mediaRecorder!!.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
 
         // Create a unique file name for each recording (e.g., timestamp)
-        val audioFileName = "audio_" + System.currentTimeMillis() + ".wav"
+        val audioFileName = "audio_" + System.currentTimeMillis() + ".mp4"
         // Save the audio file name for later use
         currentAudioFileName = audioFileName // Declare this variable at the class level
         mediaRecorder!!.setOutputFile(getOutputFilePath(audioFileName)) // Use a local path for recording
-        mediaRecorder!!.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+        mediaRecorder!!.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
         try {
             mediaRecorder!!.prepare()
             mediaRecorder!!.start() // Start recording

@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify
+from pydub import AudioSegment
 import joblib
 import librosa
 import numpy as np
-import subprocess
 import os
 
 app = Flask(__name__)
@@ -32,17 +32,16 @@ def predict():
         return jsonify({'error': 'No selected file'}), 400
 
     try:
-        # Save the uploaded file
+        # Save the uploaded file temporarily
         path_to_write = "/tmp/" + audio_file.filename
         audio_file.save(path_to_write)
 
-        # Define a path for the converted file
+        # Use pydub to convert the audio file to .wav format
+        audio = AudioSegment.from_file(path_to_write, format="m4a")
         converted_file_path = "/tmp/converted_" + os.path.splitext(audio_file.filename)[0] + ".wav"
+        audio.export(converted_file_path, format="wav")
 
-        # Convert the audio file to WAV format using ffmpeg
-        subprocess.run(["ffmpeg", "-i", path_to_write, converted_file_path], check=True)
-
-        # Load the converted audio file with Librosa
+        # Load the audio file with Librosa
         audio, sample_rate = librosa.load(converted_file_path, sr=None)
 
         # Extract features from the audio file
@@ -59,12 +58,12 @@ def predict():
         # Return the prediction results as JSON
         return jsonify({"Normal": f"{normal_prob * 100:.2f}%", "Stutter": f"{stutter_prob * 100:.2f}%"})
 
-    except subprocess.CalledProcessError as e:
-        return jsonify({'error': 'Error occurred in converting audio file'}), 500
     except Exception as e:
+        # Generic exception handling, consider specifying possible exceptions for better debugging
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
 
