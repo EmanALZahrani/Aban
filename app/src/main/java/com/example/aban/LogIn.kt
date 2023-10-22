@@ -63,7 +63,7 @@ class LogIn : AppCompatActivity() {
                         val user: FirebaseUser? = auth.currentUser
                         Toast.makeText(
                             this,
-                            "Login Successful! Welcome, ${user?.email}",
+                            "تم تسجيل الدخول بنجاح ${user?.email}",
                             Toast.LENGTH_SHORT
                         ).show()
 
@@ -77,7 +77,7 @@ class LogIn : AppCompatActivity() {
                         // Login failed
                         Toast.makeText(
                             this,
-                            "Login Failed. Please check your credentials.",
+                            "فشل تسجيل الدخول. يرجى التحقق من البيانات الخاصة بك",
                             Toast.LENGTH_SHORT
                         ).show()
                     }

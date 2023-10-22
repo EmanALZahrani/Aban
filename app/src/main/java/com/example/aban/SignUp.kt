@@ -85,7 +85,7 @@ class SignUp : AppCompatActivity() {
                                         // Show a success message
                                         Toast.makeText(
                                             this@SignUp,
-                                            "Signup Successful!",
+                                            "تم التسجيل بنجاح",
                                             Toast.LENGTH_SHORT
                                         ).show()
                                     }
@@ -100,12 +100,12 @@ class SignUp : AppCompatActivity() {
                             }
                         } else {
                             // Display an error message
-                            Toast.makeText(this, "Signup Failed! Please try again.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "فشل التسجيل! يرجى المحاولة مرة أخرى", Toast.LENGTH_SHORT).show()
                         }
                     }
             } else {
                 // Display an error message for invalid input
-                Toast.makeText(this, "Signup Failed! Please check your inputs.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "فشل التسجيل! يرجى التحقق من المعلومات المدخلة", Toast.LENGTH_SHORT).show()
             }
         }
     }
