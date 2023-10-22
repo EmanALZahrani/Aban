@@ -67,7 +67,7 @@ class Cancellation : AppCompatActivity() {
         tvDuration = findViewById(R.id.tvDuration)
         lottieAnimationView = findViewById(R.id.lottie_animation_view)
         firestore = FirebaseFirestore.getInstance()
-       nextCans = findViewById(R.id.nextCans)
+       // nextCans = findViewById(R.id.nextCans)
 
         getRandomWord()
         val button6 = findViewById<ImageButton>(R.id.backBtn)
@@ -79,7 +79,8 @@ class Cancellation : AppCompatActivity() {
             val intent1 = Intent(this@Cancellation,account ::class.java)
             startActivity(intent1)}
         // Set click listener for the "nextCans" button
-        nextCans.setOnClickListener {
+        val next = findViewById<Button>(R.id.nextCans)
+        next.setOnClickListener {
             val intent3 = Intent(this@Cancellation, CancellationResult::class.java)
             startActivity(intent3)
         }
@@ -122,9 +123,9 @@ class Cancellation : AppCompatActivity() {
 
     private fun stopRecording() {
         if (isRecording) {
-            btnRecord!!.text = "Recording Audio Stopped"
+            btnRecord!!.text = "توقف التسجيل"
             btnRecord!!.background = getDrawable(R.drawable.button_bg_on)
-            tvDuration!!.text = "Duration : 00:00"
+            tvDuration!!.text = "المدة : ٠٠:٠٠"
             lottieAnimationView!!.visibility = View.GONE
 
             // Stop recording
@@ -154,7 +155,7 @@ class Cancellation : AppCompatActivity() {
         if (isRecording) {
             return
         }
-        btnRecord!!.text = "Recording Audio .."
+        btnRecord!!.text = "يتم التسجيل .."
         btnRecord!!.background = getDrawable(R.drawable.button_bg_off)
 
 //        Lottie animation ******************************************
