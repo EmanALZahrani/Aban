@@ -43,8 +43,6 @@ class LogIn : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Initialize SharedPreferences
-        sharedPreferences = getSharedPreferences("user_data", Context.MODE_PRIVATE)
 
         // Set click listener for the login button
         loginButton.setOnClickListener {
@@ -63,8 +61,6 @@ class LogIn : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
 
-
-
                         // Navigate to the Check Letter activity
                         val intent = Intent(this, Checkletter::class.java)
                         startActivity(intent)
@@ -79,7 +75,15 @@ class LogIn : AppCompatActivity() {
                     }
                 }
         }
-    }
+        //else
+            // Display a message indicating incomplete fields
+            Toast.makeText(
+                this,
+                "حقول ناقصة. يرجى ملء جميع الحقول المطلوبة.",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
 
 
 
