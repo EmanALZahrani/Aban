@@ -74,7 +74,7 @@ class Diagnosis : AppCompatActivity() {
                 tvDuration1.setText("المدة: " + minutes + ":" + String.format("%02d", seconds))
                 handler.postDelayed(this, 1000)
             }
-        }
+        }//
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)

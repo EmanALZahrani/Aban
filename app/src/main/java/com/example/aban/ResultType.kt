@@ -11,7 +11,7 @@ class ResultType : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.result_type)
-
+//
 
         val cardView = findViewById<ImageButton>(R.id.cardView)
         cardView.setOnClickListener {

@@ -18,7 +18,7 @@ internal class ReViewDiagnosis(var list: List<DiagnosisModelClass>) : RecyclerVi
         val view = LayoutInflater.from(parent.context).inflate(R.layout.audio_item_diagnosis, parent, false)
         return viewholder(view)
     }
-
+//
     override fun onBindViewHolder(holder: viewholder, position: Int) {
         // Bind data to the ViewHolder
         val DiagnosisModelClass = list[position]
