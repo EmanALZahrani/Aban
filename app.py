@@ -19,6 +19,13 @@ def features_extractor(audio, sample_rate):
     mfccs_scaled_features = np.mean(librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13).T, axis=0)
     return mfccs_scaled_features
 
+def contains_sound(audio, threshold=0.02):
+    energy = np.sum(audio ** 2)
+    if energy > threshold:
+        return True
+    else:
+        return False
+
 @app.route('/predict', methods=['POST'])
 def predict():
     # Check if the post request has the file part
@@ -42,10 +49,14 @@ def predict():
         audio.export(converted_file_path, format="wav")
 
         # Load the audio file with Librosa
-        audio, sample_rate = librosa.load(converted_file_path, sr=None)
+        audio_data, sample_rate = librosa.load(converted_file_path, sr=None)
+
+        # Check if the audio file contains sound
+        if not contains_sound(audio_data):
+            return jsonify({'error': 'The provided audio file is silent or the sound is not audible'}), 400
 
         # Extract features from the audio file
-        features = features_extractor(audio, sample_rate)
+        features = features_extractor(audio_data, sample_rate)
 
         # Reshape features for the model prediction
         features_reshaped = features.reshape(1, -1)
@@ -64,6 +75,5 @@ def predict():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
 
 

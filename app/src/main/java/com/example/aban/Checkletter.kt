@@ -25,6 +25,10 @@ class Checkletter : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
+        // Show a pop-up message
+        Toast.makeText(this, "الأحرف المتاحة حاليًا: أ ، و ، ي ", Toast.LENGTH_LONG).show()
+
+
         // Check if the user has already selected a letter
         val userId = auth.currentUser?.uid
         if (userId != null) {
@@ -75,7 +79,7 @@ class Checkletter : AppCompatActivity() {
                                 // Proceed to the next step or show a success message
                                 Toast.makeText(
                                     this@Checkletter,
-                                    "Selections stored successfully.",
+                                    "",
                                     Toast.LENGTH_SHORT
                                 ).show()
 
@@ -97,7 +101,7 @@ class Checkletter : AppCompatActivity() {
                     // Display a message indicating that the user must select one of the specific characters
                     Toast.makeText(
                         this@Checkletter,
-                        "Please select one of the characters R, S, or T.",
+                        "الرجاء اختيار احد الأحرف : أ ، و ، ي ",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
