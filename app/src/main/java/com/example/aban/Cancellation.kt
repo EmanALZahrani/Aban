@@ -41,7 +41,9 @@ class Cancellation : AppCompatActivity() {
     private var timeInMilliseconds: Long = 0
     private var minutes = 0
     private lateinit var btnRecord: Button
+    lateinit var btnResult : Button
     private val wordFetcher = WordFetcher()
+    private lateinit var nextCans: Button
 
 
     private val updateTimerThread: Runnable = object : Runnable {
@@ -66,7 +68,7 @@ class Cancellation : AppCompatActivity() {
         tvDuration = findViewById(R.id.tvDuration)
         lottieAnimationView = findViewById(R.id.lottie_animation_view)
         firestore = FirebaseFirestore.getInstance()
-       // var nextCans = findViewById(R.id.nextCans)
+        btnResult = findViewById<Button>(R.id.result_bt_c)
 
         getRandomWord()
         val button6 = findViewById<ImageButton>(R.id.backBtn)
@@ -77,13 +79,6 @@ class Cancellation : AppCompatActivity() {
         button7.setOnClickListener {
             val intent1 = Intent(this@Cancellation,account ::class.java)
             startActivity(intent1)}
-        // Set click listener for the "nextCans" button
-       // val nextCans.setOnClickListener {
-           // val intent = Intent(this, CancellationResult::class.java)
-            //startActivity(intent)
-        //}
-
-
 
         btnRecord.setOnClickListener {
             Constants.createTempFolder()
@@ -92,6 +87,11 @@ class Cancellation : AppCompatActivity() {
             } else {
                 startRecording()
             }
+        }
+
+        btnResult.setOnClickListener {
+
+            showResult()
         }
 
 
@@ -120,9 +120,9 @@ class Cancellation : AppCompatActivity() {
 
     private fun stopRecording() {
         if (isRecording) {
-            btnRecord!!.text = "Recording Audio Stopped"
+            btnRecord!!.text = "توقف التسجيل"
             btnRecord!!.background = getDrawable(R.drawable.button_bg_on)
-            tvDuration!!.text = "Duration : 00:00"
+            tvDuration!!.text = "المدة : ٠٠:٠٠"
             lottieAnimationView!!.visibility = View.GONE
 
             // Stop recording
@@ -152,7 +152,7 @@ class Cancellation : AppCompatActivity() {
         if (isRecording) {
             return
         }
-        btnRecord!!.text = "Recording Audio .."
+        btnRecord!!.text = "يتم التسجيل .."
         btnRecord!!.background = getDrawable(R.drawable.button_bg_off)
 
 //        Lottie animation ******************************************
@@ -252,6 +252,15 @@ class Cancellation : AppCompatActivity() {
             val rand = Random()
             return rand.nextInt(max - min + 1) + min
         }
+    }
+
+    fun showResult(){
+        btnResult.setOnClickListener {
+            // Starting Diagnosis result activity and send the result to it
+            val intent = Intent(this@Cancellation, CancellationResult::class.java)
+            //intent.putExtra("durationIntent", timeString)
+            //intent.putExtra("typeIntent", type)
+            startActivity(intent)}
     }
     // Function to create a Firestore document for user tracking
     private fun createUserDocument(userId: String?) {

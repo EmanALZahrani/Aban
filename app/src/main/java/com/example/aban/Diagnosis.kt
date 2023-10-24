@@ -264,47 +264,40 @@ class Diagnosis : AppCompatActivity() {
 
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                runOnUiThread {
-                    Toast.makeText(this@Diagnosis, "Error in network request: ${e.message}", Toast.LENGTH_SHORT).show()
-                }
+                e.printStackTrace()
             }
 
             override fun onResponse(call: Call, response: Response) {
                 runOnUiThread {
-                    if (!response.isSuccessful) {
-                        Toast.makeText(this@Diagnosis, "Server responded with status: ${response.code}", Toast.LENGTH_SHORT).show()
-                        return@runOnUiThread
-                    }
+                    if (response.isSuccessful) {
+                        try {
+                            val responseBody = response.body?.string()
+                            val jsonResponse = JSONObject(responseBody)
 
-                    try {
-                        val responseBody = response.body?.string() ?: throw IOException("Unable to read response body.")
-                        val jsonResponse = JSONObject(responseBody)
+                            if (jsonResponse.has("error")) {
+                                val error = jsonResponse.getString("error")
+                                // Show a Toast or any other UI element to display the error.
+                                Toast.makeText(this@Diagnosis, "Error: $error", Toast.LENGTH_SHORT).show()
+                            } else {
+                                val normal = jsonResponse.getString("Normal")
+                                val stutter = jsonResponse.getString("Stutter")
 
-                        if (jsonResponse.has("error")) {
-                            val error = jsonResponse.getString("error")
-
-
-                            val intent = Intent(this@Diagnosis, DiagnosisResult::class.java).apply {
-                                putExtra("error", error)
+                                val intent = Intent(this@Diagnosis, DiagnosisResult::class.java)
+                                intent.putExtra("typeIntent", "طبيعي: $normal\nتأتأة: $stutter")
+                                startActivity(intent)
                             }
-                            startActivity(intent)
-
-                        } else {
-                            val normal = jsonResponse.getString("Normal")
-                            val stutter = jsonResponse.getString("Stutter")
-
-                            // Pass the results to the DiagnosisResult activity.
-                            val intent = Intent(this@Diagnosis, DiagnosisResult::class.java).apply {
-                                putExtra("typeIntent", "طبيعي: $normal\nتأتأة: $stutter")
-                            }
-                            startActivity(intent)
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                            // Display the IOException error.
+                            Toast.makeText(this@Diagnosis, "Error processing the response: ${e.message}", Toast.LENGTH_SHORT).show()
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                            // Display the JSON parsing error.
+                            Toast.makeText(this@Diagnosis, "Error parsing the response: ${e.message}", Toast.LENGTH_SHORT).show()
                         }
-                    } catch (e: IOException) {
-                        // This catch block can handle generic I/O errors.
-                        Toast.makeText(this@Diagnosis, "Error processing the response: ${e.message}", Toast.LENGTH_SHORT).show()
-                    } catch (e: JSONException) {
-                        // This catch block is to handle issues with JSON parsing.
-                        Toast.makeText(this@Diagnosis, "Error parsing the response: ${e.message}", Toast.LENGTH_SHORT).show()
+                    } else {
+                        // Display the server response error.
+                        Toast.makeText(this@Diagnosis, "Server responded with status: ${response.code}", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -312,7 +305,7 @@ class Diagnosis : AppCompatActivity() {
     }
 
 
-            private fun initializeAppCheck() {
+    private fun initializeAppCheck() {
         val firebaseAppCheck = FirebaseAppCheck.getInstance()
         val appCheckProviderFactory = SafetyNetAppCheckProviderFactory.getInstance()
         firebaseAppCheck.installAppCheckProviderFactory(appCheckProviderFactory)
@@ -324,6 +317,15 @@ class Diagnosis : AppCompatActivity() {
         return networkInfo != null && networkInfo.isConnected
     }
 
+
+
+
+    companion object {
+        fun randInt(min: Int, max: Int): Int {
+            val rand = Random()
+            return rand.nextInt(max - min + 1) + min
+        }
+    }
 
 
 }

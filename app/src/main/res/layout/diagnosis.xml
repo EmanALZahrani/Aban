@@ -38,19 +38,22 @@
 
     </androidx.cardview.widget.CardView>
 
+
     <TextView
         android:id="@+id/tvDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="159dp"
+        android:layout_marginTop="418dp"
+        android:layout_marginEnd="171dp"
+        android:layout_marginBottom="420dp"
         android:text="المـدة: ٠:٠٠"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnRecord"
-        app:layout_constraintStart_toStartOf="@+id/btnRecord"
-        app:layout_constraintTop_toBottomOf="@+id/btnRecord"
-        app:layout_constraintVertical_bias="0.187" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnRecord"
@@ -133,6 +136,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.461" />
+
+    <Button
+        android:id="@+id/result_bt"
+        android:layout_width="200dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="105dp"
+        android:layout_marginTop="597dp"
+        android:layout_marginEnd="106dp"
+        android:layout_marginBottom="214dp"
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="#8FA174"
+        android:text="اعرض النتيجة"
+        android:textAlignment="center"
+        android:textColor="@color/beige"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"

@@ -42,7 +42,7 @@ class CancellationResult : AppCompatActivity() {
             startActivity(
                 Intent(
                     this,
-                    Levels::class.java
+                    account::class.java
                 )
             )
         })

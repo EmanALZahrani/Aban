@@ -11,10 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
 
 class LogIn : AppCompatActivity() {
 
@@ -63,7 +59,7 @@ class LogIn : AppCompatActivity() {
                         val user: FirebaseUser? = auth.currentUser
                         Toast.makeText(
                             this,
-                            "Login Successful! Welcome, ${user?.email}",
+                            "تم تسجيل الدخول بنجاح ${user?.email}",
                             Toast.LENGTH_SHORT
                         ).show()
 
@@ -77,7 +73,7 @@ class LogIn : AppCompatActivity() {
                         // Login failed
                         Toast.makeText(
                             this,
-                            "Login Failed. Please check your credentials.",
+                            "فشل تسجيل الدخول. يرجى التحقق من البيانات الخاصة بك",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
