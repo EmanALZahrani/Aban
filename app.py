@@ -12,7 +12,7 @@ def index():
     return 'Hello, World!'
 
 # Load the trained Logistic Regression model
-model_filename = 'Rmodel.pkl'
+model_filename = 'R_model.pkl'
 log_reg = joblib.load(model_filename)
 
 def features_extractor(audio, sample_rate):
