@@ -339,12 +339,5 @@ class Diagnosis : AppCompatActivity() {
 
 
 
-    companion object {
-        fun randInt(min: Int, max: Int): Int {
-            val rand = Random()
-            return rand.nextInt(max - min + 1) + min
-        }
-    }
-
 
 }
