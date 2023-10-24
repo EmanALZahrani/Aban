@@ -53,7 +53,7 @@ def predict():
 
         # Check if the audio file contains sound
         if not contains_sound(audio_data):
-            return jsonify({'error': 'The provided audio file is silent or the sound is not audible'}), 400
+            return jsonify({'error': 'الملف الصوتي المقدم صامت أو الصوت غير مسموع'}), 400
 
         # Extract features from the audio file
         features = features_extractor(audio_data, sample_rate)
@@ -63,11 +63,11 @@ def predict():
 
         # Make predictions using the loaded model
         probabilities = log_reg.predict_proba(features_reshaped)
-        normal_prob = probabilities[0][0]
-        stutter_prob = probabilities[0][1]
+        stutter_prob = probabilities[0][0]
+        normal_prob= probabilities[0][1]
 
         # Return the prediction results as JSON
-        return jsonify({"Normal": f"{normal_prob * 100:.2f}%", "Stutter": f"{stutter_prob * 100:.2f}%"})
+        return jsonify({"Stutter": f"{stutter_prob * 100:.2f}%", "Normal": f"{normal_prob * 100:.2f}%"})
 
     except Exception as e:
         # Generic exception handling, consider specifying possible exceptions for better debugging
@@ -75,5 +75,6 @@ def predict():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
 
