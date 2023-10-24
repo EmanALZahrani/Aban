@@ -269,38 +269,57 @@ class Diagnosis : AppCompatActivity() {
 
             override fun onResponse(call: Call, response: Response) {
                 runOnUiThread {
-                    if (response.isSuccessful) {
-                        try {
-                            val responseBody = response.body?.string()
-                            val jsonResponse = JSONObject(responseBody)
-
-                            if (jsonResponse.has("error")) {
-                                val error = jsonResponse.getString("error")
-                                // Show a Toast or any other UI element to display the error.
-                                Toast.makeText(this@Diagnosis, "Error: $error", Toast.LENGTH_SHORT).show()
-                            } else {
-                                val normal = jsonResponse.getString("Normal")
-                                val stutter = jsonResponse.getString("Stutter")
-
-                                val intent = Intent(this@Diagnosis, DiagnosisResult::class.java)
-                                intent.putExtra("typeIntent", "طبيعي: $normal\nتأتأة: $stutter")
-                                startActivity(intent)
-                            }
-                        } catch (e: IOException) {
-                            e.printStackTrace()
-                            // Display the IOException error.
-                            Toast.makeText(this@Diagnosis, "Error processing the response: ${e.message}", Toast.LENGTH_SHORT).show()
-                        } catch (e: JSONException) {
-                            e.printStackTrace()
-                            // Display the JSON parsing error.
-                            Toast.makeText(this@Diagnosis, "Error parsing the response: ${e.message}", Toast.LENGTH_SHORT).show()
+                    if (!response.isSuccessful) {
+                        // Handle server error response here
+                        val errorMessage = "استجاب الخادم بالحالة: ${response.code}"
+                        val intent = Intent(this@Diagnosis, DiagnosisResult::class.java).apply {
+                            putExtra("error", errorMessage) // Pass the error message to the DiagnosisResult activity
                         }
-                    } else {
-                        // Display the server response error.
-                        Toast.makeText(this@Diagnosis, "Server responded with status: ${response.code}", Toast.LENGTH_SHORT).show()
+                        startActivity(intent)
+                        return@runOnUiThread
+                    }
+
+                    try {
+                        val responseBody = response.body?.string()
+                            ?: throw IOException("Unable to read response body.")
+                        val jsonResponse = JSONObject(responseBody)
+
+                        if (jsonResponse.has("error")) {
+                            val error = jsonResponse.getString("error")
+
+                            // Pass the error message to the DiagnosisResult activity
+                            val intent = Intent(this@Diagnosis, DiagnosisResult::class.java).apply {
+                                putExtra("error", error) // Use the key "error" to pass the error message
+                            }
+                            startActivity(intent)
+                        } else {
+                            val normal = jsonResponse.getString("Normal")
+                            val stutter = jsonResponse.getString("Stutter")
+
+                            // Pass the results to the DiagnosisResult activity.
+                            val intent = Intent(this@Diagnosis, DiagnosisResult::class.java).apply {
+                                putExtra("typeIntent", "تأتأة: $stutter\nطبيعي: $normal")
+                            }
+                            startActivity(intent)
+                        }
+                    } catch (e: IOException) {
+                        // This catch block can handle generic I/O errors.
+                        Toast.makeText(
+                            this@Diagnosis,
+                            "Error processing the response: ${e.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } catch (e: JSONException) {
+                        // This catch block is to handle issues with JSON parsing.
+                        Toast.makeText(
+                            this@Diagnosis,
+                            "Error parsing the response: ${e.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
+
         })
     }
 
