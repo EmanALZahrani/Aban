@@ -36,9 +36,11 @@
             android:exported="true" />
         <activity
             android:name=".DisplayAudioFilesActivity"
-            android:exported="true" >
+            android:exported="true" />
+        <activity
+            android:name=".DiagnosisDisplayAudioFilesActivity"
+            android:exported="true" />
 
-        </activity>
 
         <activity
             android:name=".Cancellation"

@@ -12,12 +12,19 @@ def index():
     return 'Hello, World!'
 
 # Load the trained Logistic Regression model
-model_filename = 'Rmodel.pkl'
+model_filename = 'R_model.pkl'
 log_reg = joblib.load(model_filename)
 
 def features_extractor(audio, sample_rate):
     mfccs_scaled_features = np.mean(librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13).T, axis=0)
     return mfccs_scaled_features
+
+def contains_sound(audio, threshold=0.02):
+    energy = np.sum(audio ** 2)
+    if energy > threshold:
+        return True
+    else:
+        return False
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -42,21 +49,25 @@ def predict():
         audio.export(converted_file_path, format="wav")
 
         # Load the audio file with Librosa
-        audio, sample_rate = librosa.load(converted_file_path, sr=None)
+        audio_data, sample_rate = librosa.load(converted_file_path, sr=None)
+
+        # Check if the audio file contains sound
+        if not contains_sound(audio_data):
+            return jsonify({'error': 'الملف الصوتي المقدم صامت أو الصوت غير مسموع'}), 400
 
         # Extract features from the audio file
-        features = features_extractor(audio, sample_rate)
+        features = features_extractor(audio_data, sample_rate)
 
         # Reshape features for the model prediction
         features_reshaped = features.reshape(1, -1)
 
         # Make predictions using the loaded model
         probabilities = log_reg.predict_proba(features_reshaped)
-        normal_prob = probabilities[0][0]
-        stutter_prob = probabilities[0][1]
+        stutter_prob = probabilities[0][0]
+        normal_prob= probabilities[0][1]
 
         # Return the prediction results as JSON
-        return jsonify({"Normal": f"{normal_prob * 100:.2f}%", "Stutter": f"{stutter_prob * 100:.2f}%"})
+        return jsonify({"Stutter": f"{stutter_prob * 100:.2f}%", "Normal": f"{normal_prob * 100:.2f}%"})
 
     except Exception as e:
         # Generic exception handling, consider specifying possible exceptions for better debugging

@@ -32,7 +32,7 @@ class DiagnosisResult : AppCompatActivity() {
             startActivity(intent)
         }
 
-
+//
 
         // Back button listener
         val button6 = findViewById<ImageButton>(R.id.back)

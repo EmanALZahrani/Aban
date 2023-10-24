@@ -118,12 +118,20 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/nameresult"
+            android:id="@+id/normal"
             android:layout_width="236dp"
-            android:layout_height="95dp"
+            android:layout_height="52dp"
             android:layout_gravity="center"
             android:text="النتيجة"
             android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/stutter"
+            android:layout_width="236dp"
+            android:layout_height="52dp"
+            android:text="النتيجة"
+            android:textAlignment="viewStart"
             android:textSize="24sp" />
 
 
