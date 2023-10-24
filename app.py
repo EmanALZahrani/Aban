@@ -68,10 +68,10 @@ def predict():
             return jsonify({'error': 'الملف الصوتي المقدم صامت أو الصوت غير مسموع'}), 400
 
         # Extract features from the audio file
-        features = features_extractor(audio_data, sample_rate)
+        extracted_features = features_extractor(audio_data, sample_rate)
 
         # Reshape features for the model prediction
-        features_reshaped = features.reshape(1, -1)
+        features_reshaped = extracted_features.reshape(1, -1)
 
         # Make predictions using the loaded model
         probabilities = log_reg.predict_proba(features_reshaped)
