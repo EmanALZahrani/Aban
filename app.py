@@ -30,7 +30,7 @@ def reduce_noise(audio):
 def features_extractor(audio, sample_rate):
     # Check if the audio contains sound
     if not contains_sound(audio):
-        return jsonify({'error': 'التسجيل لا يحتوي على صوت، حاول مرة أخرى'}), 400
+        return jsonify({'error': 'التسجيل لا يحتوي على صوت، حاول مرة أخرى'})
 
     # Noise Reduction
     audio = reduce_noise(audio)
@@ -42,15 +42,6 @@ def features_extractor(audio, sample_rate):
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    # Check if the post request has the file part
-    if 'audio' not in request.files:
-        return jsonify({'error': 'No file part in the request'}), 400
-
-    audio_file = request.files['audio']
-
-    # If the user does not select a file, the browser may submit an empty part without a filename
-    if audio_file.filename == '':
-        return jsonify({'error': 'No selected file'}), 400
 
     try:
         # Save the uploaded file temporarily
@@ -67,7 +58,7 @@ def predict():
 
         # Check if the audio file contains sound
         if not contains_sound(audio_data):
-            return jsonify({'error': 'الملف الصوتي المقدم صامت أو الصوت غير مسموع'}), 400
+            return jsonify({'error': 'الملف الصوتي المقدم صامت أو الصوت غير مسموع'})
 
         # Extract features from the audio file
         extracted_features = features_extractor(audio_data, sample_rate)
