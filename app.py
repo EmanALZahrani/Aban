@@ -15,16 +15,28 @@ def index():
 model_filename = 'R_model.pkl'
 log_reg = joblib.load(model_filename)
 
-def features_extractor(audio, sample_rate):
-    mfccs_scaled_features = np.mean(librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13).T, axis=0)
-    return mfccs_scaled_features
-
 def contains_sound(audio, threshold=0.05):
     energy = np.sum(audio ** 2)
-    if energy > threshold:
-        return True
-    else:
-        return False
+    return energy > threshold
+
+def reduce_noise(audio):
+    n = 2
+    B, A = butter(n, 0.05, output='ba')
+    audio = lfilter(B, A, audio)
+    return audio
+
+def features_extractor(audio, sample_rate):
+    # Check if the audio contains sound
+    if not contains_sound(audio):
+        return jsonify({'error': 'التسجيل لا يحتوي على صوت، حاول مرة أخرى'}), 400
+
+    # Noise Reduction
+    audio = reduce_noise(audio)
+
+    # MFCC
+    mfccs = np.mean(librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13).T, axis=0)
+
+    return mfccs
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -67,7 +79,7 @@ def predict():
         normal_prob= probabilities[0][1]
 
         # Return the prediction results as JSON
-        return jsonify({"Stutter": f"{stutter_prob * 100:.2f}%", "Normal": f"{normal_prob * 100:.2f}%"})
+        return jsonify({"Stutter": f"{stutter_prob * 100:.2f}%", "Normal": f"{normal_prob * 100:.2f}%"}), 200
 
     except Exception as e:
         # Generic exception handling, consider specifying possible exceptions for better debugging
