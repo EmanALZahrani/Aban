@@ -19,7 +19,7 @@ def features_extractor(audio, sample_rate):
     mfccs_scaled_features = np.mean(librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13).T, axis=0)
     return mfccs_scaled_features
 
-def contains_sound(audio, threshold=0.02):
+def contains_sound(audio, threshold=0.05):
     energy = np.sum(audio ** 2)
     if energy > threshold:
         return True
