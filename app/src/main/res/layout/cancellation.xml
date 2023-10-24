@@ -136,22 +136,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.81" />
 
-    <Button
-        android:id="@+id/nextCans"
-        android:layout_width="200dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="70dp"
-        android:background="@drawable/rounded_corners"
-        android:backgroundTint="#8FA174"
-        android:text= "التالي"
-        android:textAlignment="center"
-        android:textColor="@color/beige"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent" />
-
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_animation_view"
@@ -181,6 +165,24 @@
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.52" />
 
-    <!--    View Saved Ones -->
+    <Button
+        android:id="@+id/result_bt_c"
+        android:layout_width="200dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="105dp"
+        android:layout_marginTop="597dp"
+        android:layout_marginEnd="106dp"
+        android:layout_marginBottom="214dp"
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="#8FA174"
+        android:text="اعرض النتيجة"
+        android:textAlignment="center"
+        android:textColor="@color/beige"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
