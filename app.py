@@ -44,6 +44,12 @@ def features_extractor(audio, sample_rate):
 def predict():
 
     try:
+        audio_file = request.files['audio']
+
+        # Check if the post request has the file part
+        if audio_file is None:
+            return jsonify({'error': 'No file part in the request'})
+            
         # Save the uploaded file temporarily
         path_to_write = "/tmp/" + audio_file.filename
         audio_file.save(path_to_write)
