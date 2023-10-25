@@ -126,14 +126,6 @@
             android:textAlignment="center"
             android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/stutter"
-            android:layout_width="236dp"
-            android:layout_height="52dp"
-            android:text="النتيجة"
-            android:textAlignment="viewStart"
-            android:textSize="24sp" />
-
 
     </androidx.cardview.widget.CardView>
 
