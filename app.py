@@ -4,6 +4,8 @@ import joblib
 import librosa
 import numpy as np
 import os
+from scipy.signal import butter, lfilter
+
 
 app = Flask(__name__)
 
@@ -19,10 +21,20 @@ def contains_sound(audio, threshold=0.05):
     energy = np.sum(audio ** 2)
     return energy > threshold
 
+def reduce_noise, threshold=0.02):
+    energy = np.sum(audio ** 2)
+    if energy > threshold:
+        return audio
+    else:
+        return np.zeros_like(audio)
+        
 def features_extractor(audio, sample_rate):
     # Check if the audio contains sound
     if not contains_sound(audio):
         return jsonify({'error': 'التسجيل لا يحتوي على صوت، حاول مرة أخرى'})
+
+    # Noise Reduction
+    audio = reduce_noise(audio)
 
     # MFCC
     mfccs = np.mean(librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13).T, axis=0)
@@ -75,5 +87,6 @@ def predict():
 
 if __name__ == '__main__':
     app.run(debug=True)
+ remove the reduce_noise fun
 
 
