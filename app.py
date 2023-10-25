@@ -70,14 +70,14 @@ def predict():
         if not contains_sound(audio_data):
             return jsonify({'error': 'الملف الصوتي المقدم صامت أو الصوت غير مسموع'})
 
-        # Reshape features for the model prediction
+        # Reshape and scale the features
         features_reshaped = extracted_features.reshape(1, -1)
-        features_scaled = scaler.transform(features_reshaped)
+        
 
-        # Make predictions using the loaded model
-        probabilities = log_reg.predict_proba(features_scaled)
+        # Predict using the loaded model
+        probabilities = log_reg.predict_proba(features_reshaped)
         stutter_prob = probabilities[0][1]
-        normal_prob= probabilities[0][0]
+        normal_prob = probabilities[0][0]
 
         # Return the prediction results as JSON
         return jsonify({"Stutter": f"{stutter_prob * 100:.2f}%", "Normal": f"{normal_prob * 100:.2f}%"}), 200
