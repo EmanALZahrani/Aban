@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.SystemClock
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -57,6 +58,7 @@ class Diagnosis : AppCompatActivity() {
     private var timeInMilliseconds: Long = 0
     private var minutes = 0
     private lateinit var btnRecord: Button
+     lateinit var btnResult: Button
     private lateinit var resultTextView : TextView
     val okHttpClient = OkHttpClient()
 
@@ -91,6 +93,7 @@ class Diagnosis : AppCompatActivity() {
         btnRecord = findViewById<ToggleButton>(R.id.btnRecord)
         tvDuration = findViewById(R.id.tvDuration)
          firestore = FirebaseFirestore.getInstance()
+        btnResult = findViewById<Button>(R.id.result_bt)
 
 
 
@@ -114,6 +117,11 @@ class Diagnosis : AppCompatActivity() {
             }
 
         }
+        btnResult.setOnClickListener(){
+            showResult()
+        }
+
+
 
         initializeAppCheck()
 
@@ -162,7 +170,7 @@ class Diagnosis : AppCompatActivity() {
             Log.d("TAG", "startRecording: " + e.localizedMessage)
             // Handle the exception (e.g., display an error message to the user)
         }
-
+        findViewById<Button>(R.id.result_bt).visibility = View.GONE
 
     }
     private fun stopRecording() {
@@ -180,19 +188,10 @@ class Diagnosis : AppCompatActivity() {
             handler.removeCallbacks(updateTimerThread)
             timeString = minutes.toString() + ":" + String.format("%02d", seconds)
             saveAudioToFirebaseStorage()
-            if (isNetworkAvailable(this)) {
-                // Proceed to send the audio file
-                accessFlaskServer()
-            } else {
-                Toast.makeText(this, "No internet connection. Please check your network settings.", Toast.LENGTH_SHORT).show()
-            }
+            findViewById<Button>(R.id.result_bt).visibility = View.VISIBLE
 
 
-            // Starting Medium activity
-            val intent = Intent(this@Diagnosis, DiagnosisResult::class.java)
-            //intent.putExtra("durationIntent", timeString)
-            intent.putExtra("typeIntent",type)//نضيف النتيجة حقت التشخيص هنا
-            startActivity(intent)
+
 
         }
 
@@ -336,8 +335,21 @@ class Diagnosis : AppCompatActivity() {
         return networkInfo != null && networkInfo.isConnected
     }
 
-
-
+    fun showResult(){
+        if (isNetworkAvailable(this)) {
+            // Proceed to send the audio file
+            accessFlaskServer()
+        } else {
+            Toast.makeText(this, "No internet connection. Please check your network settings.", Toast.LENGTH_SHORT).show()
+        }
+        btnResult.setOnClickListener {
+            // Starting Diagnosis result activity and send the result to it
+            val intent = Intent(this@Diagnosis, DiagnosisResult::class.java)
+            //intent.putExtra("durationIntent", timeString)
+            intent.putExtra("typeIntent", type)
+            startActivity(intent)
+        }
+    }
 
 
 }
