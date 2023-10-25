@@ -14,19 +14,20 @@ def index():
     return 'Hello, World!'
 
 # Load the trained Logistic Regression model
-model_filename = 'logReg_model.pkl'
+model_filename = 'Log_Reg_model.pkl'
 log_reg = joblib.load(model_filename)
 
 def contains_sound(audio, threshold=0.05):
     energy = np.sum(audio ** 2)
     return energy > threshold
 
-def reduce_noise(audio):
-    n = 2
-    B, A = butter(n, 0.05, output='ba')
-    audio = lfilter(B, A, audio)
-    return audio
-
+def reduce_noise, threshold=0.02):
+    energy = np.sum(audio ** 2)
+    if energy > threshold:
+        return audio
+    else:
+        return np.zeros_like(audio)
+        
 def features_extractor(audio, sample_rate):
     # Check if the audio contains sound
     if not contains_sound(audio):
