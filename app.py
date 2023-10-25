@@ -14,7 +14,7 @@ def index():
     return 'Hello, World!'
 
 # Load the trained Logistic Regression model
-model_filename = 'RegressionModel.pkl'
+model_filename = 'Regression.pkl'
 log_reg = joblib.load(model_filename)
 
 def contains_sound(audio, threshold=0.05):
@@ -30,15 +30,19 @@ def reduce_noise(audio):
 def features_extractor(audio, sample_rate):
     # Check if the audio contains sound
     if not contains_sound(audio):
-        return jsonify({'error': 'التسجيل لا يحتوي على صوت، حاول مرة أخرى'})
+        return None
 
     # Noise Reduction
     audio = reduce_noise(audio)
 
-    # MFCC
-    mfccs = np.mean(librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13).T, axis=0)
+    # MFCCs and Zero Crossing Rate
+    mfccs_features = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13)
+    mfccs_scaled_features = np.mean(mfccs_features.T, axis=0)
+    zero_crossing_rate = np.mean(librosa.feature.zero_crossing_rate(y=audio))
+    extracted_features = np.append(mfccs_scaled_features, zero_crossing_rate)
 
-    return mfccs
+    return extracted_features
+
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -62,12 +66,9 @@ def predict():
         # Load the audio file with Librosa
         audio_data, sample_rate = librosa.load(converted_file_path, sr=None)
 
-        # Check if the audio file contains sound
+        extracted_features = features_extractor(audio_data, sample_rate)
         if not contains_sound(audio_data):
             return jsonify({'error': 'الملف الصوتي المقدم صامت أو الصوت غير مسموع'})
-
-        # Extract features from the audio file
-        extracted_features = features_extractor(audio_data, sample_rate)
 
         # Reshape features for the model prediction
         features_reshaped = extracted_features.reshape(1, -1)
