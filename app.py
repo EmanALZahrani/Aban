@@ -21,7 +21,7 @@ def contains_sound(audio, threshold=0.05):
     energy = np.sum(audio ** 2)
     return energy > threshold
 
-def reduce_noise, threshold=0.02):
+def reduce_noise (threshold=0.02):
     energy = np.sum(audio ** 2)
     if energy > threshold:
         return audio
@@ -87,6 +87,4 @@ def predict():
 
 if __name__ == '__main__':
     app.run(debug=True)
- remove the reduce_noise fun
-
 
