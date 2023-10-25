@@ -72,9 +72,10 @@ def predict():
 
         # Reshape features for the model prediction
         features_reshaped = extracted_features.reshape(1, -1)
+        features_scaled = scaler.transform(features_reshaped)
 
         # Make predictions using the loaded model
-        probabilities = log_reg.predict_proba(features_reshaped)
+        probabilities = log_reg.predict_proba(features_scaled)
         stutter_prob = probabilities[0][1]
         normal_prob= probabilities[0][0]
 
