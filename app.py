@@ -5,36 +5,42 @@ import librosa
 import numpy as np
 import os
 
+
 app = Flask(__name__)
 
+@app.route('/')
+def index():
+    return 'Hello, World!'
+
 # Load the trained Logistic Regression model
-model_filename = 'R_model.pkl'
+model_filename = 'RegressionModel.pkl'
 log_reg = joblib.load(model_filename)
 
-def features_extractor(audio, sample_rate):
-    mfccs_scaled_features = np.mean(librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13).T, axis=0)
-    return mfccs_scaled_features
-
-def contains_sound(audio, threshold=0.02):
+def contains_sound(audio, threshold=0.05):
     energy = np.sum(audio ** 2)
-    if energy > threshold:
-        return True
-    else:
-        return False
+    return energy > threshold
+
+
+def features_extractor(audio, sample_rate):
+    # Check if the audio contains sound
+    if not contains_sound(audio):
+        return jsonify({'error': 'التسجيل لا يحتوي على صوت، حاول مرة أخرى'})
+
+    # MFCC
+    mfccs = np.mean(librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13).T, axis=0)
+
+    return mfccs
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    # Check if the post request has the file part
-    if 'audio' not in request.files:
-        return jsonify({'error': 'No file part in the request'}), 400
-
-    audio_file = request.files['audio']
-
-    # If the user does not select a file, the browser may submit an empty part without a filename
-    if audio_file.filename == '':
-        return jsonify({'error': 'No selected file'}), 400
 
     try:
+        audio_file = request.files['audio']
+
+        # Check if the post request has the file part
+        if audio_file is None:
+            return jsonify({'error': 'No file part in the request'})
+            
         # Save the uploaded file temporarily
         path_to_write = "/tmp/" + audio_file.filename
         audio_file.save(path_to_write)
@@ -49,21 +55,21 @@ def predict():
 
         # Check if the audio file contains sound
         if not contains_sound(audio_data):
-            return jsonify({'error': 'The provided audio file is silent or the sound is not audible'}), 400
+            return jsonify({'error': 'الملف الصوتي المقدم صامت أو الصوت غير مسموع'})
 
         # Extract features from the audio file
-        features = features_extractor(audio_data, sample_rate)
+        extracted_features = features_extractor(audio_data, sample_rate)
 
         # Reshape features for the model prediction
-        features_reshaped = features.reshape(1, -1)
+        features_reshaped = extracted_features.reshape(1, -1)
 
         # Make predictions using the loaded model
         probabilities = log_reg.predict_proba(features_reshaped)
-        normal_prob = probabilities[0][0]
         stutter_prob = probabilities[0][1]
+        normal_prob= probabilities[0][0]
 
         # Return the prediction results as JSON
-        return jsonify({"Normal": f"{normal_prob * 100:.2f}%", "Stutter": f"{stutter_prob * 100:.2f}%"})
+        return jsonify({"Stutter": f"{stutter_prob * 100:.2f}%", "Normal": f"{normal_prob * 100:.2f}%"}), 200
 
     except Exception as e:
         # Generic exception handling, consider specifying possible exceptions for better debugging
