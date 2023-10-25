@@ -4,7 +4,7 @@ import joblib
 import librosa
 import numpy as np
 import os
-from scipy.signal import butter, filter
+from scipy.signal import butter, lfilter
 import pandas as pd
 
 
