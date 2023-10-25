@@ -16,7 +16,6 @@ import kotlinx.coroutines.withContext
 class DiagnosisResult : AppCompatActivity() {
 
     private lateinit var firestore: FirebaseFirestore
-    private lateinit var typeIntent: String
     private lateinit var type: AppCompatTextView
     private lateinit var next_bt: Button
 
@@ -41,8 +40,18 @@ class DiagnosisResult : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val normalProb = intent.getStringExtra("typeIntent")
-        type.text = normalProb
+        val error = intent.getStringExtra("error")
+        val typeIntent = intent.getStringExtra("typeIntent")
+
+        if (error != null) {
+
+            type.text = error // for the error message
+        } else if (typeIntent != null) {
+
+            type.text = typeIntent // for the result
+        } else {
+
+        }
     }
 
     private fun hasCompletedActivity(userId: String): Boolean {

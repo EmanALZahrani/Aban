@@ -138,18 +138,22 @@ class account : AppCompatActivity() {
                                     // Update user authentication credentials if the email or the password was changed
                                     if (updatedFields.containsKey("Email")) {
                                         val updatedEmail = updatedFields["Email"].toString()
-                                        user.updatePassword(updatedEmail)
+                                        user.updateEmail(updatedEmail)
                                             .addOnCompleteListener { task ->
                                                 if (task.isSuccessful) {
                                                     Toast.makeText(this@account, "تم تحديث البريد الإلكتروني بنجاح", Toast.LENGTH_SHORT).show()
                                                 } else {
-                                                    // Password update failed
-                                                    Toast.makeText(this@account, "فشل تحديث  البريد الإلكتروني", Toast.LENGTH_SHORT).show()
+                                                    // Email update failed
+                                                    Toast.makeText(this@account, "فشل تحديث البريد الإلكتروني", Toast.LENGTH_SHORT).show()
                                                 }
+                                            }
+                                            .addOnFailureListener { e ->
+                                                // Handle the specific error here
+                                                Toast.makeText(this@account, "فشل تحديث البريد الإلكتروني: " + e.message, Toast.LENGTH_SHORT).show()
                                             }
                                     }
                                     if (updatedFields.containsKey("password")) {
-                                        val updatedPassword = maskPassword(updatedFields["password"].toString())
+                                        val updatedPassword = updatedFields["password"].toString()
                                         user.updatePassword(updatedPassword)
                                             .addOnCompleteListener { task ->
                                                 if (task.isSuccessful) {
@@ -158,11 +162,9 @@ class account : AppCompatActivity() {
                                                     // Password update failed
                                                     Toast.makeText(this@account, "فشل تحديث كلمة المرور", Toast.LENGTH_SHORT).show()
                                                 }
-                                            }
                                     }
-
-                                }
-                                .addOnFailureListener { e ->
+                               }
+                          }.addOnFailureListener { e ->
                                     // Update failed
                                     Toast.makeText(this@account, "لم يتم التحديث", Toast.LENGTH_SHORT).show()
                                 }

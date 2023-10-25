@@ -7,6 +7,17 @@
     android:background="#DDDFD1"
     tools:context=".CancellationResult">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/fireworks"
+        android:layout_width="414dp"
+        android:layout_height="626dp"
+        android:layout_marginBottom="240dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/animation_paper" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/result"

@@ -41,6 +41,7 @@ class Cancellation : AppCompatActivity() {
     private var timeInMilliseconds: Long = 0
     private var minutes = 0
     private lateinit var btnRecord: Button
+    lateinit var btnResult : Button
     private val wordFetcher = WordFetcher()
     private lateinit var nextCans: Button
 
@@ -67,7 +68,7 @@ class Cancellation : AppCompatActivity() {
         tvDuration = findViewById(R.id.tvDuration)
         lottieAnimationView = findViewById(R.id.lottie_animation_view)
         firestore = FirebaseFirestore.getInstance()
-       // nextCans = findViewById(R.id.nextCans)
+        btnResult = findViewById<Button>(R.id.result_bt_c)
 
         getRandomWord()
         val button6 = findViewById<ImageButton>(R.id.backBtn)
@@ -78,15 +79,6 @@ class Cancellation : AppCompatActivity() {
         button7.setOnClickListener {
             val intent1 = Intent(this@Cancellation,account ::class.java)
             startActivity(intent1)}
-        // Set click listener for the "nextCans" button
-        val next = findViewById<Button>(R.id.nextCans)
-        next.setOnClickListener {
-            val intent3 = Intent(this@Cancellation, CancellationResult::class.java)
-            startActivity(intent3)
-        }
-
-
-
 
         btnRecord.setOnClickListener {
             Constants.createTempFolder()
@@ -95,6 +87,11 @@ class Cancellation : AppCompatActivity() {
             } else {
                 startRecording()
             }
+        }
+
+        btnResult.setOnClickListener {
+
+            showResult()
         }
 
 
@@ -255,6 +252,15 @@ class Cancellation : AppCompatActivity() {
             val rand = Random()
             return rand.nextInt(max - min + 1) + min
         }
+    }
+
+    fun showResult(){
+        btnResult.setOnClickListener {
+            // Starting Diagnosis result activity and send the result to it
+            val intent = Intent(this@Cancellation, CancellationResult::class.java)
+            //intent.putExtra("durationIntent", timeString)
+            //intent.putExtra("typeIntent", type)
+            startActivity(intent)}
     }
     // Function to create a Firestore document for user tracking
     private fun createUserDocument(userId: String?) {

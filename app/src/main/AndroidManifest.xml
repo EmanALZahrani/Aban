@@ -80,8 +80,6 @@
             android:exported="true" />
 
 
-
-
         <activity
             android:name=".SignUp"
             android:exported="true"
