@@ -6,3 +6,4 @@ joblib
 librosa
 pydub
 scipy
+pandas
