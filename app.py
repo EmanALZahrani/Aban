@@ -11,30 +11,30 @@ app = Flask(__name__)
 model_filename = 'Log_Reg_model.pkl'
 log_reg = joblib.load(model_filename)
 
-def contains_sound(audio, threshold=0.05):
-    energy = np.sum(audio ** 2)
-    return energy > threshold
-
-
 def features_extractor(audio, sample_rate):
-    # Check if the audio contains sound
-    if not contains_sound(audio):
-        return None, 'الملف الصوتي المقدم صامت أو الصوت غير مسموع'  # Changed return type
-        
-    # MFCC
-    mfccs = np.mean(librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13).T, axis=0)
+    mfccs_scaled_features = np.mean(librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13).T, axis=0)
+    return mfccs_scaled_features
 
-    return mfccs, None  # Changed return type
+def contains_sound(audio, threshold=0.02):
+    energy = np.sum(audio ** 2)
+    if energy > threshold:
+        return True
+    else:
+        return False
 
 @app.route('/predict', methods=['POST'])
 def predict():
+    # Check if the post request has the file part
+    if 'audio' not in request.files:
+        return jsonify({'error': 'No file part in the request'}), 400
+
+    audio_file = request.files['audio']
+
+    # If the user does not select a file, the browser may submit an empty part without a filename
+    if audio_file.filename == '':
+        return jsonify({'error': 'No selected file'}), 400
+
     try:
-        # Check if the post request has the file part
-        if 'audio' not in request.files:
-            return jsonify({'error': 'No file part in the request'}), 400  # Bad request error
-
-        audio_file = request.files['audio']
-
         # Save the uploaded file temporarily
         path_to_write = "/tmp/" + audio_file.filename
         audio_file.save(path_to_write)
@@ -49,28 +49,26 @@ def predict():
 
         # Check if the audio file contains sound
         if not contains_sound(audio_data):
-            return jsonify({'error': 'الملف الصوتي المقدم صامت أو الصوت غير مسموع'})
+            return jsonify({'error': 'The provided audio file is silent or the sound is not audible'}), 400
 
         # Extract features from the audio file
-        extracted_features, error = features_extractor(audio_data, sample_rate)
-        if error:
-            return jsonify({'error': error}), 400
+        features = features_extractor(audio_data, sample_rate)
 
         # Reshape features for the model prediction
-        features_reshaped = extracted_features.reshape(1, -1)
+        features_reshaped = features.reshape(1, -1)
 
         # Make predictions using the loaded model
         probabilities = log_reg.predict_proba(features_reshaped)
-        normal_prob ,stutter_prob  = probabilities[i]
+        normal_prob = probabilities[0][0]
+        stutter_prob = probabilities[0][1]
 
         # Return the prediction results as JSON
-        return jsonify({"Stutter": f"{stutter_prob * 100:.2f}%", "Normal": f"{normal_prob * 100:.2f}%"}), 200
+        return jsonify({"Normal": f"{normal_prob * 100:.2f}%", "Stutter": f"{stutter_prob * 100:.2f}%"})
 
     except Exception as e:
-        # For debugging purposes, consider printing the exception stack trace or logging it here.
-        print(e)  # Or log the exception
-        return jsonify({'error': 'An error occurred while processing. Please try again.'}), 500
+        # Generic exception handling, consider specifying possible exceptions for better debugging
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True) 
+    app.run(debug=True)
 
