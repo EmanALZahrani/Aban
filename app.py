@@ -4,7 +4,8 @@ import joblib
 import librosa
 import numpy as np
 import os
-from scipy.signal import butter, lfilter
+from scipy.signal import butter, filter
+import pandas as pd
 
 
 app = Flask(__name__)
@@ -14,12 +15,10 @@ def index():
     return 'Hello, World!'
 
 # Load the trained Logistic Regression model
-model_filename = 'Regression.pkl'
+model_filename = 'RegressionModel.pkl'
+scaler_filename = 'scaler.pkl'
 log_reg = joblib.load(model_filename)
-
-def contains_sound(audio, threshold=0.05):
-    energy = np.sum(audio ** 2)
-    return energy > threshold
+scaler = joblib.load(scaler_filename)
 
 def reduce_noise(audio):
     n = 2
@@ -27,16 +26,16 @@ def reduce_noise(audio):
     audio = lfilter(B, A, audio)
     return audio
 
-def features_extractor(audio, sample_rate):
-  audio = reduce_noise(audio)
+def contains_sound(audio, threshold=0.02):
+    energy = np.sum(audio ** 2)
+    return energy > threshold
 
-    # MFCCs and Zero Crossing Rate
+def features_extractor(audio, sample_rate):
     mfccs_features = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13)
     mfccs_scaled_features = np.mean(mfccs_features.T, axis=0)
     zero_crossing_rate = np.mean(librosa.feature.zero_crossing_rate(y=audio))
     extracted_features = np.append(mfccs_scaled_features, zero_crossing_rate)
-
-    return extracted_features
+    return pd.Series(extracted_features)
 
 
 @app.route('/predict', methods=['POST'])
@@ -58,28 +57,34 @@ def predict():
         converted_file_path = "/tmp/converted_" + os.path.splitext(audio_file.filename)[0] + ".wav"
         audio.export(converted_file_path, format="wav")
 
-        # Load the audio file with Librosa
         audio_data, sample_rate = librosa.load(converted_file_path, sr=None)
+        audio_data = reduce_noise(audio_data)
 
-        extracted_features = features_extractor(audio_data, sample_rate)
         if not contains_sound(audio_data):
-            return jsonify({'error': 'الملف الصوتي المقدم صامت أو الصوت غير مسموع'})
+            os.remove(path_to_write)  # Cleanup
+            os.remove(converted_file_path)
+            return jsonify({'error': 'The provided audio file is silent or not audible'}), 400
 
-        # Reshape and scale the features
-        features_reshaped = extracted_features.reshape(1, -1)
-        
+        # Extract features and scale them
+        features = features_extractor(audio_data, sample_rate)
+        features = features.values.reshape(1, -1)  
+        features_scaled = scaler.transform(features)
 
         # Predict using the loaded model
-        probabilities = log_reg.predict_proba(features_reshaped)
+        probabilities = log_reg.predict_proba(features_scaled)
         stutter_prob = probabilities[0][1]
         normal_prob = probabilities[0][0]
 
-        # Return the prediction results as JSON
+        # Cleanup the temporary files
+        os.remove(path_to_write)
+        os.remove(converted_file_path)
+
+        # Return prediction results
         return jsonify({"Stutter": f"{stutter_prob * 100:.2f}%", "Normal": f"{normal_prob * 100:.2f}%"}), 200
 
     except Exception as e:
-        # Generic exception handling, consider specifying possible exceptions for better debugging
         return jsonify({'error': str(e)}), 500
 
+      
 if __name__ == '__main__':
     app.run(debug=True)
