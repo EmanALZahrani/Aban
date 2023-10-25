@@ -8,7 +8,7 @@ import os
 app = Flask(__name__)
 
 # Load the trained Logistic Regression model
-model_filename = 'Log_Reg_model.pkl'
+model_filename = 'R_model.pkl'
 log_reg = joblib.load(model_filename)
 
 def features_extractor(audio, sample_rate):
