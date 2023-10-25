@@ -22,7 +22,7 @@ class DiagnosisResult : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.diagnosis_result)
-        type = findViewById(R.id.nameresult)
+        type = findViewById(R.id.normal)
         next_bt = findViewById(R.id.next_bt)
 
         // next button listener

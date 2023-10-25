@@ -14,7 +14,7 @@ def index():
     return 'Hello, World!'
 
 # Load the trained Logistic Regression model
-model_filename = 'Regrisson_model.pkl'
+model_filename = 'logReg_model.pkl'
 log_reg = joblib.load(model_filename)
 
 def contains_sound(audio, threshold=0.05):
@@ -74,8 +74,8 @@ def predict():
 
         # Make predictions using the loaded model
         probabilities = log_reg.predict_proba(features_reshaped)
-        stutter_prob = probabilities[0][0]
-        normal_prob= probabilities[0][1]
+        stutter_prob = probabilities[0][1]
+        normal_prob= probabilities[0][0]
 
         # Return the prediction results as JSON
         return jsonify({"Stutter": f"{stutter_prob * 100:.2f}%", "Normal": f"{normal_prob * 100:.2f}%"}), 200
