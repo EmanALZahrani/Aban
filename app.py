@@ -63,7 +63,7 @@ def predict():
         if not contains_sound(audio_data):
             os.remove(path_to_write)  # Cleanup
             os.remove(converted_file_path)
-            return jsonify({'error': 'The provided audio file is silent or not audible'}), 400
+            return jsonify({'error': 'الملف الصوتي صامت أو غير مسموع'})
 
         # Extract features and scale them
         features = features_extractor(audio_data, sample_rate)
