@@ -1,4 +1,4 @@
-flask import Flask, request, jsonify
+from flask import Flask, request, jsonify
 from pydub import AudioSegment
 import joblib
 import librosa
