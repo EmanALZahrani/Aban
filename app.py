@@ -14,7 +14,7 @@ def index():
     return 'Hello, World!'
 
 # Load the trained Logistic Regression model
-model_filename = 'Reg_model.pkl'
+model_filename = 'Regrisson_model.pkl'
 log_reg = joblib.load(model_filename)
 
 def contains_sound(audio, threshold=0.05):
