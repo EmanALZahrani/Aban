@@ -28,12 +28,7 @@ def reduce_noise(audio):
     return audio
 
 def features_extractor(audio, sample_rate):
-    # Check if the audio contains sound
-    if not contains_sound(audio):
-        return None
-
-    # Noise Reduction
-    audio = reduce_noise(audio)
+  audio = reduce_noise(audio)
 
     # MFCCs and Zero Crossing Rate
     mfccs_features = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13)
