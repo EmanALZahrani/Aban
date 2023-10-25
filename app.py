@@ -5,6 +5,7 @@ import librosa
 import numpy as np
 import os
 from scipy.signal import butter, lfilter
+import pandas as pd
 
 
 app = Flask(__name__)
@@ -14,32 +15,28 @@ def index():
     return 'Hello, World!'
 
 # Load the trained Logistic Regression model
-model_filename = 'Log_Reg_model.pkl'
+model_filename = 'RegressionModel.pkl'
+scaler_filename = 'scaler.pkl'
 log_reg = joblib.load(model_filename)
+scaler = joblib.load(scaler_filename)
 
-def contains_sound(audio, threshold=0.05):
+def reduce_noise(audio):
+    n = 2
+    B, A = butter(n, 0.05, output='ba')
+    audio = lfilter(B, A, audio)
+    return audio
+
+def contains_sound(audio, threshold=0.02):
     energy = np.sum(audio ** 2)
     return energy > threshold
 
-def reduce_noise, threshold=0.02):
-    energy = np.sum(audio ** 2)
-    if energy > threshold:
-        return audio
-    else:
-        return np.zeros_like(audio)
-        
 def features_extractor(audio, sample_rate):
-    # Check if the audio contains sound
-    if not contains_sound(audio):
-        return jsonify({'error': 'التسجيل لا يحتوي على صوت، حاول مرة أخرى'})
+    mfccs_features = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13)
+    mfccs_scaled_features = np.mean(mfccs_features.T, axis=0)
+    zero_crossing_rate = np.mean(librosa.feature.zero_crossing_rate(y=audio))
+    extracted_features = np.append(mfccs_scaled_features, zero_crossing_rate)
+    return pd.Series(extracted_features)
 
-    # Noise Reduction
-    audio = reduce_noise(audio)
-
-    # MFCC
-    mfccs = np.mean(librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13).T, axis=0)
-
-    return mfccs
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -60,33 +57,34 @@ def predict():
         converted_file_path = "/tmp/converted_" + os.path.splitext(audio_file.filename)[0] + ".wav"
         audio.export(converted_file_path, format="wav")
 
-        # Load the audio file with Librosa
         audio_data, sample_rate = librosa.load(converted_file_path, sr=None)
+        audio_data = reduce_noise(audio_data)
 
-        # Check if the audio file contains sound
         if not contains_sound(audio_data):
-            return jsonify({'error': 'الملف الصوتي المقدم صامت أو الصوت غير مسموع'})
+            os.remove(path_to_write)  # Cleanup
+            os.remove(converted_file_path)
+            return jsonify({'error': 'The provided audio file is silent or not audible'}), 400
 
-        # Extract features from the audio file
-        extracted_features = features_extractor(audio_data, sample_rate)
+        # Extract features and scale them
+        features = features_extractor(audio_data, sample_rate)
+        features = features.values.reshape(1, -1)  
+        features_scaled = scaler.transform(features)
 
-        # Reshape features for the model prediction
-        features_reshaped = extracted_features.reshape(1, -1)
-
-        # Make predictions using the loaded model
-        probabilities = log_reg.predict_proba(features_reshaped)
+        # Predict using the loaded model
+        probabilities = log_reg.predict_proba(features_scaled)
         stutter_prob = probabilities[0][1]
-        normal_prob= probabilities[0][0]
+        normal_prob = probabilities[0][0]
 
-        # Return the prediction results as JSON
+        # Cleanup the temporary files
+        os.remove(path_to_write)
+        os.remove(converted_file_path)
+
+        # Return prediction results
         return jsonify({"Stutter": f"{stutter_prob * 100:.2f}%", "Normal": f"{normal_prob * 100:.2f}%"}), 200
 
     except Exception as e:
-        # Generic exception handling, consider specifying possible exceptions for better debugging
         return jsonify({'error': str(e)}), 500
 
+      
 if __name__ == '__main__':
     app.run(debug=True)
- remove the reduce_noise fun
-
-
