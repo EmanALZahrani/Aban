@@ -15,21 +15,12 @@ def contains_sound(audio, threshold=0.05):
     energy = np.sum(audio ** 2)
     return energy > threshold
 
-def reduce_noise(audio, threshold=0.02):  # Fixed function signature here
-    energy = np.sum(audio ** 2)
-    if energy > threshold:
-        return audio
-    else:
-        return np.zeros_like(audio)
 
 def features_extractor(audio, sample_rate):
     # Check if the audio contains sound
     if not contains_sound(audio):
-        return None, 'The recording contains no sound, please try again.'  # Changed return type
-
-    # Noise Reduction
-    audio = reduce_noise(audio)
-
+        return None, 'الملف الصوتي المقدم صامت أو الصوت غير مسموع'  # Changed return type
+        
     # MFCC
     mfccs = np.mean(librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13).T, axis=0)
 
@@ -58,7 +49,7 @@ def predict():
 
         # Check if the audio file contains sound
         if not contains_sound(audio_data):
-            return jsonify({'error': 'The provided audio file is silent or the sound is not audible'}), 400
+            return jsonify({'error': 'الملف الصوتي المقدم صامت أو الصوت غير مسموع'})
 
         # Extract features from the audio file
         extracted_features, error = features_extractor(audio_data, sample_rate)
