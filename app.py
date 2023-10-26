@@ -38,15 +38,15 @@ def features_extractor(file_path):
 def predict():
     # File checks
     if 'audio' not in request.files:
-        return jsonify({'error': 'No audio file part'}), 400
+        return jsonify({'error': 'No audio file part'})
 
     file = request.files['audio']
 
     if file.filename == '':
-        return jsonify({'error': 'No selected file'}), 400
+        return jsonify({'error': 'No selected file'})
 
     if not allowed_file(file.filename):
-        return jsonify({'error': 'Format not supported'}), 400
+        return jsonify({'error': 'Format not supported'})
 
     filename_secure = secure_filename(file.filename)
     path_to_write = os.path.join("/tmp", filename_secure)
