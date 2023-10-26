@@ -52,13 +52,21 @@ def predict():
         path_to_write = "/tmp/" + audio_file.filename
         audio_file.save(path_to_write)
 
-        # Use pydub to convert the audio file to .wav format
-        audio = AudioSegment.from_file(path_to_write, format="m4a")
+# Define the path for the converted file
         converted_file_path = "/tmp/converted_" + os.path.splitext(audio_file.filename)[0] + ".wav"
+
+# Use pydub to convert the audio file to .wav format
+        bit_depth = 16
+        sample_rate = 44100  # or the sample rate used during model training
+        channels = 1  # mono; use 2 for stereo if that's what your model was trained with
+
+        audio = AudioSegment.from_file(path_to_write, format="m4a")
+        audio = audio.set_frame_rate(sample_rate).set_channels(channels).set_sample_width(bit_depth)
         audio.export(converted_file_path, format="wav")
 
+# Load the converted audio file for feature extraction
         audio_data, sample_rate = librosa.load(converted_file_path, sr=None)
-        audio_data = reduce_noise(audio_data)
+        audio_data = reduce_noise(audio_data)a)
 
         if not contains_sound(audio_data):
             os.remove(path_to_write)  # Cleanup
