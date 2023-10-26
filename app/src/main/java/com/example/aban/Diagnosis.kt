@@ -144,14 +144,15 @@ class Diagnosis : AppCompatActivity() {
         // Initialize MediaRecorder
         mediaRecorder = MediaRecorder()
         mediaRecorder!!.setAudioSource(MediaRecorder.AudioSource.MIC)
-        mediaRecorder!!.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+        mediaRecorder!!.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
 
         // Create a unique file name for each recording (e.g., timestamp)
-        val audioFileName = "audio_" + System.currentTimeMillis() + ".m4a"
+        val audioFileName = "audio_" + System.currentTimeMillis() + ".3gp"
         // Save the audio file name for later use
         currentAudioFileName = audioFileName // Declare this variable at the class level
         mediaRecorder!!.setOutputFile(getOutputFilePath(audioFileName)) // Use a local path for recording
-        mediaRecorder!!.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+        mediaRecorder!!.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_WB)
+
         try {
             mediaRecorder!!.prepare()
             mediaRecorder!!.start() // Start recording
@@ -247,7 +248,7 @@ class Diagnosis : AppCompatActivity() {
     }
 
     private fun sendAudioToFlaskServer(audioFilePath: String) {
-        val url = "https://aban-app-521459a5fe97.herokuapp.com/predict" // Replace with your Flask server URL
+        val url = "https://aban-app-521459a5fe97.herokuapp.com/predict"
 
         val file = File(audioFilePath)
         val audioRequestBody = RequestBody.create("audio/x-m4a".toMediaTypeOrNull(), file.readBytes())
@@ -289,7 +290,7 @@ class Diagnosis : AppCompatActivity() {
 
                             // Pass the error message to the DiagnosisResult activity
                             val intent = Intent(this@Diagnosis, DiagnosisResult::class.java).apply {
-                                putExtra("error", error) // Use the key "error" to pass the error message
+                                putExtra("error", error)
                             }
                             startActivity(intent)
                         } else {
@@ -298,7 +299,7 @@ class Diagnosis : AppCompatActivity() {
 
                             // Pass the results to the DiagnosisResult activity.
                             val intent = Intent(this@Diagnosis, DiagnosisResult::class.java).apply {
-                                putExtra("typeIntent", "طبيعي: $stutter\nتأتأة: $normal")
+                                putExtra("typeIntent", "طبيعي: $normal\nتأتأة: $stutter")
                             }
                             startActivity(intent)
                         }
