@@ -7,37 +7,26 @@ import os
 from scipy.signal import butter, lfilter
 import pandas as pd
 
-
 app = Flask(__name__)
 
-
 # Load the trained Logistic Regression model
-model_filename = 'RegressionModel.pkl'
-scaler_filename = 'scaler.pkl'
+model_filename = 'last.pkl'
+scaler_filename = 'scaler12.pkl'
 log_reg = joblib.load(model_filename)
 scaler = joblib.load(scaler_filename)
 
-def reduce_noise(audio):
-    n = 2
-    B, A = butter(n, 0.05, output='ba')
-    audio = lfilter(B, A, audio)
-    return audio
 
-def contains_sound(audio, threshold=0.02):
-    energy = np.sum(audio ** 2)
-    return energy > threshold
 
 def features_extractor(audio, sample_rate):
     mfccs_features = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13)
     mfccs_scaled_features = np.mean(mfccs_features.T, axis=0)
-    zero_crossing_rate = np.mean(librosa.feature.zero_crossing_rate(y=audio))
-    extracted_features = np.append(mfccs_scaled_features, zero_crossing_rate)
-    return pd.Series(extracted_features)
+    
+    # removed the zero_crossing_rate and its appending to the extracted features.
+    return pd.Series(mfccs_scaled_features)
 
 
 @app.route('/predict', methods=['POST'])
 def predict():
-
     try:
         audio_file = request.files['audio']
 
@@ -55,16 +44,10 @@ def predict():
         audio.export(converted_file_path, format="wav")
 
         audio_data, sample_rate = librosa.load(converted_file_path, sr=None)
-        audio_data = reduce_noise(audio_data)
-
-        if not contains_sound(audio_data):
-            os.remove(path_to_write)  # Cleanup
-            os.remove(converted_file_path)
-            return jsonify({'error': 'الملف الصوتي صامت أو غير مسموع'})
-
+        
         # Extract features and scale them
         features = features_extractor(audio_data, sample_rate)
-        features = features.values.reshape(1, -1)  
+        features = features.values.reshape(1, -1)
         features_scaled = scaler.transform(features)
 
         # Predict using the loaded model
@@ -81,4 +64,8 @@ def predict():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
 
