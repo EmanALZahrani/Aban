@@ -3,7 +3,6 @@ import joblib
 import librosa
 import numpy as np
 import os
-from scipy.signal import butter, lfilter
 import pandas as pd
 import subprocess  # Import the subprocess module
 
@@ -14,15 +13,10 @@ def index():
     return 'Hello, World!'
 
 # Load the trained Logistic Regression model
-model_filename = 'Regression_Model1.pkl'
-scaler_filename = 'scaler1.pkl'
+model_filename = 'Regression_Model11.pkl'
+scaler_filename = 'scaler11.pkl'
 log_reg = joblib.load(model_filename)
 scaler = joblib.load(scaler_filename)
-
-
-def contains_sound(audio, threshold=0.02):
-    energy = np.sum(audio ** 2)
-    return energy > threshold
 
 def features_extractor(audio, sample_rate):
     mfccs_features = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13)
@@ -30,7 +24,6 @@ def features_extractor(audio, sample_rate):
     zero_crossing_rate = np.mean(librosa.feature.zero_crossing_rate(y=audio))
     extracted_features = np.append(mfccs_scaled_features, zero_crossing_rate)
     return pd.Series(extracted_features)
-
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -53,12 +46,6 @@ def predict():
 
         # Load the audio data from the converted file
         audio_data, sample_rate = librosa.load(converted_file_path, sr=None)
-       
-
-        if not contains_sound(audio_data):
-            os.remove(path_to_write)  # Cleanup
-            os.remove(converted_file_path)
-            return jsonify({'error': 'الملف الصوتي صامت أو غير مسموع'})
 
         # Extract features and scale them
         features = features_extractor(audio_data, sample_rate)
@@ -86,3 +73,4 @@ def predict():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
