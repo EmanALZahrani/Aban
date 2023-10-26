@@ -14,8 +14,8 @@ def index():
     return 'Hello, World!'
 
 # Load the trained Logistic Regression model
-model_filename = 'RegressionModel.pkl'
-scaler_filename = 'scaler.pkl'
+model_filename = 'Regression_Model1.pkl'
+scaler_filename = 'scaler1.pkl'
 log_reg = joblib.load(model_filename)
 scaler = joblib.load(scaler_filename)
 
