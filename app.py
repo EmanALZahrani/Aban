@@ -8,17 +8,29 @@ import subprocess  # Import the subprocess module
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return 'Hello, World!'
 
 # Load the trained Logistic Regression model
-model_filename = 'R_Model.pkl'
+model_filename = 'RegressionModel.pkl'
+scaler_filename = 'scaler.pkl'
 log_reg = joblib.load(model_filename)
+scaler = joblib.load(scaler_filename)
+
+def reduce_noise(audio):
+    n = 2
+    B, A = butter(n, 0.05, output='ba')
+    audio = lfilter(B, A, audio)
+    return audio
+
+def contains_sound(audio, threshold=0.02):
+    energy = np.sum(audio ** 2)
+    return energy > threshold
 
 def features_extractor(audio, sample_rate):
-    mfccs_scaled_features = np.mean(librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13).T, axis=0)
-    return pd.Series(mfccs_scaled_features)
+    mfccs_features = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13)
+    mfccs_scaled_features = np.mean(mfccs_features.T, axis=0)
+    zero_crossing_rate = np.mean(librosa.feature.zero_crossing_rate(y=audio))
+    extracted_features = np.append(mfccs_scaled_features, zero_crossing_rate)
+    return pd.Series(extracted_features)
 
 
 
@@ -41,16 +53,21 @@ def predict():
         # Convert the 3gp audio file to WAV format using ffmpeg
         subprocess.run(["ffmpeg", "-i", path_to_write, converted_file_path], check=True)
 
-        # Load the audio data from the converted file
         audio_data, sample_rate = librosa.load(converted_file_path, sr=None)
+        audio_data = reduce_noise(audio_data)
+
+        if not contains_sound(audio_data):
+            os.remove(path_to_write)  # Cleanup
+            os.remove(converted_file_path)
+            return jsonify({'error': 'الملف الصوتي صامت أو غير مسموع'})
 
         # Extract features and scale them
         features = features_extractor(audio_data, sample_rate)
-        features = features.values.reshape(1, -1)
-        
+        features = features.values.reshape(1, -1)  
+        features_scaled = scaler.transform(features)
 
         # Predict using the loaded model
-        probabilities = log_reg.predict_proba(features)
+        probabilities = log_reg.predict_proba(features_scaled)
         stutter_prob = probabilities[0][1]
         normal_prob = probabilities[0][0]
 
@@ -58,7 +75,7 @@ def predict():
         os.remove(path_to_write)
         os.remove(converted_file_path)
 
-        # Return prediction results
+     # Return prediction results
         return jsonify({"Stutter": f"{stutter_prob * 100:.2f}%", "Normal": f"{normal_prob * 100:.2f}%"}), 200
 
     except subprocess.CalledProcessError as e:
