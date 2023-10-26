@@ -70,7 +70,7 @@
                     app:cornerRadius="20dp" />
                 <Button
                     android:background="@drawable/rounded_corners"
-                    android:id="@+id/loginButton2"
+                    android:id="@+id/Backtosignup"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginTop="30dp"
