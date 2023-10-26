@@ -2,6 +2,7 @@ package com.example.aban
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -22,6 +23,15 @@ class ResultType : AppCompatActivity() {
         cardView2.setOnClickListener {
         val intent = Intent(this@ResultType,DisplayAudioFilesActivity ::class.java)
         startActivity(intent)}
+
+        val button6 = findViewById<ImageButton>(R.id.back)
+        button6.setOnClickListener {
+            val intent = Intent(this@ResultType, Levels::class.java)
+            startActivity(intent)}
+        val button7 = findViewById<ImageButton>(R.id.account)
+        button7.setOnClickListener {
+            val intent1 = Intent(this@ResultType,account ::class.java)
+            startActivity(intent1)}
 }
     private lateinit var firestore: FirebaseFirestore
     // Function to create a Firestore document for user tracking

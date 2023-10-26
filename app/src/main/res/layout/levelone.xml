@@ -73,9 +73,10 @@
 
     <ImageButton
         android:id="@+id/back"
-        android:layout_width="69dp"
-        android:layout_height="31dp"
+        android:layout_width="80dp"
+        android:layout_height="58dp"
         android:backgroundTint="#002E8B57"
+        android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
         app:layout_constraintEnd_toEndOf="@+id/toolbar3"
         app:layout_constraintHorizontal_bias="0.779"
@@ -99,9 +100,10 @@
 
     <ImageButton
         android:id="@+id/account"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
+        android:layout_width="66dp"
+        android:layout_height="59dp"
         android:backgroundTint="#002E8B57"
+        android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
         app:layout_constraintEnd_toStartOf="@+id/textView9"
         app:layout_constraintHorizontal_bias="0.169"

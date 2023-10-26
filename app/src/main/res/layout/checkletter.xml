@@ -301,27 +301,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ImageButton
-        android:id="@+id/account"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:backgroundTint="#002E8B57"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
-        app:layout_constraintHorizontal_bias="0.154"
-        app:layout_constraintStart_toStartOf="@+id/toolbar2"
-        app:layout_constraintTop_toTopOf="@+id/toolbar2"
-        app:layout_constraintVertical_bias="0.461"
-        app:srcCompat="@drawable/account"
-        tools:ignore="MissingConstraints" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="الحروف"
         android:textColor="#F4EBEB"
-        android:textSize="20sp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/toolbar2"
@@ -342,20 +328,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageButton
-        android:id="@+id/back"
-        android:layout_width="69dp"
-        android:layout_height="31dp"
-        android:backgroundTint="#002E8B57"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar2"
-        app:layout_constraintHorizontal_bias="0.771"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/toolbar2"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/arrow"
-        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView6"

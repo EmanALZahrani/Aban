@@ -1,10 +1,12 @@
 package com.example.aban
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +19,7 @@ internal class ReViewDiagnosis(var list: List<DiagnosisModelClass>) : RecyclerVi
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewholder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.audio_item_diagnosis, parent, false)
         return viewholder(view)
+
     }
 //
     override fun onBindViewHolder(holder: viewholder, position: Int) {
@@ -32,7 +35,7 @@ internal class ReViewDiagnosis(var list: List<DiagnosisModelClass>) : RecyclerVi
             // Start playing the audio using a media player library or Android's MediaPlayer
             Toast.makeText(
                 holder.itemView.context,
-                "Play Audio or what else you want to do !!",
+                "Play Audio ",
                 Toast.LENGTH_SHORT
             ).show()
         }

@@ -68,7 +68,7 @@ class Cancellation : AppCompatActivity() {
         tvDuration = findViewById(R.id.tvDuration)
         lottieAnimationView = findViewById(R.id.lottie_animation_view)
         firestore = FirebaseFirestore.getInstance()
-        btnResult = findViewById<Button>(R.id.result_bt_c)
+
 
         getRandomWord()
         val button6 = findViewById<ImageButton>(R.id.backBtn)
@@ -89,10 +89,6 @@ class Cancellation : AppCompatActivity() {
             }
         }
 
-        btnResult.setOnClickListener {
-
-            showResult()
-        }
 
 
     }
@@ -141,7 +137,7 @@ class Cancellation : AppCompatActivity() {
             intent.putExtra("pitchIntent", "$pitchValue Hrtz")
             intent.putExtra("durationIntent", timeString)
             intent.putExtra("loudnessIntent", "$loudnessValue %")
-
+            startActivity(intent)
         }
 
         }
@@ -258,8 +254,6 @@ class Cancellation : AppCompatActivity() {
         btnResult.setOnClickListener {
             // Starting Diagnosis result activity and send the result to it
             val intent = Intent(this@Cancellation, CancellationResult::class.java)
-            //intent.putExtra("durationIntent", timeString)
-            //intent.putExtra("typeIntent", type)
             startActivity(intent)}
     }
     // Function to create a Firestore document for user tracking

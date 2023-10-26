@@ -1,10 +1,12 @@
 package com.example.aban
 
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -40,34 +42,21 @@ class DisplayAudioFilesActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.mainProgressBar)
         firestore = FirebaseFirestore.getInstance()
 
-        /*
+        val button6 = findViewById<ImageButton>(R.id.back)
+        button6.setOnClickListener {
+            val intent = Intent(this@DisplayAudioFilesActivity, ResultType::class.java)
+            startActivity(intent)
+        }
+        //Connect profile page
+        val profileButton = findViewById<ImageButton>(R.id.account)
+        profileButton.setOnClickListener {
+            val intent = Intent(this@DisplayAudioFilesActivity, account::class.java)
+            startActivity(intent)
+        }
 
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("recordings");
 
-        // List all items under the "recordings" directory
-        storageRef.listAll()
-                .addOnSuccessListener(listResult -> {
-                    // Iterate through the items and get their download URLs
-                    for (StorageReference item : listResult.getItems()) {
-                        item.getDownloadUrl().addOnSuccessListener(uri -> {
-                            // Here, you can store the download URL or add it to your RecyclerView data source
-                            String downloadUrl = uri.toString();
-                            String name = item.getName();
-                            Log.d("TAG", "onCreate:name "+name+" downloadUrl:"+downloadUrl);
-                            list.add(new AudioModelClass(name,downloadUrl));
-                            // Add the downloadUrl to your RecyclerView data source
-                            // Notify the RecyclerView adapter of the data change
-                        });
-                    }
-                    adapter = new RecyclerviewAdapter(list);
-                    binding.recyclerview.setAdapter(adapter);
-                })
-                .addOnFailureListener(e -> {
-                    // Handle any errors that may occur during listing
-                    Log.d("TAG", "onCreate:Exception " + e.getLocalizedMessage());
-                });
 
-*/storageRef = FirebaseStorage.getInstance().reference.child("recordings")
+ storageRef = FirebaseStorage.getInstance().reference.child("recordings")
         recyclerView.hasFixedSize()
         recyclerView.setLayoutManager(LinearLayoutManager(this))
 

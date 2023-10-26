@@ -27,7 +27,7 @@
         android:text="الحساب الشخصي"
         android:textAlignment="center"
         android:textColor="@color/beige"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,6 +40,7 @@
         android:layout_width="80dp"
         android:layout_height="63dp"
         android:backgroundTint="#002E8B57"
+        android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toStartOf="@+id/profiletext"
         app:layout_constraintHorizontal_bias="0.154"
@@ -50,19 +51,18 @@
         tools:ignore="MissingConstraints" />
 
     <ImageButton
-        android:id="@+id/LogOut"
-        android:layout_width="85dp"
-        android:layout_height="54dp"
-        android:layout_marginBottom="10dp"
+        android:id="@+id/back"
+        android:layout_width="80dp"
+        android:layout_height="58dp"
         android:backgroundTint="#002E8B57"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintBottom_toBottomOf="@+id/profiletext"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
-        app:layout_constraintHorizontal_bias="0.844"
+        app:layout_constraintHorizontal_bias="0.843"
         app:layout_constraintStart_toEndOf="@+id/profiletext"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_logout"
-        tools:ignore="MissingConstraints" />
+        app:srcCompat="@drawable/arrow" />
 
     <Button
         android:id="@+id/result"
@@ -159,7 +159,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView10"
         app:layout_constraintVertical_bias="0.647"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints,UnknownId">
 
         <TextView
             android:id="@+id/passwordtext"

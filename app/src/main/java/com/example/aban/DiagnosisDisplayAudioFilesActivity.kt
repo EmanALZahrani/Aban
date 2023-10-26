@@ -1,10 +1,12 @@
 package com.example.aban
 
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -39,6 +41,18 @@ class DiagnosisDisplayAudioFilesActivity : AppCompatActivity() {
         recyclerView= findViewById<RecyclerView>(R.id.recyclerview)
         progressBar = findViewById(R.id.mainProgressBar)
         firestore = FirebaseFirestore.getInstance()
+
+        val button6 = findViewById<ImageButton>(R.id.back)
+        button6.setOnClickListener {
+            val intent = Intent(this@DiagnosisDisplayAudioFilesActivity, ResultType::class.java)
+            startActivity(intent)
+        }
+        //Connect profile page
+        val profileButton = findViewById<ImageButton>(R.id.account)
+        profileButton.setOnClickListener {
+            val intent = Intent(this@DiagnosisDisplayAudioFilesActivity, account::class.java)
+            startActivity(intent)
+        }
 
         /*
 

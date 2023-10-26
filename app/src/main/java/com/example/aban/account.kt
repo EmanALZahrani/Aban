@@ -27,6 +27,10 @@ class account : AppCompatActivity() {
         setContentView(R.layout.account)
 
 
+        val button6 = findViewById<ImageButton>(R.id.back)
+        button6.setOnClickListener {
+            val intent = Intent(this@account, Levels::class.java)
+            startActivity(intent)}
 
         // button to show result page
         val button = findViewById<Button>(R.id.result)

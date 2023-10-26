@@ -23,9 +23,10 @@
 
     <ImageButton
         android:id="@+id/accountBtn"
-        android:layout_width="75dp"
-        android:layout_height="38dp"
+        android:layout_width="66dp"
+        android:layout_height="59dp"
         android:backgroundTint="#002E8B57"
+        android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toStartOf="@+id/textView"
         app:layout_constraintHorizontal_bias="0.154"
@@ -49,9 +50,10 @@
 
     <ImageButton
         android:id="@+id/backBtn"
-        android:layout_width="69dp"
-        android:layout_height="31dp"
+        android:layout_width="80dp"
+        android:layout_height="49dp"
         android:backgroundTint="#002E8B57"
+        android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
         app:layout_constraintHorizontal_bias="0.771"
@@ -76,19 +78,22 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.461" />
 
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="25dp">
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="10dp" />
 
+
+
     </LinearLayout>
-
-
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView3"
@@ -164,25 +169,5 @@
         app:layout_constraintStart_toStartOf="@+id/btnRecord"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.52" />
-
-    <Button
-        android:id="@+id/result_bt_c"
-        android:layout_width="200dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="105dp"
-        android:layout_marginTop="597dp"
-        android:layout_marginEnd="106dp"
-        android:layout_marginBottom="214dp"
-        android:background="@drawable/rounded_corners"
-        android:backgroundTint="#8FA174"
-        android:text="اعرض النتيجة"
-        android:textAlignment="center"
-        android:textColor="@color/beige"
-        android:textSize="20sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
