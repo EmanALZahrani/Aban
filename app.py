@@ -13,17 +13,14 @@ def index():
     return 'Hello, World!'
 
 # Load the trained Logistic Regression model
-model_filename = 'Regression_Model11.pkl'
-scaler_filename = 'scaler11.pkl'
+model_filename = 'R_Model.pkl'
 log_reg = joblib.load(model_filename)
-scaler = joblib.load(scaler_filename)
 
 def features_extractor(audio, sample_rate):
-    mfccs_features = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13)
-    mfccs_scaled_features = np.mean(mfccs_features.T, axis=0)
-    zero_crossing_rate = np.mean(librosa.feature.zero_crossing_rate(y=audio))
-    extracted_features = np.append(mfccs_scaled_features, zero_crossing_rate)
-    return pd.Series(extracted_features)
+    mfccs_scaled_features = np.mean(librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13).T, axis=0)
+    return pd.Series(mfccs_scaled_features)
+
+
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -50,10 +47,10 @@ def predict():
         # Extract features and scale them
         features = features_extractor(audio_data, sample_rate)
         features = features.values.reshape(1, -1)
-        features_scaled = scaler.transform(features)
+        
 
         # Predict using the loaded model
-        probabilities = log_reg.predict_proba(features_scaled)
+        probabilities = log_reg.predict_proba(features)
         stutter_prob = probabilities[0][1]
         normal_prob = probabilities[0][0]
 
