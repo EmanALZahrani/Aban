@@ -10,8 +10,8 @@ import pandas as pd
 app = Flask(__name__)
 
 # Load the trained Logistic Regression model
-model_filename = 'Regression_Model11.pkl'
-scaler_filename = 'scaler11.pkl'
+model_filename = 'Regression_Model111.pkl'
+scaler_filename = 'scaler111.pkl'
 log_reg = joblib.load(model_filename)
 scaler = joblib.load(scaler_filename)
 
