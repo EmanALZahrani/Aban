@@ -42,6 +42,7 @@
             android:exported="true" />
 
 
+
         <activity
             android:name=".Cancellation"
             android:exported="true"/>
@@ -51,9 +52,6 @@
         android:name=".ResultType"
         android:exported="true" />
 
-        <activity
-            android:name=".LevelOneResult"
-            android:exported="true" />
 
         <activity
             android:name=".LogIn"
