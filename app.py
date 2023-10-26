@@ -19,11 +19,6 @@ scaler_filename = 'scaler.pkl'
 log_reg = joblib.load(model_filename)
 scaler = joblib.load(scaler_filename)
 
-def reduce_noise(audio):
-    n = 2
-    B, A = butter(n, 0.05, output='ba')
-    audio = lfilter(B, A, audio)
-    return audio
 
 def contains_sound(audio, threshold=0.02):
     energy = np.sum(audio ** 2)
@@ -58,7 +53,7 @@ def predict():
 
         # Load the audio data from the converted file
         audio_data, sample_rate = librosa.load(converted_file_path, sr=None)
-        audio_data = reduce_noise(audio_data)
+       
 
         if not contains_sound(audio_data):
             os.remove(path_to_write)  # Cleanup
