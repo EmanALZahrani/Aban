@@ -46,7 +46,7 @@ class Diagnosis : AppCompatActivity() {
     var storage: FirebaseStorage? = null
     var currentAudioFileName: String? = null
     var timeString: String? = null
-    var type : String? = null
+    var type: String? = null
     var firestore: FirebaseFirestore? = null
     private var mediaRecorder: MediaRecorder? = null
     private var isRecording = false
@@ -57,7 +57,7 @@ class Diagnosis : AppCompatActivity() {
     private var timeInMilliseconds: Long = 0
     private var minutes = 0
     private lateinit var btnRecord: Button
-    private lateinit var resultTextView : TextView
+    private lateinit var resultTextView: TextView
     val okHttpClient = OkHttpClient()
 
 
@@ -93,15 +93,16 @@ class Diagnosis : AppCompatActivity() {
         firestore = FirebaseFirestore.getInstance()
 
 
-
         val button6 = findViewById<ImageButton>(R.id.back)
         button6.setOnClickListener {
             val intent = Intent(this@Diagnosis, Levels::class.java)
-            startActivity(intent)}
+            startActivity(intent)
+        }
         val button7 = findViewById<ImageButton>(R.id.account)
         button7.setOnClickListener {
-            val intent1 = Intent(this@Diagnosis,account ::class.java)
-            startActivity(intent1)}
+            val intent1 = Intent(this@Diagnosis, account::class.java)
+            startActivity(intent1)
+        }
 
 
         btnRecord.setOnClickListener {
@@ -114,23 +115,19 @@ class Diagnosis : AppCompatActivity() {
             }
 
         }
-
         initializeAppCheck()
-
         /* val btnShowFiles = findViewById<AppCompatButton>(R.id.btnShowFiles)
-         btnShowFiles.setOnClickListener { view: View? ->
-             startActivity(
-                 Intent(
-                     this@Cancellation,
-                     DisplayAudioFilesActivity::class.java
-                 )
-             )
-         }*/
+                 btnShowFiles.setOnClickListener { view: View? ->
+                     startActivity(
+                         Intent(
+                             this@Cancellation,
+                             DisplayAudioFilesActivity::class.java
+                         )
+                     )
+                 }*/
 
 
     }
-
-
 
 
     fun startRecording() {
@@ -165,6 +162,7 @@ class Diagnosis : AppCompatActivity() {
 
 
     }
+
     private fun stopRecording() {
         if (isRecording) {
             btnRecord?.text = "توقف التسجيل"
@@ -184,14 +182,18 @@ class Diagnosis : AppCompatActivity() {
                 // Proceed to send the audio file
                 accessFlaskServer()
             } else {
-                Toast.makeText(this, "No internet connection. Please check your network settings.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "No internet connection. Please check your network settings.",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
 
             // Starting Medium activity
             val intent = Intent(this@Diagnosis, DiagnosisResult::class.java)
             //intent.putExtra("durationIntent", timeString)
-            intent.putExtra("typeIntent",type)//نضيف النتيجة حقت التشخيص هنا
+            intent.putExtra("typeIntent", type)//نضيف النتيجة حقت التشخيص هنا
             startActivity(intent)
 
         }
@@ -241,16 +243,19 @@ class Diagnosis : AppCompatActivity() {
             }
 
     }
+
     private fun accessFlaskServer() {
         val audioFilePath = getOutputFilePath(currentAudioFileName)
         sendAudioToFlaskServer(audioFilePath)
     }
 
     private fun sendAudioToFlaskServer(audioFilePath: String) {
-        val url = "https://aban-app-521459a5fe97.herokuapp.com/predict" // Replace with your Flask server URL
+        val url =
+            "https://aban-app-521459a5fe97.herokuapp.com/predict" // Replace with your Flask server URL
 
         val file = File(audioFilePath)
-        val audioRequestBody = RequestBody.create("audio/x-m4a".toMediaTypeOrNull(), file.readBytes())
+        val audioRequestBody =
+            RequestBody.create("audio/x-m4a".toMediaTypeOrNull(), file.readBytes())
 
         val requestBody = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
@@ -273,7 +278,10 @@ class Diagnosis : AppCompatActivity() {
                         // Handle server error response here
                         val errorMessage = "استجاب الخادم بالحالة: ${response.code}"
                         val intent = Intent(this@Diagnosis, DiagnosisResult::class.java).apply {
-                            putExtra("error", errorMessage) // Pass the error message to the DiagnosisResult activity
+                            putExtra(
+                                "error",
+                                errorMessage
+                            ) // Pass the error message to the DiagnosisResult activity
                         }
                         startActivity(intent)
                         return@runOnUiThread
@@ -289,7 +297,10 @@ class Diagnosis : AppCompatActivity() {
 
                             // Pass the error message to the DiagnosisResult activity
                             val intent = Intent(this@Diagnosis, DiagnosisResult::class.java).apply {
-                                putExtra("error", error) // Use the key "error" to pass the error message
+                                putExtra(
+                                    "error",
+                                    error
+                                ) // Use the key "error" to pass the error message
                             }
                             startActivity(intent)
                         } else {
@@ -331,13 +342,13 @@ class Diagnosis : AppCompatActivity() {
     }
 
     fun isNetworkAvailable(context: Context): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
         return networkInfo != null && networkInfo.isConnected
     }
 
-
-
-
-
 }
+
+
+
