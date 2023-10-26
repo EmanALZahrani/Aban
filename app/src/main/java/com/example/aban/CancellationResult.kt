@@ -2,14 +2,11 @@ package com.example.aban
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 
 class CancellationResult : AppCompatActivity() {
-    private lateinit var nextButton: AppCompatButton
-    private lateinit var accountButton: AppCompatButton
     var pitchTv: AppCompatTextView? = null
     var durationTv: AppCompatTextView? = null
     var loudnessTv: AppCompatTextView? = null
@@ -27,25 +24,14 @@ class CancellationResult : AppCompatActivity() {
 
 
         // ***********************************************************************
-        nextButton = findViewById(R.id.back)
-        nextButton.setOnClickListener(View.OnClickListener { v: View? ->
-            startActivity(
-                Intent(
-                    this,
-                    Levels::class.java
-                )
-            )
-        })
-
-        accountButton = findViewById(R.id.account)
-        nextButton.setOnClickListener(View.OnClickListener { v: View? ->
-            startActivity(
-                Intent(
-                    this,
-                    account::class.java
-                )
-            )
-        })
+        val button6 = findViewById<ImageButton>(R.id.back)
+        button6.setOnClickListener {
+            val intent = Intent(this@CancellationResult, Levels::class.java)
+            startActivity(intent)}
+        val button7 = findViewById<ImageButton>(R.id.account)
+        button7.setOnClickListener {
+            val intent1 = Intent(this@CancellationResult,account ::class.java)
+            startActivity(intent1)}
 
     }
 
