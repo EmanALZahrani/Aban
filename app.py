@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
+from pydub import AudioSegment
 import joblib
 import librosa
 import numpy as np
 import os
+from scipy.signal import butter, lfilter
 import pandas as pd
 import subprocess  # Import the subprocess module
 
