@@ -24,12 +24,12 @@ class CancellationResult : AppCompatActivity() {
 
 
         // ***********************************************************************
-        val button6 = findViewById<ImageButton>(R.id.back)
-        button6.setOnClickListener {
+        val back_button = findViewById<ImageButton>(R.id.back)
+        back_button.setOnClickListener {
             val intent = Intent(this@CancellationResult, Levels::class.java)
             startActivity(intent)}
-        val button7 = findViewById<ImageButton>(R.id.account)
-        button7.setOnClickListener {
+        val account_button = findViewById<ImageButton>(R.id.account)
+        account_button.setOnClickListener {
             val intent1 = Intent(this@CancellationResult,account ::class.java)
             startActivity(intent1)}
 
