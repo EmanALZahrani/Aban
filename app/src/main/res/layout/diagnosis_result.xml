@@ -119,8 +119,8 @@
 
         <TextView
             android:id="@+id/normal"
-            android:layout_width="236dp"
-            android:layout_height="52dp"
+            android:layout_width="271dp"
+            android:layout_height="101dp"
             android:layout_gravity="center"
             android:text="النتيجة"
             android:textAlignment="center"
@@ -135,7 +135,7 @@
         android:layout_height="55dp"
         android:background="@drawable/rounded_corners"
         android:backgroundTint="#8FA174"
-        android:text="التالي"
+        android:text="إعادة المحاولة"
         android:textAlignment="center"
         android:textColor="@color/beige"
         android:textSize="20sp"

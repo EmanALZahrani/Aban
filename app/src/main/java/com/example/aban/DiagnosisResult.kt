@@ -27,18 +27,20 @@ class DiagnosisResult : AppCompatActivity() {
 
         // next button listener
         next_bt.setOnClickListener {
-            val intent = Intent(this, Levels::class.java)
+            val intent = Intent(this, Diagnosis::class.java)
             startActivity(intent)
         }
 
 //
 
-        // Back button listener
         val button6 = findViewById<ImageButton>(R.id.back)
         button6.setOnClickListener {
-            val intent = Intent(this@DiagnosisResult, ResultType::class.java)
-            startActivity(intent)
-        }
+            val intent = Intent(this@DiagnosisResult, Levels::class.java)
+            startActivity(intent)}
+        val button7 = findViewById<ImageButton>(R.id.account)
+        button7.setOnClickListener {
+            val intent1 = Intent(this@DiagnosisResult,account ::class.java)
+            startActivity(intent1)}
 
         val error = intent.getStringExtra("error")
         val typeIntent = intent.getStringExtra("typeIntent")

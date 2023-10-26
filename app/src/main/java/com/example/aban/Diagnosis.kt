@@ -90,7 +90,7 @@ class Diagnosis : AppCompatActivity() {
         setContentView(R.layout.diagnosis)
         btnRecord = findViewById<ToggleButton>(R.id.btnRecord)
         tvDuration = findViewById(R.id.tvDuration)
-         firestore = FirebaseFirestore.getInstance()
+        firestore = FirebaseFirestore.getInstance()
 
 
 
@@ -293,12 +293,12 @@ class Diagnosis : AppCompatActivity() {
                             }
                             startActivity(intent)
                         } else {
-                            val normal = jsonResponse.getString("Normal")
                             val stutter = jsonResponse.getString("Stutter")
+                            val normal = jsonResponse.getString("Normal")
 
                             // Pass the results to the DiagnosisResult activity.
                             val intent = Intent(this@Diagnosis, DiagnosisResult::class.java).apply {
-                                putExtra("typeIntent", "تأتأة: $stutter\nطبيعي: $normal")
+                                putExtra("typeIntent", "طبيعي: $stutter\nتأتأة: $normal")
                             }
                             startActivity(intent)
                         }
