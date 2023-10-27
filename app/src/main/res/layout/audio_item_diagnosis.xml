@@ -43,55 +43,51 @@
             android:id="@+id/appCompatTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="88dp"
-            android:layout_marginTop="24dp"
-            android:text="التشخيص:"
+            android:layout_marginTop="5dp"
+            android:text="التشخيص"
             android:textColor="@color/white"
             android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/type"
-            app:layout_constraintTop_toBottomOf="@+id/audioTitleTextView"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintBottom_toTopOf="@+id/appCompatTextView2"
+            app:layout_constraintEnd_toStartOf="@+id/audioTitleTextView"
+            app:layout_constraintStart_toEndOf="@+id/drawable"
+            app:layout_constraintTop_toBottomOf="@+id/audioTitleTextView" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="68dp"
-            android:layout_marginTop="24dp"
-            android:text="التشخيص"
+            android:text="diagnosis"
             android:textColor="@color/white"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/drawable"
-            app:layout_constraintTop_toBottomOf="@+id/audioTitleTextView"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView"
+            app:layout_constraintEnd_toEndOf="@+id/audioTitleTextView"
+            app:layout_constraintStart_toStartOf="@+id/audioTitleTextView"
+            app:layout_constraintTop_toTopOf="@+id/appCompatTextView" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/appCompatTextView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="90dp"
-            android:text="المدة:"
+            android:layout_marginTop="5dp"
+            android:text="المده"
             android:textColor="@color/white"
             android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@+id/audioTitleTextView"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="333dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/audioTitleTextView"
+            app:layout_constraintStart_toEndOf="@+id/drawable"
+            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/Time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="81dp"
-            android:layout_marginTop="90dp"
-            android:text="المدة"
+            android:text="Time"
             android:textColor="@color/white"
             android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/appCompatTextView2"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/drawable"
-            app:layout_constraintTop_toBottomOf="@+id/audioTitleTextView"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView2"
+            app:layout_constraintEnd_toEndOf="@+id/audioTitleTextView"
+            app:layout_constraintStart_toStartOf="@+id/audioTitleTextView"
+            app:layout_constraintTop_toTopOf="@+id/appCompatTextView2" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

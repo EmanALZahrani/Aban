@@ -115,7 +115,7 @@ class DiagnosisDisplayAudioFilesActivity : AppCompatActivity() {
                             firestore!!.collection("recordingsData").document(name)
                                 .addSnapshotListener { value: DocumentSnapshot?, error: FirebaseFirestoreException? ->
                                     val time = value!!.getString("time")
-                                    val type = value.getString("type")
+                                    val type = value.getString("Type")
                                     Log.d("TAG", "Inside for loop  collection: $value")
                                     list.add(
                                         DiagnosisModelClass(
@@ -132,7 +132,7 @@ class DiagnosisDisplayAudioFilesActivity : AppCompatActivity() {
                                     Log.d(
                                         "TAG", """name $name downloadUrl: $downloadUrl
 time $time
-type$type"""
+Type$type"""
                                     )
                                 }
                         }

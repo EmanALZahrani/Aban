@@ -1,12 +1,10 @@
 package com.example.aban
 
 import android.content.Context
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
@@ -24,14 +22,14 @@ internal class ReViewDiagnosis(var list: List<DiagnosisModelClass>) : RecyclerVi
 //
     override fun onBindViewHolder(holder: viewholder, position: Int) {
         // Bind data to the ViewHolder
-        val DiagnosisModelClass = list[position]
-        holder.audioTitleTextView.text = DiagnosisModelClass.title
-        holder.typeTitleTextView.text = DiagnosisModelClass.time + " Htz"
-        holder.TimeTitleTextView.text = DiagnosisModelClass.type
+        val diagnosisModelClass = list[position]
+        holder.audioTitleTextView.text = diagnosisModelClass.title
+        holder.typeTitleTextView.text = diagnosisModelClass.time + " Htz"
+        holder.TimeTitleTextView.text = diagnosisModelClass.Type
 
         // Handle the click event to play the audio
         holder.itemView.setOnClickListener { v: View? ->
-            val downloadUrl = DiagnosisModelClass.downloadUrl
+            val downloadUrl = diagnosisModelClass.downloadUrl
             // Start playing the audio using a media player library or Android's MediaPlayer
             Toast.makeText(
                 holder.itemView.context,
@@ -65,7 +63,7 @@ internal class ReViewDiagnosis(var list: List<DiagnosisModelClass>) : RecyclerVi
 
             // Define the data
             val userData = hashMapOf(
-                "RecyclerviewAdapter" to true,
+                "ReViewDiagnosis" to true,
             )
 
             // Specify the path for the user document
