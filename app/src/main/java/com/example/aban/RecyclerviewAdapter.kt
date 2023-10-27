@@ -14,6 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 internal class RecyclerviewAdapter(var list: List<AudioModelClass>) : RecyclerView.Adapter<RecyclerviewAdapter.viewholder>() {
     private lateinit var firestore: FirebaseFirestore
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewholder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.audio_item, parent, false)
         return viewholder(view)
