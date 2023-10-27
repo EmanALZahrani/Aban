@@ -36,10 +36,14 @@ def features_extractor(file_path):
 
 @app.route('/predict', methods=['POST'])
 def predict():
-   file = request.files.get('audio')  # Using .get is safer, it won't throw an exception if 'audio' doesn't exist.
-
-    if file is None:
+    # File checks
+    if 'audio' not in request.files:
         return jsonify({'error': 'No audio file part'})
+
+    file = request.files['audio']
+
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'})
 
     if not allowed_file(file.filename):
         return jsonify({'error': 'Format not supported'})
