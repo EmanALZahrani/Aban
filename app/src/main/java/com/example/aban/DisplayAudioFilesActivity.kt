@@ -56,7 +56,7 @@ class DisplayAudioFilesActivity : AppCompatActivity() {
 
 
 
- storageRef = FirebaseStorage.getInstance().reference.child("recordings")
+        storageRef = FirebaseStorage.getInstance().reference.child("recordings")
         recyclerView.hasFixedSize()
         recyclerView.setLayoutManager(LinearLayoutManager(this))
 

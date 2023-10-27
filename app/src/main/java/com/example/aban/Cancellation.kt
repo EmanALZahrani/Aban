@@ -25,7 +25,6 @@ import java.util.Random
 
 class Cancellation : AppCompatActivity() {
 
-    var storage: FirebaseStorage? = null
     var currentAudioFileName: String? = null
     var timeString: String? = null
     var pitchValue: String? = null
@@ -43,7 +42,6 @@ class Cancellation : AppCompatActivity() {
     private lateinit var btnRecord: Button
     lateinit var btnResult : Button
     private val wordFetcher = WordFetcher()
-    private lateinit var nextCans: Button
 
 
     private val updateTimerThread: Runnable = object : Runnable {
@@ -85,7 +83,7 @@ class Cancellation : AppCompatActivity() {
         btnRecord.setOnClickListener {
             Constants.createTempFolder()
             if (isRecording) {
-                stopRecording()
+                stopRecordingAndFeatureExtraction()
             } else {
                 startRecording()
             }
@@ -114,35 +112,6 @@ class Cancellation : AppCompatActivity() {
 
 
 
-
-
-    private fun stopRecording() {
-        if (isRecording) {
-            btnRecord!!.text = "توقف التسجيل"
-            btnRecord!!.background = getDrawable(R.drawable.button_bg_on)
-            tvDuration!!.text = "المدة : ٠٠:٠٠"
-           // lottieAnimationView!!.visibility = View.GONE
-
-            // Stop recording
-            mediaRecorder!!.stop()
-            mediaRecorder!!.release()
-            mediaRecorder = null
-            isRecording = false
-            handler.removeCallbacks(updateTimerThread)
-            timeString = minutes.toString() + ":" + String.format("%02d", seconds)
-            pitchValue = randInt(85, 300).toString()
-            loudnessValue = randInt(10, 95).toString()
-            saveAudioToFirebaseStorage()
-
-            // Starting Medium activity
-            val intent = Intent(this, CancellationResult::class.java)
-            intent.putExtra("pitchIntent", "$pitchValue Hrtz")
-            intent.putExtra("durationIntent", timeString)
-            intent.putExtra("loudnessIntent", "$loudnessValue %")
-            startActivity(intent)
-        }
-
-        }
 
 
     fun startRecording() {
@@ -201,6 +170,34 @@ class Cancellation : AppCompatActivity() {
             Toast.makeText(this, "Error starting recording: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
         }
 
+
+    }
+
+    private fun stopRecordingAndFeatureExtraction() {
+        if (isRecording) {
+            btnRecord!!.text = "توقف التسجيل"
+            btnRecord!!.background = getDrawable(R.drawable.button_bg_on)
+            tvDuration!!.text = "المدة : ٠٠:٠٠"
+            // lottieAnimationView!!.visibility = View.GONE
+
+            // Stop recording
+            mediaRecorder!!.stop()
+            mediaRecorder!!.release()
+            mediaRecorder = null
+            isRecording = false
+            handler.removeCallbacks(updateTimerThread)
+            timeString = minutes.toString() + ":" + String.format("%02d", seconds)
+            pitchValue = randInt(85, 300).toString()
+            loudnessValue = randInt(10, 95).toString()
+            saveAudioToFirebaseStorage()
+
+            // Starting Medium activity
+            val intent66 = Intent(this, CancellationResult::class.java)
+            intent66.putExtra("pitchIntent", "$pitchValue Hrtz")
+            intent66.putExtra("durationIntent", timeString)
+            intent66.putExtra("loudnessIntent", "$loudnessValue %")
+            startActivity(intent66)
+        }
 
     }
 
