@@ -23,16 +23,7 @@ scaler = joblib.load(SCALER_FILENAME)
 
 
 def allowed_file(filename):
-    # Print the file name and split result
-    print(f"Filename: {filename}")
-    split_filename = filename.rsplit('.', 1)
-    print(f"Split Filename: {split_filename}")
-    
-    if '.' in filename and len(split_filename) > 1:
-        file_extension = split_filename[1].lower()
-        print(f"File Extension: {file_extension}")  # Print the extension
-        return file_extension in ALLOWED_EXTENSIONS
-    return False
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 def features_extractor(file_path):
@@ -49,9 +40,6 @@ def predict():
 
     if file is None:
         return jsonify({'error': 'No audio file part'})
-
-    # Print file details for debugging
-    print(f"File Details - Filename: {file.filename}, Content Type: {file.content_type}")
 
     if not allowed_file(file.filename):
         return jsonify({'error': 'Format not supported'})
