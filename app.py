@@ -4,90 +4,83 @@ import joblib
 import librosa
 import numpy as np
 import os
+from scipy.signal import butter, lfilter
 import pandas as pd
-from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
 
+@app.route('/')
+def index():
+    return 'Hello, World!'
 
+# Load the trained Logistic Regression model
+model_filename = 'RegressionModel.pkl'
+scaler_filename = 'scaler.pkl'
+log_reg = joblib.load(model_filename)
+scaler = joblib.load(scaler_filename)
 
-# Constants for allowed extensions and model files
-ALLOWED_EXTENSIONS = {'mp3', 'm4a', 'wav', 'flac'}
-MODEL_FILENAME = 'Regression_Model111.pkl'
-SCALER_FILENAME = 'scaler111.pkl'
+def reduce_noise(audio):
+    n = 2
+    B, A = butter(n, 0.05, output='ba')
+    audio = lfilter(B, A, audio)
+    return audio
 
-# Load the trained model and scaler
-log_reg = joblib.load(MODEL_FILENAME)
-scaler = joblib.load(SCALER_FILENAME)
+def contains_sound(audio, threshold=0.02):
+    energy = np.sum(audio ** 2)
+    return energy > threshold
 
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-def features_extractor(file_path):
-    audio, sample_rate = librosa.load(file_path, sr=None)
+def features_extractor(audio, sample_rate):
     mfccs_features = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13)
     mfccs_scaled_features = np.mean(mfccs_features.T, axis=0)
-
-    return pd.Series(mfccs_scaled_features)
+    zero_crossing_rate = np.mean(librosa.feature.zero_crossing_rate(y=audio))
+    extracted_features = np.append(mfccs_scaled_features, zero_crossing_rate)
+    return pd.Series(extracted_features)
 
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    # File checks
-    if 'audio' not in request.files:
-        return jsonify({'error': 'No audio file part'})
-
-    file = request.files['audio']
-
-    if file.filename == '':
-        return jsonify({'error': 'No selected file'})
-
-    if not allowed_file(file.filename):
-        return jsonify({'error': 'Format not supported'})
-
-    filename_secure = secure_filename(file.filename)
-    path_to_write = os.path.join("/tmp", filename_secure)
-    converted_file_path = ""
 
     try:
-        # Save file
-        file.save(path_to_write)
+        audio_file = request.files['audio']
 
-        # Convert audio file
-        audio = AudioSegment.from_file(path_to_write)
-        converted_file_path = "/tmp/converted_" + os.path.splitext(filename_secure)[0] + ".wav"
+        # Check if the post request has the file part
+        if audio_file is None:
+            return jsonify({'error': 'No file part in the request'})
+            
+        # Save the uploaded file temporarily
+        path_to_write = "/tmp/" + audio_file.filename
+        audio_file.save(path_to_write)
+
+        # Use pydub to convert the audio file to .wav format
+        audio = AudioSegment.from_file(path_to_write, format="m4a")
+        converted_file_path = "/tmp/converted_" + os.path.splitext(audio_file.filename)[0] + ".wav"
         audio.export(converted_file_path, format="wav")
 
-        # Extract features
-        features = features_extractor(converted_file_path).values.reshape(1, -1)
+        audio_data, sample_rate = librosa.load(converted_file_path, sr=None)
+        audio_data = reduce_noise(audio_data)
+
+        if not contains_sound(audio_data):
+            os.remove(path_to_write)  # Cleanup
+            os.remove(converted_file_path)
+            return jsonify({'error': 'الملف الصوتي صامت أو غير مسموع'})
+
+        # Extract features and scale them
+        features = features_extractor(audio_data, sample_rate)
+        features = features.values.reshape(1, -1)  
         features_scaled = scaler.transform(features)
 
-        # Make prediction
+        # Predict using the loaded model
         probabilities = log_reg.predict_proba(features_scaled)
         stutter_prob = probabilities[0][1]
         normal_prob = probabilities[0][0]
 
-        # Create response
-        response = jsonify({"Stutter": f"{stutter_prob * 100:.2f}%", "Normal": f"{normal_prob * 100:.2f}%"})
-        response.content_type = "application/json"
-        return response, 200
+        # Cleanup the temporary files
+        os.remove(path_to_write)
+        os.remove(converted_file_path)
+
+        # Return prediction results
+        return jsonify({"Stutter": f"{stutter_prob * 100:.2f}%", "Normal": f"{normal_prob * 100:.2f}%"}), 200
 
     except Exception as e:
-        logger.error(f"An error occurred: {str(e)}")
         return jsonify({'error': str(e)}), 500
-
-    finally:
-        # Clean up
-        if os.path.exists(path_to_write):
-            os.remove(path_to_write)
-        if os.path.exists(converted_file_path):
-            os.remove(converted_file_path)
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
-
