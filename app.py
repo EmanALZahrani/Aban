@@ -23,7 +23,16 @@ scaler = joblib.load(SCALER_FILENAME)
 
 
 def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    # Print the file name and split result
+    print(f"Filename: {filename}")
+    split_filename = filename.rsplit('.', 1)
+    print(f"Split Filename: {split_filename}")
+    
+    if '.' in filename and len(split_filename) > 1:
+        file_extension = split_filename[1].lower()
+        print(f"File Extension: {file_extension}")  # Print the extension
+        return file_extension in ALLOWED_EXTENSIONS
+    return False
 
 
 def features_extractor(file_path):
@@ -36,14 +45,13 @@ def features_extractor(file_path):
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    # File checks
-    if 'audio' not in request.files:
+   file = request.files.get('audio')  # Using .get is safer, it won't throw an exception if 'audio' doesn't exist.
+
+    if file is None:
         return jsonify({'error': 'No audio file part'})
 
-    file = request.files['audio']
-
-    if file.filename == '':
-        return jsonify({'error': 'No selected file'})
+    # Print file details for debugging
+    print(f"File Details - Filename: {file.filename}, Content Type: {file.content_type}")
 
     if not allowed_file(file.filename):
         return jsonify({'error': 'Format not supported'})
