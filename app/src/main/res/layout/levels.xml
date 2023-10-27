@@ -122,7 +122,7 @@
         android:layout_height="54dp"
         android:text="التمارين"
         android:textColor="#4A6143"
-        android:textSize="34sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

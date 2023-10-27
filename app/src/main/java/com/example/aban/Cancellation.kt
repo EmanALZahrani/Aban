@@ -39,7 +39,10 @@ class Cancellation : AppCompatActivity() {
     private var seconds = 0
     private var timeInMilliseconds: Long = 0
     private var minutes = 0
+    private lateinit var back: Button
     private lateinit var btnRecord: Button
+
+
     lateinit var btnResult : Button
     private val wordFetcher = WordFetcher()
 
@@ -63,6 +66,7 @@ class Cancellation : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.cancellation)
         btnRecord = findViewById<Button>(R.id.btnRecord)
+
         tvDuration = findViewById(R.id.tvDuration)
         lottieAnimationView = findViewById(R.id.lottie_animation_view)
         firestore = FirebaseFirestore.getInstance()
@@ -71,14 +75,9 @@ class Cancellation : AppCompatActivity() {
 
 
         getRandomWord()
-        val button6 = findViewById<ImageButton>(R.id.backBtn)
-        button6.setOnClickListener {
-            val intent = Intent(this@Cancellation, LevelOne::class.java)
-            startActivity(intent)}
-        val button7 = findViewById<ImageButton>(R.id.accountBtn)
-        button7.setOnClickListener {
-            val intent1 = Intent(this@Cancellation,account ::class.java)
-            startActivity(intent1)}
+
+
+
 
         btnRecord.setOnClickListener {
             Constants.createTempFolder()
@@ -149,7 +148,7 @@ class Cancellation : AppCompatActivity() {
         mediaRecorder!!.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
 
         // Create a unique file name for each recording (e.g., timestamp)
-        val audioFileName = "audio_" + System.currentTimeMillis() + ".mp4"
+        val audioFileName = "audio_" + System.currentTimeMillis() + ".m4a"
         // Save the audio file name for later use
         currentAudioFileName = audioFileName // Declare this variable at the class level
         mediaRecorder!!.setOutputFile(getOutputFilePath(audioFileName)) // Use a local path for recording
@@ -254,12 +253,7 @@ class Cancellation : AppCompatActivity() {
         }
     }
 
-    fun showResult(){
-        btnResult.setOnClickListener {
-            // Starting Diagnosis result activity and send the result to it
-            val intent = Intent(this@Cancellation, CancellationResult::class.java)
-            startActivity(intent)}
-    }
+
     // Function to create a Firestore document for user tracking
     private fun createUserDocument(userId: String?) {
         if (userId != null) {

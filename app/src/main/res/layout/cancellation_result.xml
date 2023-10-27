@@ -131,9 +131,7 @@
         android:id="@+id/textView12"
         android:layout_width="174dp"
         android:layout_height="63dp"
-        android:layout_marginStart="118dp"
         android:layout_marginTop="106dp"
-        android:layout_marginEnd="119dp"
         android:layout_marginBottom="697dp"
         android:text="نتيجة مرحلة الإلغاء"
         android:textAlignment="center"
@@ -160,16 +158,16 @@
         android:id="@+id/account"
         android:layout_width="wrap_content"
         android:layout_height="66dp"
-        android:layout_marginStart="59dp"
         android:layout_marginTop="18dp"
-        android:layout_marginEnd="349dp"
         android:layout_marginBottom="823dp"
         android:backgroundTint="#002E8B57"
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/back"
+        app:layout_constraintHorizontal_bias="0.046"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.487"
         app:srcCompat="@drawable/account"
         tools:ignore="MissingConstraints" />
 
@@ -177,16 +175,16 @@
         android:id="@+id/back"
         android:layout_width="80dp"
         android:layout_height="58dp"
-        android:layout_marginStart="334dp"
         android:layout_marginTop="13dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="822dp"
         android:backgroundTint="#002E8B57"
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.951"
+        app:layout_constraintStart_toStartOf="@+id/toolbar2"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.481"
         app:srcCompat="@drawable/arrow"
         tools:ignore="MissingConstraints" />
 
@@ -194,7 +192,6 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="129dp"
         android:layout_marginBottom="822dp"
@@ -203,19 +200,27 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.921"
+        app:layout_constraintStart_toStartOf="@+id/toolbar2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="415dp"
-        android:layout_height="169dp"
+    <Button
+        android:id="@+id/CanNextbtn"
+        android:layout_width="200dp"
+        android:layout_height="55dp"
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="#8FA174"
+        android:text="التالي"
+        android:textAlignment="center"
+        android:textColor="@color/beige"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.977"
-        app:srcCompat="@drawable/logo" />
+        app:layout_constraintTop_toTopOf="@+id/fireworks"
+        app:layout_constraintVertical_bias="0.898" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

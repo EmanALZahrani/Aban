@@ -36,11 +36,13 @@ class DiagnosisResult : AppCompatActivity() {
         val button6 = findViewById<ImageButton>(R.id.back)
         button6.setOnClickListener {
             val intent = Intent(this@DiagnosisResult, Levels::class.java)
-            startActivity(intent)}
+            startActivity(intent)
+        }
         val button7 = findViewById<ImageButton>(R.id.account)
         button7.setOnClickListener {
-            val intent1 = Intent(this@DiagnosisResult,account ::class.java)
-            startActivity(intent1)}
+            val intent1 = Intent(this@DiagnosisResult, account::class.java)
+            startActivity(intent1)
+        }
 
         val error = intent.getStringExtra("error")
         val typeIntent = intent.getStringExtra("typeIntent")
@@ -56,18 +58,17 @@ class DiagnosisResult : AppCompatActivity() {
         }
     }
 
-    private fun hasCompletedActivity(userId: String): Boolean {
+    private fun hasCompletedActivity(userId: String, activity: String): Boolean {
         return runBlocking {
             withContext(Dispatchers.IO) {
-                val userDocRef = firestore.collection("users").document(userId)
+                val userDocRef = firestore.collection("recordingsData").document(userId)
                 val completionFlag =
-                    userDocRef.get().await().getBoolean("DiagnosisResult_completed") ?: false
+                    userDocRef.get().await().getBoolean(activity + "_completed") ?: false
                 completionFlag
             }
         }
     }
 
-    // Create a Firestore document for user tracking
     private fun createUserDocument(userId: String?) {
         if (userId != null) {
             firestore = FirebaseFirestore.getInstance()
@@ -78,14 +79,14 @@ class DiagnosisResult : AppCompatActivity() {
             )
 
             // Specify the path for the user document
-            val userDocumentRef = firestore.collection("users").document(userId)
+            val userDocumentRef = firestore.collection("recordingsData").document(userId)
 
             // Set the data in the Firestore document
             userDocumentRef.set(userData)
                 .addOnSuccessListener {
                     Toast.makeText(
                         this,
-                        "Document successfully written!",
+                        "audio successfully stored!",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
