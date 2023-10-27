@@ -70,6 +70,8 @@ class Cancellation : AppCompatActivity() {
         firestore = FirebaseFirestore.getInstance()
 
 
+
+
         getRandomWord()
         val button6 = findViewById<ImageButton>(R.id.backBtn)
         button6.setOnClickListener {
@@ -119,7 +121,7 @@ class Cancellation : AppCompatActivity() {
             btnRecord!!.text = "توقف التسجيل"
             btnRecord!!.background = getDrawable(R.drawable.button_bg_on)
             tvDuration!!.text = "المدة : ٠٠:٠٠"
-            lottieAnimationView!!.visibility = View.GONE
+           // lottieAnimationView!!.visibility = View.GONE
 
             // Stop recording
             mediaRecorder!!.stop()
@@ -183,15 +185,20 @@ class Cancellation : AppCompatActivity() {
         currentAudioFileName = audioFileName // Declare this variable at the class level
         mediaRecorder!!.setOutputFile(getOutputFilePath(audioFileName)) // Use a local path for recording
         mediaRecorder!!.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+
+            // Handle the exception (e.g., display an error message to the user)
+
         try {
-            mediaRecorder!!.prepare()
-            mediaRecorder!!.start() // Start recording
+            // Initialize and start recording
+            mediaRecorder?.prepare()
+            mediaRecorder?.start()
             startTime = SystemClock.uptimeMillis()
             handler.postDelayed(updateTimerThread, 1000)
             isRecording = true
         } catch (e: Exception) {
-            Log.d("TAG", "startRecording: " + e.localizedMessage)
-            // Handle the exception (e.g., display an error message to the user)
+            // Handle the exception and show an error message
+            Log.e("TAG", "Error starting recording: ${e.localizedMessage}")
+            Toast.makeText(this, "Error starting recording: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
         }
 
 
